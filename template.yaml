@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Middleware to connect with Klavi.
+
+Parameters:
+  ProjectName:
+    Description: Project Name
+    Type: String
+    Default: Klavi
+
+  Environment:
+    Description: Execution environment for the service
+    Type: String
+    AllowedValues:
+      - dev
+      - test
+      - staging
+      - prod
+      - refactoring
+
+Globals:
+  Function:
+    Runtime: python3.8
+    MemorySize: 1024
+    Timeout: 120
+    Environment:
+      Variables:
+        ENV: !Ref Environment
+        LOGGING_LEVEL: DEBUG
+    Tags:
+      Project: !Ref ProjectName
+      Environment: !Ref Environment
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'Authorization,Content-Type,If-Match'"
+      AllowOrigin: "'*'"
+    Variables:
+      Environment: !Ref Environment
+
+Resources:
+  KlaviApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref Environment
+      Name: KlaviApi
+      Variables:
+        ENV: !Ref Environment
+
+  KlaviApiMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !GetAtt KlaviApi.DomainName
+      RestApiId: !Ref KlaviApi
+      Stage: !Ref KlaviApi.StageName
+      BasePath: api
+
+  EventLogerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Klavi_EventLoger
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  CreateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: create
+      CodeUri: src/klavi_webhook/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Events:
+        CreateApi:
+          Type: Api
+          Properties:
+            Path: /create
+            Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref EventLogerTable
