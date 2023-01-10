@@ -1,9 +1,17 @@
 import json
+from src.event_logger.parser import parse_payload_into_logger_object
 
 # import requests
 
 
 def lambda_handler(event, context):
+    body = event.get('body')
+    payload = json.loads(body) if isinstance(body, str) else body
+    logger = parse_payload_into_logger_object(payload)
+    print(event)
+    print(body)
+    print(logger)
+    print("_______")
     """Sample pure Lambda function
 
     Parameters
@@ -36,7 +44,20 @@ def lambda_handler(event, context):
     return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": "hello world",
+            "message": "hello world updated",
+            "payload": logger
             # "location": ip.text.replace("\n", "")
         }),
     }
+
+
+if __name__ == "__main__":
+    payload = {
+        "data": {
+            "connection_id": "nothing"
+        }
+    }
+    print("***")
+    logger = parse_payload_into_logger_object(payload)
+    print(logger)
+    print("+___")
