@@ -1,5 +1,6 @@
 import json
 from src.event_logger.parser import parse_payload_into_logger_object
+from src.event_logger.logger import Logger, LoggerSchema
 
 # import requests
 
@@ -53,11 +54,40 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     payload = {
+        "report_time": "nothing",
         "data": {
-            "connection_id": "nothing"
+            "connection_id": "nothing",
+            "connection_key": "nothing",
+            "institution_id": "nothing",
+            "enquire_cpf": "nothing"
         }
     }
     print("***")
     logger = parse_payload_into_logger_object(payload)
-    print(logger)
+    logger_obj = Logger(**logger)
+    schema = LoggerSchema()
+    parsed = schema.dumps(logger_obj)
+    print(logger_obj)
     print("+___")
+    print(parsed)
+    print("*********")
+
+
+const entity = {id: '', 'name': ''}
+const mother = {id: '', 'name': '', user_id: ''}
+const friend = {id: 11, 'name': '', user_id: ''}
+const friend_errado = {id: '', fist_name: ''}
+
+user {
+    id: '',
+    friends: [
+        {
+            'id': '',
+            'name: '''
+        },
+        entity
+    ],
+    mother: entity
+}
+
+mother
