@@ -65,6 +65,7 @@ if __name__ == "__main__":
     print("***")
     logger = parse_payload_into_logger_object(payload)
     logger_obj = Logger(**logger)
+    logger_obj.save()
     schema = LoggerSchema()
     parsed = schema.dumps(logger_obj)
     print(logger_obj)
@@ -72,22 +73,3 @@ if __name__ == "__main__":
     print(parsed)
     print("*********")
 
-
-const entity = {id: '', 'name': ''}
-const mother = {id: '', 'name': '', user_id: ''}
-const friend = {id: 11, 'name': '', user_id: ''}
-const friend_errado = {id: '', fist_name: ''}
-
-user {
-    id: '',
-    friends: [
-        {
-            'id': '',
-            'name: '''
-        },
-        entity
-    ],
-    mother: entity
-}
-
-mother
