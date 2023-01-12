@@ -3,18 +3,20 @@ from dataclasses import dataclass
 import boto3
 
 
+
+
 @dataclass
 class DynamoDbORM:
     env: str
     db_name: str
     amplify: bool = False
-    dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000' if env == 'dev' else None)
 
     def _get_table_name(self):
         table_name = f"{self.db_name}-{self.env}" if not self.amplify else f"{self.db_name}.{self.env}"
         return table_name
 
     def __post_init__(self):
+        self.dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000' if self.env == 'dev' else None)
         self.table = self.dynamodb.Table(self._get_table_name())
 
     def get(self, key):

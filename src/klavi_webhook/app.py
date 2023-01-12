@@ -1,18 +1,30 @@
 import json
-from src.event_logger.parser import parse_payload_into_logger_object
-from src.event_logger.logger import Logger, LoggerSchema
+from event_logger.parser import parse_payload_into_logger_object
+from event_logger.logger import Logger
 
 # import requests
 
+import os
+
+os.environ['AWS_SERVER_PUBLIC_KEY'] = "AKIA4LFWKXXNQYMOWWSB"
+os.environ['AWS_SERVER_SECRET_KEY'] = "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"
+os.environ['AWS_DEFAULT_REGION'] = "us-east-1"
 
 def lambda_handler(event, context):
     body = event.get('body')
     payload = json.loads(body) if isinstance(body, str) else body
+    print(payload)
+    print("Leru Leru")
     logger = parse_payload_into_logger_object(payload)
-    print(event)
-    print(body)
     print(logger)
-    print("_______")
+  #  print(event)
+  #  print(body)
+  #  print(logger)
+  #  print("_______")
+    logger_obj = Logger(**logger)
+    logger_obj.save()
+  #  print("+___")
+    print("*********")
     """Sample pure Lambda function
 
     Parameters
@@ -46,30 +58,8 @@ def lambda_handler(event, context):
         "statusCode": 200,
         "body": json.dumps({
             "message": "hello world updated",
-            "payload": logger
+           # "payload": logger
             # "location": ip.text.replace("\n", "")
         }),
     }
-
-
-if __name__ == "__main__":
-    payload = {
-        "report_time": "nothing",
-        "data": {
-            "connection_id": "nothing",
-            "connection_key": "nothing",
-            "institution_id": "nothing",
-            "enquire_cpf": "nothing"
-        }
-    }
-    print("***")
-    logger = parse_payload_into_logger_object(payload)
-    logger_obj = Logger(**logger)
-    logger_obj.save()
-    schema = LoggerSchema()
-    parsed = schema.dumps(logger_obj)
-    print(logger_obj)
-    print("+___")
-    print(parsed)
-    print("*********")
 

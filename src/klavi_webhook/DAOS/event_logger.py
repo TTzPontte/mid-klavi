@@ -1,15 +1,15 @@
-class EventLoggerDAO(BaseDao):
+from .base_dao import DynamoDbORM
+from boto3.dynamodb.conditions import Key
+
+
+class EventLoggerDAO(DynamoDbORM):
     def __init__(self, env: str):
-        super().__init__(env)
-        self.table_name = 'EventLogger'
+        super().__init__(env, 'EventLogger')
 
     def log_event(self, event: dict):
-        self.save(self.table_name, event)
+        self.put(event)
 
     def get_logs(self, start_time: int, end_time: int):
         filter_expression = Key('timestamp').between(start_time, end_time)
         return self.scan(self.table_name, filter_expression=filter_expression)
-
-
-
 

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from marshmallow import Schema, fields
-from src.klavi_webhook.DAOS.event_logger import log_event
+from DAOS.event_logger import EventLoggerDAO
 
 
 @dataclass
@@ -8,14 +8,16 @@ class Logger:
     id: str = ""
     key: str = ""
     institution_id: str = ""
-    enquire_cpf: str = ""
+    enquiry_cpf: str = ""
     report_time: str = ""
 
     def __post_init__(self):
+        print("ON POST INIT")
         self.schema = LoggerSchema()
 
     def save(self):
-        log_event(self.schema.dump(self))
+        dao = EventLoggerDAO('dev')
+        dao.log_event(self.schema.dump(self))
         print("Object Saved")
 
 
@@ -23,5 +25,5 @@ class LoggerSchema(Schema):
     id = fields.Str()
     key = fields.Str()
     institution_id = fields.Str()
-    enquire_cpf = fields.Str()
+    enquiry_cpf = fields.Str()
     report_time = fields.Str()
