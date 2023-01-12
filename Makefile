@@ -19,6 +19,12 @@ clean:
 	docker stop $(CONTAINER_NAME) || true
 	docker rm $(CONTAINER_NAME) || true
 
+
+test:
+	python -m pytest tests/unit -v
+
+start:
+	sam local start-api
 ## Variables
 #LAMBDA_NAME = my-lambda-function
 #ZIP_FILE = function.zip
