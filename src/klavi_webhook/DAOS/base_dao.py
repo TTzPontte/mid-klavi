@@ -16,7 +16,7 @@ class DynamoDbORM:
         return table_name
 
     def __post_init__(self):
-        self.dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000' if self.env == 'dev' else None)
+        self.dynamodb = boto3.resource('dynamodb', endpoint_url='http://127.0.0.1:8001' if self.env == 'dev' else None)
         self.table = self.dynamodb.Table(self._get_table_name())
 
     def get(self, key):

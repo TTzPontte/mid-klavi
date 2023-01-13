@@ -6,9 +6,9 @@ from event_logger.logger import Logger
 
 import os
 
-os.environ['AWS_SERVER_PUBLIC_KEY'] = "AKIA4LFWKXXNQYMOWWSB"
-os.environ['AWS_SERVER_SECRET_KEY'] = "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"
-os.environ['AWS_DEFAULT_REGION'] = "us-east-1"
+os.environ['AWS_SERVER_PUBLIC_KEY'] = "diuhq9"
+os.environ['AWS_SERVER_SECRET_KEY'] = "q504d"
+os.environ['AWS_DEFAULT_REGION'] = "localhost"
 
 def lambda_handler(event, context):
     body = event.get('body')
