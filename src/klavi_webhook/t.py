@@ -6,11 +6,9 @@ import json
 import logging
 from http import HTTPStatus
 
-from common.errors import AppException, Errors  # pylint: disable=import-error
-from common.handlerbase import Handler, Result  # pylint: disable=import-error
-from common.rd_notifier import send_email_create_user  # pylint: disable=import-error
-
-import common  # pylint: disable=import-error
+from src.klavi_webhook.helpers import common
+from src.klavi_webhook.helpers.common.errors import AppException, Errors
+from src.klavi_webhook.helpers.common.handlerbase import Handler, Result
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 logger.setLevel(common.config.LOGGING_LEVEL)

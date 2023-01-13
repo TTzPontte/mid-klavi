@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.core import patch_all
 
+from src.klavi_webhook.helpers.common import config
+
 xray_recorder.configure(service='Portal')
 patch_all()
 

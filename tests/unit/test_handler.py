@@ -1,7 +1,10 @@
 import json
+import os
+import sys
 
 import pytest
 
+sys.path.append(os.path.join("src", "klavi_webhook"))
 from src.klavi_webhook import app
 from tests.utils.apigw_event import apigw_event
 
