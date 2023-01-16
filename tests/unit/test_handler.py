@@ -4,8 +4,8 @@ import sys
 
 import pytest
 
-sys.path.append(os.path.join("src", "klavi_webhook"))
-from src.klavi_webhook import app
+sys.path.append(os.path.join("src", "hello_world"))
+from src.hello_world import app
 from tests.utils.apigw_event import apigw_event
 
 

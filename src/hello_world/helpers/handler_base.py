@@ -1,22 +1,23 @@
 """Objetos base para os handlers."""
-
-import decimal
-from http import HTTPStatus
-import json
 import logging
-from dataclasses import dataclass
 
-from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.core import patch_all
+from aws_xray_sdk.core import xray_recorder
 
-from src.klavi_webhook.helpers.common import config
+from .config import Config
+from .errors_lib.app_exception import AppException
+from .errors_lib.error import Errors
+from .result import Result
 
 xray_recorder.configure(service='Portal')
 patch_all()
 
 
-logger = logging.getLogger(__name__) # pylint: disable=invalid-name
+config = Config()
+
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 logger.setLevel(config.LOGGING_LEVEL)
+
 
 def convert_header_lowercase(event: object):
     """Converte os nomes dos cabeçalhos para minúsculo.
@@ -26,53 +27,13 @@ def convert_header_lowercase(event: object):
     """
 
     if "headers" in event:
-        headers = {k.lower():v for k, v in event["headers"].items()}
+        headers = {k.lower(): v for k, v in event["headers"].items()}
         event["headers"] = headers
 
     if "multiValueHeaders" in event:
-        headers = {k.lower():v for k, v in event["multiValueHeaders"].items()}
+        headers = {k.lower(): v for k, v in event["multiValueHeaders"].items()}
         event["multiValueHeaders"] = headers
 
-class CustomEncoder(json.JSONEncoder):
-    """Codificador para o JSON.
-
-    Transforma o Decimal em números.
-    """
-    def default(self, o):  # pylint: disable=E0202
-        if isinstance(o, decimal.Decimal):
-            if abs(o) % 1 > 0:
-                return float(o)
-            return int(o)
-        return super(CustomEncoder, self).default(o)
-
-@dataclass
-class Result():
-    """Classe para indicação do resultado."""
-
-    status_code: HTTPStatus
-    obj: dict
-
-    def answer(self) -> object:
-        """Retorna o resultado para o API Gateway.
-
-        Returns:
-            Objeto com as informações que o API Gateway aguarda.
-        """
-        data = {
-            "statusCode": self.status_code,
-            "headers": {
-                "Cache-Control": "no-cache, no-store, must-revalidate",
-                "Pragma": "no-cache",
-                "Expires": "0",
-                "Access-Control-Allow-Origin": "*",
-            }
-        }
-
-        if self.obj:
-            data["body"] = json.dumps(self.obj, cls=CustomEncoder)
-            data["headers"]["Content-Type"] = "application/json"
-
-        return data
 
 class Handler():
     """Realiza o tratamento do evento do API Gateway"""
@@ -119,7 +80,7 @@ class Handler():
         """Executa o handler."""
 
         if config.AWS_SAM_LOCAL:
-            logger.debug("AWS_SAM_LOCAL: %s", config.AWS_SAM_LOCAL)
+            print("AWS_SAM_LOCAL: %s", config.AWS_SAM_LOCAL)
 
         try:
             if config.AWS_SAM_LOCAL:
@@ -139,12 +100,12 @@ class Handler():
 
             return res.answer()
 
-        except errors.AppException as err:
+        except AppException as err:
             logger.error("execution exception received: %s", err, exc_info=1)
             res = err.as_result()
-        except Exception as err: # pylint: disable=broad-except
+        except Exception as err:  # pylint: disable=broad-except
             logger.critical("exception received: %s", err, exc_info=1)
-            res = errors.AppException(errors.Errors.UNKNOWN).as_result()
+            res = AppException(Errors.UNKNOWN).as_result()
         else:
             logger.critical("code did not return")
             res = errors.AppException(errors.Errors.RUNTIME,
