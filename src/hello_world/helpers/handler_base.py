@@ -12,7 +12,6 @@ from .result import Result
 xray_recorder.configure(service='Portal')
 patch_all()
 
-
 config = Config()
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
