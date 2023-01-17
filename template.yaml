@@ -19,6 +19,16 @@ Parameters:
       - prod
       - refactoring
 
+  Table:
+    Type: String
+    Default: Activities
+  Region:
+    Type: String
+    Default: us-east-1
+  AWSEnv:
+    Type: String
+    Default: AWS
+
 Globals:
   Function:
     Runtime: python3.8
@@ -28,6 +38,9 @@ Globals:
       Variables:
         ENV: !Ref Environment
         LOGGING_LEVEL: DEBUG
+        TABLE: !Ref Table
+        REGION: !Ref Region
+        AWSENV: !Ref AWSEnv
     Tags:
       Project: !Ref ProjectName
       Environment: !Ref Environment
@@ -86,6 +99,7 @@ Resources:
 #        Variables:
 #          TABLE_NAME: !Ref EventLogerTable
 
+
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -101,3 +115,89 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: !Ref EventLogerTable
+
+  ListActivityFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: ListActivityFunction
+      CodeUri: src/list_activity/
+      Handler: app.lambda_handler
+      Events:
+        CreateApi:
+          Type: Api
+          Properties:
+            Path: /list
+            Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ActivitiesTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ActivitiesTable
+
+  MidKlaviFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: MidKlaviFunction
+      CodeUri: src/mid_klavi/
+      Handler: app.lambda_handler
+      Events:
+        CreateApi:
+          Type: Api
+          Properties:
+            Path: /create
+            Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref EventLoggerTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLoggerTable
+
+  ActivitiesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "date"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        - AttributeName: "date"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: "Activities"
+
+  EventLoggerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "key"
+          AttributeType: "S"
+        - AttributeName: "institution_id"
+          AttributeType: "S"
+        - AttributeName: "enquiry_cpf"
+          AttributeType: "S"
+        - AttributeName: "report_time"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        - AttributeName: "key"
+          KeyType: "HASH"
+        - AttributeName: "instituion_id"
+          KeyType: "HASH"
+        - AttributeName: "enquiry_cpf"
+          KeyType: "HASH"
+        - AttributeName: "report_time"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: "EventLogger"
