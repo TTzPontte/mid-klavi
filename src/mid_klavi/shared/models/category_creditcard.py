@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from marshmallow import Schema, fields
+import marshmallow_dataclass
 from shared.data_access_objects.category_creditcard import CategoryCreditCardDAO
 from shared.data_access_objects.open_statement import OpenStatementDAO
 from shared.data_access_objects.closed_statement import ClosedStatementDAO
@@ -36,22 +36,7 @@ class CategoryCreditCard:
         dao.save(payload)
         print("Object Saved")
 
-
-class CategoryCreditCardSchema(Schema):
-    id: fields.Str()
-    bank_name: fields.Str()
-    bacen_name: fields.Str()
-    bacen_id: fields.Str()
-    card_last4num: fields.Str()
-    cpf_verified: fields.Str()
-    holder_name: fields.Str()
-    card_type: fields.Str()
-    credit_limit: fields.Str()
-    available_limit: fields.Str()
-    agency_number: fields.Str()
-    bank_account: fields.Str()
-    is_active: fields.Str()
-    is_vip: fields.Str()
+CategoryCreditCardSchema = marshmallow_dataclass.class_schema(CategoryCreditCard)
 
 
 @dataclass
@@ -73,13 +58,7 @@ class OpenStatement:
         payload['category_id'] = "category_id"
         dao.save(payload)
 
-
-class OpenStatementSchema(Schema):
-    id: fields.Str()
-    bill_amount: fields.Str()
-    due_date: fields.Str()
-    billing_date: fields.Str()
-    bill_month: fields.Str()
+OpenStatementSchema = marshmallow_dataclass.class_schema(OpenStatement)
 
 
 @dataclass
@@ -103,12 +82,5 @@ class ClosedStatement:
         payload['category_id'] = "category_id"
         dao.save(payload)
 
+ClosedStatementSchema = marshmallow_dataclass.class_schema(ClosedStatement)
 
-class ClosedStatementSchema(Schema):
-    id: fields.Str()
-    billing_date: fields.Str()
-    bill_month: fields.Str()
-    bill_amount: fields.Str()
-    minimum_payment: fields.Str()
-    payment_date: fields.Str()
-    payment_amount: fields.Str()

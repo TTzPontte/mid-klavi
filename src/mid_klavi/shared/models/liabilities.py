@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from marshmallow import Schema, fields
+import marshmallow_dataclass
 from shared.data_access_objects.liabilities import LiabilitiesDAO
 from shared.data_access_objects.liability_stream import LiabilityStreamDAO
 from shared.data_access_objects.liability_transaction import LiabilityTransactionDAO
@@ -35,21 +35,8 @@ class Liabilities:
         print("Object Saved")
 
 
-class LiabilitiesSchema(Schema):
-    id: fields.Str()
-    account_holder: fields.Str()
-    account_number: fields.Str()
-    agency_number: fields.Str()
-    bacen_id: fields.Str()
-    bacen_name: fields.Str()
-    bank_name: fields.Str()
-    cpf_verified: fields.Str()
-    days_covered: fields.Str()
-    number_of_liability_streams: fields.Str()
-    total_liabilities_last_180_days: fields.Str()
-    total_liabilities_last_30_days: fields.Str()
-    total_liabilities_last_60_days: fields.Str()
-    total_liabilities_last_90_days: fields.Str()
+LiabilitiesSchema = marshmallow_dataclass.class_schema(LiabilitiesSchema)
+
 
 @dataclass
 class LiabilityStream:
@@ -70,9 +57,8 @@ class LiabilityStream:
         print("Object Saved")
 
 
-class LiabilityStreamSchema(Schema):
-    id: fields.Str()
-    liability_stream_type: fields.Str()
+LiabilityStreamSchema = marshmallow_dataclass.class_schema(LiabilityStream)
+
 
 
 @dataclass
@@ -95,8 +81,5 @@ class LiabilityTransaction:
         print("Object Saved")
 
 
-class LiabilityTransactionSchema(Schema):
-    id: fields.Str()
-    trans_date: fields.Str()
-    trans_amount: fields.Str()
-    trans_description: fields.Str()
+LiabilityTransactionSchema = marshmallow_dataclass.class_schema(LiabilityTransaction)
+

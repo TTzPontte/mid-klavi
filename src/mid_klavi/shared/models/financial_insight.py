@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from marshmallow import Schema, fields
+import marshmallow_dataclass
 from shared.data_access_objects.cashflow_analisys import CashflowAnalisysDAO
 from shared.data_access_objects.financial_insight import FinancialInsightDAO
 from shared.data_access_objects.credit_analisys import CreditAnalisysDAO
@@ -30,17 +30,7 @@ class FinancialInsight:
         print("Object Saved")
 
 
-class FinancialInsightSchema(Schema):
-    id: fields.Str()
-    bacen_id: fields.Str()
-    bacen_name: fields.Str()
-    bank_name: fields.Str()
-    agency_number: fields.Str()
-    account_number: fields.Str()
-    cpf_verified: fields.Str()
-    account_holder: fields.Str()
-    days_covered: fields.Str()
-
+FinancialInsightSchema = marshmallow_dataclass.class_schema(FinancialInsight)
 
 @dataclass
 class FinancialCashflowAnalisys:
@@ -70,23 +60,8 @@ class FinancialCashflowAnalisys:
         dao.save(self.schema.dump(self))
         print("Object Saved")
         
-        
-class FinancialCashflowAnalisysSchema(Schema):
-    id: fields.Str()
-    checking_account_balance: fields.Str()
-    avg_daily_balance_last_180_days: fields.Str()
-    avg_daily_balance_last_30_days: fields.Str()
-    avg_daily_balance_last_60_days: fields.Str()
-    avg_daily_balance_last_90_days: fields.Str()
-    inflow_last_180_days: fields.Str()
-    inflow_last_30_days: fields.Str()
-    inflow_last_60_days: fields.Str()
-    inflow_last_90_days: fields.Str()
-    outflow_last_180_days: fields.Str()
-    outflow_last_30_days: fields.Str()
-    outflow_last_60_days: fields.Str()
-    outflow_last_90_days: fields.Str()
-    saving_account_balance: fields.Str()
+
+FinancialCashflowAnalisysSchema = marshmallow_dataclass.class_schema(FinancialCashflowAnalisys)
 
 
 @dataclass
@@ -104,10 +79,8 @@ class FinancialCreditAnalisys:
         dao.save(self.schema.dump(self))
         print("Object Saved")
 
-class FinancialCreditAnalisysSchema(Schema):
-    id: fields.Str()
-    overdraft_limit: fields.Str()
-    preapproved_loan: fields.Str()
+FinancialCreditAnalisysSchema = marshmallow_dataclass.class_schema(FinancialCreditAnalisys)
+
 
 
 @dataclass
@@ -134,20 +107,8 @@ class FinancialCreditCardSpending:
         dao.save(self.schema.dump(self))
         print("Object Saved")
 
+FinancialCreditCardSpendingSchema = marshmallow_dataclass.class_schema(FinancialCreditCardSpending)
 
-class FinancialCreditCardSpendingSchema(Schema):
-    id: fields.Str()
-    card_holder: fields.Str()
-    card_last_4_digit: fields.Str()
-    card_type: fields.Str()
-    credit_limit: fields.Str()
-    closed_bills_covered: fields.Str()
-    open_bill_balance: fields.Str()
-    last_closed_bill: fields.Str()
-    avg_last_3_closed_bills: fields.Str()
-    days_covered: fields.Str()
-    has_late_payment: fields.Str()
-    pay_bills_in_installment: fields.Str()
 
 
 @dataclass
@@ -171,15 +132,6 @@ class FinancialProfile:
         dao.save(self.schema.dump(self))
         print("Object Saved")
 
+FinancialProfileSchema = marshmallow_dataclass.class_schema(FinancialProfile)
 
-class FinancialProfileSchema(Schema):
-    id: fields.Str()
-    additional_overdraft_interest: fields.Str()
-    atm_withdrawal: fields.Str()
-    has_iptu_payment: fields.Str()
-    has_ipva_payment: fields.Str()
-    has_returned_cheque: fields.Str()
-    has_severance: fields.Str()
-    iof: fields.Str()
-    overdraft_interest: fields.Str()
 

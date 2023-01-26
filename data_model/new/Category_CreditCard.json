@@ -1,0 +1,240 @@
+{
+  "ModelName": "Category_CreditCard",
+  "ModelMetadata": {
+    "Author": "",
+    "DateCreated": "Jan 18, 2023, 02:46 PM",
+    "DateLastModified": "Jan 18, 2023, 03:25 PM",
+    "Description": "",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "3.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "CategoryCreditCard",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "report_id",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "bank_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bacen_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bacen_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "card_last4num",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cpf_verified",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "holder_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "card_type",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "credit_limit",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "available_limit",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "agency_number",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bank_account",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "is_active",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "is_vip",
+          "AttributeType": "S"
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "OpenStatement",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "category_id",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "bill_amount",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "due_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "billing_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bill_month",
+          "AttributeType": "S"
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "ClosedStatement",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "category_id",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "billing_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bill_month",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bill_amount",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "minimum_payment",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "payment_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "payment_amount",
+          "AttributeType": "S"
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    }
+  ]
+}

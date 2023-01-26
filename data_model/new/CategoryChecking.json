@@ -1,37 +1,61 @@
 {
-  "ModelName": "EventLogger",
+  "ModelName": "CategoryChecking",
   "ModelMetadata": {
     "Author": "Silvio Lucena Junior",
     "DateCreated": "Jan 16, 2023, 04:10 PM",
-    "DateLastModified": "Jan 16, 2023, 04:29 PM",
+    "DateLastModified": "Jan 17, 2023, 04:14 PM",
     "Description": "Database used by test.",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
   },
   "DataModel": [
     {
-      "TableName": "EventLogger",
+      "TableName": "CategoryChecking",
       "KeyAttributes": {
         "PartitionKey": {
           "AttributeName": "id",
           "AttributeType": "S"
         },
         "SortKey": {
-          "AttributeName": "key",
+          "AttributeName": "report_id",
           "AttributeType": "S"
         }
       },
       "NonKeyAttributes": [
         {
-          "AttributeName": "institution_id",
+          "AttributeName": "bank_name",
           "AttributeType": "S"
         },
         {
-          "AttributeName": "enquire_cpf",
+          "AttributeName": "bacen_name",
           "AttributeType": "S"
         },
         {
-          "AttributeName": "report_time",
+          "AttributeName": "bacen_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bank_branch",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "account",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "operation_code",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cpf_verified",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "holder_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "balance",
           "AttributeType": "S"
         }
       ],

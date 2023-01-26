@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from marshmallow import Schema, fields
+import marshmallow_dataclass
 from shared.data_access_objects.event_logger import EventLoggerDAO
 
 
@@ -19,9 +19,5 @@ class Logger:
         dao.log_event(self.schema.dump(self))
 
 
-class LoggerSchema(Schema):
-    id = fields.Str()
-    key = fields.Str()
-    institution_id = fields.Str()
-    enquiry_cpf = fields.Str()
-    report_time = fields.Str()
+LoggerSchema = marshmallow_dataclass.class_schema(Logger)
+

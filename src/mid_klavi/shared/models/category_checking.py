@@ -1,6 +1,8 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from marshmallow import Schema, fields
 from shared.data_access_objects.category_checking import CategoryCheckingDAO
+
+import marshmallow_dataclass
 
 
 @dataclass
@@ -15,6 +17,7 @@ class CategoryChecking:
     cpf_verified: str = ""
     holder_name: str = ""
     balance: str = ""
+    TransactionDetail: list = field(default_factory=list)
 
 
     def __post_init__(self):
@@ -29,15 +32,8 @@ class CategoryChecking:
         dao.save(payload)
         print("Object Saved")
 
+class BaseClass(Schema):
+    class Meta:
+        exclude = ("TransactionDetail", )
 
-class CategoryCheckingSchema(Schema):
-    id: fields.Str()
-    bank_name: fields.Str()
-    bacen_name: fields.Str()
-    bacen_id: fields.Str()
-    bank_branch: fields.Str()
-    account: fields.Str()
-    operation_code: fields.Str()
-    cpf_verified: fields.Str()
-    holder_name: fields.Str()
-    balance: fields.Str()
+CategoryCheckingSchema = marshmallow_dataclass.class_schema(CategoryChecking, base_schema=BaseClass)

@@ -1,37 +1,61 @@
 {
-  "ModelName": "EventLogger",
+  "ModelName": "TransactionDetail",
   "ModelMetadata": {
     "Author": "Silvio Lucena Junior",
     "DateCreated": "Jan 16, 2023, 04:10 PM",
-    "DateLastModified": "Jan 16, 2023, 04:29 PM",
+    "DateLastModified": "Jan 17, 2023, 04:14 PM",
     "Description": "Database used by test.",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
   },
   "DataModel": [
     {
-      "TableName": "EventLogger",
+      "TableName": "TransactionDetail",
       "KeyAttributes": {
         "PartitionKey": {
           "AttributeName": "id",
           "AttributeType": "S"
         },
         "SortKey": {
-          "AttributeName": "key",
+          "AttributeName": "category_id",
           "AttributeType": "S"
         }
       },
       "NonKeyAttributes": [
         {
-          "AttributeName": "institution_id",
+          "AttributeName": "trans_date",
           "AttributeType": "S"
         },
         {
-          "AttributeName": "enquire_cpf",
+          "AttributeName": "trans_amount",
           "AttributeType": "S"
         },
         {
-          "AttributeName": "report_time",
+          "AttributeName": "trans_description",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "balance",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "category",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "trans_currency",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "payment_type",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "charge_identificator",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "charge_number",
           "AttributeType": "S"
         }
       ],

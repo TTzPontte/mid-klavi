@@ -31,7 +31,7 @@ Parameters:
 
 Globals:
   Function:
-    Runtime: python3.8
+    Runtime: python3.9
     MemorySize: 1024
     Timeout: 120
     Environment:
@@ -100,40 +100,40 @@ Resources:
 #          TABLE_NAME: !Ref EventLogerTable
 
 
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: HelloWorldFn
-      CodeUri: src/hello_world/
-      Handler: app.lambda_handler
-      Events:
-        CreateApi:
-          Type: Api
-          Properties:
-            Path: /hello
-            Method: GET
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref EventLogerTable
+#  HelloWorldFunction:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      FunctionName: HelloWorldFn
+#      CodeUri: src/hello_world/
+#      Handler: app.lambda_handler
+#      Events:
+#        CreateApi:
+#          Type: Api
+#          Properties:
+#            Path: /hello
+#            Method: GET
+#      Environment:
+#        Variables:
+#          TABLE_NAME: !Ref EventLogerTable
 
-  ListActivityFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: ListActivityFunction
-      CodeUri: src/list_activity/
-      Handler: app.lambda_handler
-      Events:
-        CreateApi:
-          Type: Api
-          Properties:
-            Path: /list
-            Method: GET
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref ActivitiesTable
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ActivitiesTable
+#  ListActivityFunction:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      FunctionName: ListActivityFunction
+#      CodeUri: src/list_activity/
+#      Handler: app.lambda_handler
+#      Events:
+#        CreateApi:
+#          Type: Api
+#          Properties:
+#            Path: /list
+#            Method: GET
+#      Environment:
+#        Variables:
+#          TABLE_NAME: !Ref ActivitiesTable
+#      Policies:
+#        - DynamoDBCrudPolicy:
+#            TableName: !Ref ActivitiesTable
 
   MidKlaviFunction:
     Type: AWS::Serverless::Function
@@ -201,3 +201,111 @@ Resources:
         ReadCapacityUnits: "1"
         WriteCapacityUnits: "1"
       TableName: "EventLogger"
+
+  CategoryCheckingTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "report_id"
+          AttributeType: "S"
+        - AttributeName: "bank_name"
+          AttributeType: "S"
+        - AttributeName: "bacen_name"
+          AttributeType: "S"
+        - AttributeName: "bacen_id"
+          AttributeType: "S"
+        - AttributeName: "bank_branch"
+          AttributeType: "S"
+        - AttributeName: "account"
+          AttributeType: "S"
+        - AttributeName: "operation_code"
+          AttributeType: "S"
+        - AttributeName: "cpf_verified"
+          AttributeType: "S"
+        - AttributeName: "holder_name"
+          AttributeType: "S"
+        - AttributeName: "balance"
+          AttributeType: "S"
+      KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+          - AttributeName: "report_id"
+            KeyType: "HASH"
+          - AttributeName: "bank_name"
+            KeyType: "HASH"
+          - AttributeName: "bacen_name"
+            KeyType: "HASH"
+          - AttributeName: "bacen_id"
+            KeyType: "HASH"
+          - AttributeName: "bank_branch"
+            KeyType: "HASH"
+          - AttributeName: "account"
+            KeyType: "HASH"
+          - AttributeName: "operation_code"
+            KeyType: "HASH"
+          - AttributeName: "cpf_verified"
+            KeyType: "HASH"
+          - AttributeName: "holder_name"
+            KeyType: "HASH"
+          - AttributeName: "balance"
+            KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: "CategoryChecking"
+
+  TransactionDetailTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "category_d"
+          AttributeType: "S"
+        - AttributeName: "trans_date"
+          AttributeType: "S"
+        - AttributeName: "trans_amount"
+          AttributeType: "S"
+        - AttributeName: "trans_description"
+          AttributeType: "S"
+        - AttributeName: "balance"
+          AttributeType: "S"
+        - AttributeName: "category"
+          AttributeType: "S"
+        - AttributeName: "trans_currency"
+          AttributeType: "S"
+        - AttributeName: "payment_type"
+          AttributeType: "S"
+        - AttributeName: "charge_identificator"
+          AttributeType: "S"
+        - AttributeName: "charge_number"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        - AttributeName: "category_d"
+          KeyType: "HASH"
+        - AttributeName: "trans_date"
+          KeyType: "HASH"
+        - AttributeName: "trans_amount"
+          KeyType: "HASH"
+        - AttributeName: "trans_description"
+          KeyType: "HASH"
+        - AttributeName: "balance"
+          KeyType: "HASH"
+        - AttributeName: "category"
+          KeyType: "HASH"
+        - AttributeName: "trans_currency"
+          KeyType: "HASH"
+        - AttributeName: "payment_type"
+          KeyType: "HASH"
+        - AttributeName: "charge_identificator"
+          KeyType: "HASH"
+        - AttributeName: "charge_number"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: "TransactionDetail"

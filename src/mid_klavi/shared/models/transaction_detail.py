@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from marshmallow import Schema, fields
+import marshmallow_dataclass
 from shared.data_access_objects.transaction_detail import TransactionDetailDAO
 
 @dataclass
@@ -27,15 +27,5 @@ class TransactionDetail:
         dao.put(payload)
         print("Object Saved")
 
+TransactionDetailSchema = marshmallow_dataclass.class_schema(TransactionDetail)
 
-class TransactionDetailSchema(Schema):
-    id: fields.Str()
-    trans_date: fields.Str()
-    trans_amount: fields.Str()
-    trans_currency: fields.Str()
-    trans_description: fields.Str()
-    category: fields.Str()
-    payment_type: fields.Str()
-    charge_identificator: fields.Str()
-    charge_number: fields.Str()
-    balance: fields.Str()
