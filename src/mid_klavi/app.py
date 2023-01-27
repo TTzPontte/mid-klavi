@@ -1,7 +1,6 @@
 from http import HTTPStatus
 from shared.helpers.handler_base import Handler, Result
 from shared.helpers.hw_helper import helper_fn
-from shared.factory.klavi_report import build_klavi_report
 from shared.repository.klavi_report import KlaviReportRepository
 import json
 
@@ -14,9 +13,11 @@ class MidKlavi(Handler):
             self.body = json.loads(self.event['body'])
 
     def handler(self):
-        report = build_klavi_report(self.body)
+        #report = build_klavi_report(self.body)
         report_repository = KlaviReportRepository()
-        report_repository.save(report)
+        #report_repository.save(report)
+        report_repository.getByReportId({'id': 'report_id', 'enquiry_cpf': '12345678901'})
+        print("FIM")
 
         # 1 - Identificar Relatorio
         # 2 - Parsiar o Relatorio

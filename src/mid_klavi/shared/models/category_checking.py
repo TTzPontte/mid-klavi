@@ -8,6 +8,7 @@ import marshmallow_dataclass
 @dataclass
 class CategoryChecking:
     id: str = ""
+    report_id: str = ""
     bank_name: str = ""
     bacen_name: str = ""
     bacen_id: str = ""
