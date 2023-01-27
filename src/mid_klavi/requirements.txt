@@ -2,5 +2,6 @@ boto3
 aws_xray_sdk
 marshmallow
 marshmallow-dataclass
+wheel
 pandas
 openpyxl

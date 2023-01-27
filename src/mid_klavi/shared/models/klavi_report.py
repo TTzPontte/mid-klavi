@@ -29,3 +29,10 @@ class KlaviReport:
 
 
 KlaviReportSchema = marshmallow_dataclass.class_schema(KlaviReport)
+
+class KlaviReportBase(Schema):
+    class Meta:
+        exclude = ('category_checking', )
+
+
+KlaviReportExcelSchema = marshmallow_dataclass.class_schema(KlaviReport, base_schema=KlaviReportBase)
