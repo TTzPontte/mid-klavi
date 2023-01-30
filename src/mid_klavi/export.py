@@ -1,5 +1,6 @@
 from shared.exports.klavi_report import export_klavi_report_to_excel
 from shared.factory.klavi_report import build_report_from_klavi_payload
+from shared.repository.klavi_report import KlaviReportRepository
 import pandas as pd
 import io
 
@@ -50,23 +51,11 @@ payload_category_checking = {
 }
 
 if __name__ == "__main__":
-    report = {
-        'name': 'silvio',
-        'sobrenome': 'lucena',
-        'lojas': [
-            {
-                'tipo': 'revenda',
-                'valor': 200
-            },
-            {
-                'tipo': 'franquia',
-                'valor': 500
-            }
-        ]
-    }
-    report_klavi = build_report_from_klavi_payload(payload_category_checking)
+    report_repository = KlaviReportRepository()
+    klavi_report = build_report_from_klavi_payload(payload_category_checking)
+    #report_from_database = report_repository.getByReportId('399eba11-059e-4286-a164-4383f7e20a0c', '12345678901')
     excel_file_buffer = io.BytesIO()
-    excel_file = export_klavi_report_to_excel(report_klavi, '/home/silvio/temp/excel_test.xlsx')
+    excel_file = export_klavi_report_to_excel(klavi_report, '/home/silvio/temp/excel_test.xlsx')
     excel_file_buffer.close()
 
 

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import marshmallow_dataclass
 from shared.data_access_objects.liabilities import LiabilitiesDAO
 from shared.data_access_objects.liability_stream import LiabilityStreamDAO
@@ -21,6 +21,7 @@ class Liabilities:
     total_liabilities_last_30_days: str = ""
     total_liabilities_last_60_days: str = ""
     total_liabilities_last_90_days: str = ""
+    liability_stream: list = field(default_factory=list)
 
     def __post_init__(self):
         print("ON POST INIT")

@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 import marshmallow_dataclass
-from shared.data_access_objects.transaction_detail import TransactionDetailDAO
-
+import uuid
 @dataclass
 class TransactionDetail:
     id: str = ""
@@ -14,18 +13,12 @@ class TransactionDetail:
     charge_identificator: str = ""
     charge_number: str = ""
     balance: str = ""
+    category_id: str = ""
 
     def __post_init__(self):
-        print("ON POST INIT")
-        self.schema = TransactionDetailSchema()
+        if self.id == "":
+            self.id = uuid.uuid4()
 
-    def save(self):
-        dao = TransactionDetailDAO('dev')
-        payload = self.schema.dump(self)
-        payload['id'] = 'tste'
-        payload['category_id'] = 'category_id'
-        dao.put(payload)
-        print("Object Saved")
 
 TransactionDetailSchema = marshmallow_dataclass.class_schema(TransactionDetail)
 

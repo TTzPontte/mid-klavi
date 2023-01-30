@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, pre_dump
 from shared.data_access_objects.category_checking import CategoryCheckingDAO
 
 import marshmallow_dataclass
+import uuid
 
 
 @dataclass
@@ -18,23 +19,27 @@ class CategoryChecking:
     cpf_verified: str = ""
     holder_name: str = ""
     balance: str = ""
-    TransactionDetail: list = field(default_factory=list)
-
+    transaction_details: list = field(default_factory=list)
 
     def __post_init__(self):
-        print("ON POST INIT")
-        self.schema = CategoryCheckingSchema()
+        if self.id == "":
+            self.id = uuid.uuid4()
 
-    def save(self):
-        dao = CategoryCheckingDAO('dev')
-        payload = self.schema.dump(self)
-        payload["id"] = "testeId"
-        payload["report_id"] = "reportId"
-        dao.save(payload)
-        print("Object Saved")
 
 class BaseClass(Schema):
+    #@pre_dump
+    #def extract_relation_ids(self, out_data, **kwargs):
+    #    category_ids = []
+    #    for category in out_data.transaction_details:
+    #        category_ids.append(str(category.id))
+    #    out_data.transaction_details = category_ids
+    #    print("Karalha")
+    #    print(out_data)
+
+   #     return out_data
     class Meta:
-        exclude = ("TransactionDetail", )
+        exclude = ('transaction_details', )
+
+
 
 CategoryCheckingSchema = marshmallow_dataclass.class_schema(CategoryChecking, base_schema=BaseClass)

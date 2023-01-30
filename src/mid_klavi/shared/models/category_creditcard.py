@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import marshmallow_dataclass
 from shared.data_access_objects.category_creditcard import CategoryCreditCardDAO
 from shared.data_access_objects.open_statement import OpenStatementDAO
@@ -23,6 +23,8 @@ class CategoryCreditCard:
     bank_account: str = ""
     is_active: str = ""
     is_vip: str = ""
+    open_statement: list = field(default_factory=list)
+    closed_statement: list = field(default_factory=list)
 
     def __post_init__(self):
         print("ON POST INIT")
@@ -46,6 +48,7 @@ class OpenStatement:
     due_date: str = ""
     billing_date: str = ""
     bill_month: str = ""
+    transaction_details: list = field(default_factory=list)
 
     def __post_init__(self):
         print("ON POST INIT")
@@ -70,6 +73,7 @@ class ClosedStatement:
     minimum_payment: str = ""
     payment_date: str = ""
     payment_amount: str = ""
+    transaction_details: list = field(default_factory=list)
 
     def __post_init__(self):
         print("ON POST INIT")

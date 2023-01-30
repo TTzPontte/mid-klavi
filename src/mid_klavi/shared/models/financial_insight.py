@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import marshmallow_dataclass
 from shared.data_access_objects.cashflow_analisys import CashflowAnalisysDAO
 from shared.data_access_objects.financial_insight import FinancialInsightDAO
@@ -18,16 +18,10 @@ class FinancialInsight:
     cpf_verified: str = ""
     account_holder: str = ""
     days_covered: str = ""
-
-
-    def __post_init__(self):
-        print("ON POST INIT")
-        self.schema = FinancialInsightSchema()
-
-    def save(self):
-        dao = FinancialInsightDAO('dev')
-        dao.save(self.schema.dump(self))
-        print("Object Saved")
+    cashflow_analysis: list = field(default_factory=list)
+    credit_analysis: list = field(default_factory=list)
+    creditcard_spending: list = field(default_factory=list)
+    financial_profile: list = field(default_factory=list)
 
 
 FinancialInsightSchema = marshmallow_dataclass.class_schema(FinancialInsight)
@@ -51,16 +45,6 @@ class FinancialCashflowAnalisys:
     saving_account_balance: str = ""
 
 
-    def __post_init__(self):
-        print("ON POST INIT")
-        self.schema = FinancialCashflowAnalisysSchema()
-
-    def save(self):
-        dao = CashflowAnalisysDAO('dev')
-        dao.save(self.schema.dump(self))
-        print("Object Saved")
-        
-
 FinancialCashflowAnalisysSchema = marshmallow_dataclass.class_schema(FinancialCashflowAnalisys)
 
 
@@ -70,17 +54,8 @@ class FinancialCreditAnalisys:
     overdraft_limit: str = ""
     preapproved_loan: str = ""
 
-    def __post_init__(self):
-        print("ON POST INIT")
-        self.schema = FinancialCreditAnalisysSchema()
-
-    def save(self):
-        dao = CreditAnalisysDAO('dev')
-        dao.save(self.schema.dump(self))
-        print("Object Saved")
 
 FinancialCreditAnalisysSchema = marshmallow_dataclass.class_schema(FinancialCreditAnalisys)
-
 
 
 @dataclass
@@ -98,17 +73,8 @@ class FinancialCreditCardSpending:
     has_late_payment: str = ""
     pay_bills_in_installment: str = ""
 
-    def __post_init__(self):
-        print("ON POST INIT")
-        self.schema = FinancialCreditCardSpendingSchema()
-
-    def save(self):
-        dao = CreditCardSpendingDAO('dev')
-        dao.save(self.schema.dump(self))
-        print("Object Saved")
 
 FinancialCreditCardSpendingSchema = marshmallow_dataclass.class_schema(FinancialCreditCardSpending)
-
 
 
 @dataclass
@@ -123,15 +89,5 @@ class FinancialProfile:
     iof: str = ""
     overdraft_interest: str = ""
 
-    def __post_init__(self):
-        print("ON POST INIT")
-        self.schema = FinancialProfileSchema()
-
-    def save(self):
-        dao = FinancialProfileDAO('dev')
-        dao.save(self.schema.dump(self))
-        print("Object Saved")
 
 FinancialProfileSchema = marshmallow_dataclass.class_schema(FinancialProfile)
-
-
