@@ -6,6 +6,8 @@ from shared.factory.klavi_report import build_report_from_klavi_payload
 from shared.exports.klavi_report import export_klavi_report_to_excel
 import json
 import io
+import boto3
+s3client = boto3.client('s3')
 
 
 class MidKlavi(Handler):
@@ -25,9 +27,14 @@ class MidKlavi(Handler):
         print("Report from Database is")
         print(report_from_database)
         excel_file_buffer = io.BytesIO()
-        excel_file = export_klavi_report_to_excel(report_from_database, '/home/silvio/temp/excel_test.xlsx')
-        excel_file_buffer.close()
+        export_klavi_report_to_excel(report_from_database, excel_file_buffer)
+       # excel_file_buffer.close()
         print("FIM")
+        name = 'silvio-dev/teste.xlsx'
+        url_arquivo = "https://silvio-dev.s3.amazonaws.com/silvio-dev/teste.xlsx"
+
+        s3client.put_object(Body=excel_file_buffer.getvalue(), ContentType='application/excel', Bucket="silvio-dev", Key=name)
+        excel_file_buffer.close()
 
         # 1 - Identificar Relatorio
         # 2 - Parsiar o Relatorio
@@ -37,7 +44,7 @@ class MidKlavi(Handler):
         # 6 - Fazer Upload no S3
         # 7 - Adicionar URL do S3 no Card do Pipefy
 
-        return Result(HTTPStatus.OK, {"message": "hello world Novo"})
+        return Result(HTTPStatus.OK, {"message": "hello world Novo", "url": url_arquivo})
 
 
 def lambda_handler(event, context):

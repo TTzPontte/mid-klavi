@@ -53,9 +53,9 @@ payload_category_checking = {
 if __name__ == "__main__":
     report_repository = KlaviReportRepository()
     klavi_report = build_report_from_klavi_payload(payload_category_checking)
-    #report_from_database = report_repository.getByReportId('399eba11-059e-4286-a164-4383f7e20a0c', '12345678901')
+    report_from_database = report_repository.getByReportId('399eba11-059e-4286-a164-4383f7e20a0c', '12345678901')
     excel_file_buffer = io.BytesIO()
-    excel_file = export_klavi_report_to_excel(klavi_report, '/home/silvio/temp/excel_test.xlsx')
+    excel_file = export_klavi_report_to_excel(klavi_report, excel_file_buffer)
     excel_file_buffer.close()
 
 
