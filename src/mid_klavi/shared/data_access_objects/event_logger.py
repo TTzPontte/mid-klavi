@@ -4,7 +4,7 @@ from boto3.dynamodb.conditions import Key
 
 class EventLoggerDAO(DynamoDbORM):
     def __init__(self, env):
-        super().__init__(env, 'EventLogger')
+        super().__init__(env, 'MidKlavi-EventLogger-staging')
 
     def log_event(self, event: dict):
         self.put(event)

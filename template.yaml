@@ -18,6 +18,7 @@ Parameters:
       - staging
       - prod
       - refactoring
+    Default: staging
 
 Globals:
   Function:
@@ -39,81 +40,53 @@ Globals:
     Variables:
       Environment: !Ref Environment
 
+Conditions:
+  Prod: !Equals [!Ref Environment, prod]
+
 Resources:
+  #Aqui eu estou configurando um novo dominio customizado para o api gateway. No caso midklavi-staging.pontte.com.br
+  # APIDOMAIN NAME é CLOUDFormation
+  APIDomainName:
+    Type: 'AWS::ApiGateway::DomainName'
+    Properties:
+      DomainName: !If [ Prod, 'midklavi.pontte.com.br', !Sub 'midklavi-${Environment}.pontte.com.br' ]
+      CertificateArn: 'arn:aws:acm:us-east-1:848638426587:certificate/639f5ab2-c77a-4f62-8250-c85716a6753f'
+
+  # Cria uma coleção de recursos do api gateway
+  # SERVELESS::API é SAM
   KlaviApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: !Ref Environment
-      Name: KlaviApi
+      Name: !Sub "KlaviApi-${Environment}"
       Variables:
         ENV: !Ref Environment
 
+  # Cria uma base path para a nossa api gateway
+  # CLOUD FORMATION
   KlaviApiMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      DomainName: !GetAtt KlaviApi.DomainName
+      DomainName: !Ref APIDomainName
       RestApiId: !Ref KlaviApi
-      Stage: !Ref KlaviApi.StageName
-      BasePath: api
+      Stage: !Ref KlaviApi.Stage
+      BasePath: "api"
 
-#  EventLogerTable:
-#    Type: AWS::DynamoDB::Table
-#    Properties:
-#      TableName: Klavi_EventLoger
-#      AttributeDefinitions:
-#        - AttributeName: id
-#          AttributeType: S
-#      KeySchema:
-#        - AttributeName: id
-#          KeyType: HASH
-#      ProvisionedThroughput:
-#        ReadCapacityUnits: 1
-#        WriteCapacityUnits: 1
-
-#  CreateFunction:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: create
-#      CodeUri: src/klavi_webhook/
-#      Handler: app.lambda_handler
-#      Events:
-#        CreateApi:
-#          Type: Api
-#          Properties:
-#            Path: /create
-#            Method: GET
-#      Environment:
-#        Variables:
-#          TABLE_NAME: !Ref EventLogerTable
-
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: HelloWorldFn
-      CodeUri: src/hello_world/
-      Handler: app.lambda_handler
-      Events:
-        CreateApi:
-          Type: Api
-          Properties:
-            Path: /hello
-            Method: GET
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref EventLogerTable
-
+  # Cria uma lambda e conecta a um evento de entrada
+  # SAM
   MidKlaviFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: MidKlaviFunction
+      FunctionName: !Sub 'MidKlavi-EventLoggerFn-${Environment}'
       CodeUri: src/mid_klavi/
       Handler: app.lambda_handler
       Events:
         CreateApi:
           Type: Api
           Properties:
-            Path: /create
-            Method: GET
+            RestApiId: !Ref KlaviApi
+            Path: "/create"
+            Method: POST
       Environment:
         Variables:
           TABLE_NAME: !Ref EventLoggerTable
@@ -124,23 +97,11 @@ Resources:
   EventLoggerTable:
     Type: AWS::DynamoDB::Table
     Properties:
+      BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
-        - AttributeName: "connection_id"
-          AttributeType: "S"
-        - AttributeName: "connection_key"
-          AttributeType: "S"
-        - AttributeName: "institution_id"
-          AttributeType: "S"
-        - AttributeName: "enquiry_cpf"
-          AttributeType: "S"
-        - AttributeName: "report_time"
-          AttributeType: "S"
-        - AttributeName: "payload"
-          AttributeType: "S"
+        - AttributeName: id
+          AttributeType: S
       KeySchema:
-        - AttributeName: "id"
-          KeyType: "HASH"
-      ProvisionedThroughput:
-        ReadCapacityUnits: "1"
-        WriteCapacityUnits: "1"
-      TableName: "EventLogger"
+        - AttributeName: id
+          KeyType: HASH
+      TableName: !Sub 'MidKlavi-EventLogger-${Environment}'
