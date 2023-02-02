@@ -106,3 +106,6 @@ build:
 start:
 	make build
 	make server
+
+deploy:
+	sam deploy --guided --debug --parameter-overrides ProjectName=Klavi Region=us-east-1 Environment=staging

@@ -38,6 +38,7 @@ Globals:
       AllowOrigin: "'*'"
     Variables:
       Environment: !Ref Environment
+
 Conditions:
   Prod: !Equals [ !Ref Environment, prod ]
 
@@ -46,8 +47,7 @@ Resources:
   APIDomainName:
     Type: "AWS::ApiGateway::DomainName"
     Properties:
-      DomainName:
-        !If [ Prod, "api-klavi.com.br", !Sub "api-klavi-{Ambiente}.pontte.com.br" ]
+      DomainName: !Sub "api-klavi${Environment}.pontte.com.br"
       CertificateArn: "arn:aws:acm:us-east-1:848638426587:certificate/639f5ab2-c77a-4f62-8250-c85716a6753f"
 
   # Acessos para log
@@ -74,12 +74,12 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       Name: !Sub "KlaviApi-${Environment}"
-      StageName: !If [ Prod, !Ref StageName, !Ref Environment ]
+      StageName: !Ref Environment
 
   KlaviApiMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: "V1"
+      BasePath: "KlaviApiMapping"
       DomainName: !Ref APIDomainName
       RestApiId: !Ref KlaviApi
       Stage: !Ref KlaviApi.Stage
@@ -88,12 +88,14 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: HelloWorldFn
+      Tracing: Active
       CodeUri: src/hello_world/
       Handler: app.lambda_handler
       Events:
-        CreateApi:
+        api1:
           Type: Api
           Properties:
+            RestApiId: !Ref KlaviApi
             Path: /hello
             Method: GET
 
