@@ -17,7 +17,7 @@ def read(filename):
 setup(
     name="mid-klavi",
     version="0.1.0",
-    url="https://github.com/aws-samples/sam-python-crud-sample",
+    url="https://github.com/pontte/mid-klavi/",
     license='MIT',
     author="Pontte",
     author_email="",

@@ -39,63 +39,63 @@ Globals:
     Variables:
       Environment: !Ref Environment
 
+Conditions:
+  Prod: !Equals [ !Ref Environment, prod ]
+
 Resources:
+  # Domínio para o API Gateway
+  APIDomainName:
+    Type: "AWS::ApiGateway::DomainName"
+    Properties:
+      DomainName: !Sub "api-klavi${Environment}.pontte.com.br"
+      CertificateArn: "arn:aws:acm:us-east-1:848638426587:certificate/639f5ab2-c77a-4f62-8250-c85716a6753f"
+
+  # Acessos para log
+  CloudWatchRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - "apigateway.amazonaws.com"
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+
+  ApiGatewayAccount:
+    Type: AWS::ApiGateway::Account
+    Properties:
+      CloudWatchRoleArn: !GetAtt CloudWatchRole.Arn
+
   KlaviApi:
     Type: AWS::Serverless::Api
     Properties:
+      Name: !Sub "KlaviApi-${Environment}"
       StageName: !Ref Environment
-      Name: KlaviApi
-      Variables:
-        ENV: !Ref Environment
 
   KlaviApiMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      DomainName: !GetAtt KlaviApi.DomainName
+      BasePath: "KlaviApiMapping"
+      DomainName: !Ref APIDomainName
       RestApiId: !Ref KlaviApi
-      Stage: !Ref KlaviApi.StageName
-      BasePath: api
-
-#  EventLogerTable:
-#    Type: AWS::DynamoDB::Table
-#    Properties:
-#      TableName: Klavi_EventLoger
-#      AttributeDefinitions:
-#        - AttributeName: id
-#          AttributeType: S
-#      KeySchema:
-#        - AttributeName: id
-#          KeyType: HASH
-#      ProvisionedThroughput:
-#        ReadCapacityUnits: 1
-#        WriteCapacityUnits: 1
-
-#  CreateFunction:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: create
-#      CodeUri: src/klavi_webhook/
-#      Handler: app.lambda_handler
-#      Events:
-#        CreateApi:
-#          Type: Api
-#          Properties:
-#            Path: /create
-#            Method: GET
-#      Environment:
-#        Variables:
-#          TABLE_NAME: !Ref EventLogerTable
+      Stage: !Ref KlaviApi.Stage
 
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: HelloWorldFn
+      Tracing: Active
       CodeUri: src/hello_world/
       Handler: app.lambda_handler
       Events:
-        CreateApi:
+        api1:
           Type: Api
           Properties:
+            RestApiId: !Ref KlaviApi
             Path: /hello
             Method: GET
       Environment:
