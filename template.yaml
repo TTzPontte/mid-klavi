@@ -98,7 +98,49 @@ Resources:
             RestApiId: !Ref KlaviApi
             Path: /hello
             Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref EventLogerTable
 
+  MidKlaviFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: MidKlaviFunction
+      CodeUri: src/mid_klavi/
+      Handler: app.lambda_handler
+      Events:
+        CreateApi:
+          Type: Api
+          Properties:
+            Path: /create
+            Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref EventLoggerTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLoggerTable
 
-
-
+  EventLoggerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "connection_id"
+          AttributeType: "S"
+        - AttributeName: "connection_key"
+          AttributeType: "S"
+        - AttributeName: "institution_id"
+          AttributeType: "S"
+        - AttributeName: "enquiry_cpf"
+          AttributeType: "S"
+        - AttributeName: "report_time"
+          AttributeType: "S"
+        - AttributeName: "payload"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: "EventLogger"
