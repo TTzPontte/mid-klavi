@@ -4,7 +4,7 @@ from boto3.dynamodb.conditions import Key
 
 class CreditCardSpendingDAO(DynamoDbORM):
     def __init__(self, env: str):
-        super().__init__(env, 'CreditCardSpending')
+        super().__init__(env, 'CreditcardSpending')
 
     def save(self, document: dict):
         self.put(document)

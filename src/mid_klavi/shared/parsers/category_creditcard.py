@@ -17,12 +17,14 @@ def parse_credit_card_payload_body(payload):
 
 
 def parse_credit_card_payload_open_statement(payload):
-        return {
+    print(payload)
+    print("Open Statement Payload")
+    return {
         'bill_amount': payload.get('bill_amount'),
         'due_date': payload.get('due_date'),
         'billing_date': payload.get('billing_date'),
         'bill_month': payload.get('bill_month')
- }
+     }
 
 
 def parse_credit_card_payload_closed_statement(payload):

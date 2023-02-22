@@ -1,4 +1,4 @@
-def parse_credit_liabilitie_body(payload):
+def parse_liabilities_payload_body(payload):
 
     return {
         'account_holder': payload.get('account_holder'),
@@ -17,13 +17,13 @@ def parse_credit_liabilitie_body(payload):
     }
 
 
-def parse_credit_card_payload_liability_stream(payload):
+def parse_liabilities_payload_payload_liability_stream(payload):
         return {
         'liability_stream_type': payload.get('liability_stream_type')
  }
 
 
-def parse_credit_card_payload_liability_transaction(payload):
+def parse_liabilities_payload_liability_transaction(payload):
     return {
         'trans_date': payload.get('trans_date'),
         'trans_amount': payload.get('trans_amount'),

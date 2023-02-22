@@ -4,7 +4,7 @@ from boto3.dynamodb.conditions import Key
 
 class FinancialInsightsDAO(DynamoDbORM):
     def __init__(self, env: str):
-        super().__init__(env, 'FinancialInsights')
+        super().__init__(env, 'FinancialInsight')
 
     def save(self, document: dict):
         self.put(document)

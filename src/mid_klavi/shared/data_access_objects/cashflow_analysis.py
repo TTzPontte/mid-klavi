@@ -2,9 +2,9 @@ from .base_dao import DynamoDbORM
 from boto3.dynamodb.conditions import Key
 
 
-class FinancialInsightsDAO(DynamoDbORM):
+class CashflowAnalysisDAO(DynamoDbORM):
     def __init__(self, env: str):
-        super().__init__(env, 'FinancialInsights')
+        super().__init__(env, 'CashflowAnalysis')
 
     def save(self, document: dict):
         self.put(document)
