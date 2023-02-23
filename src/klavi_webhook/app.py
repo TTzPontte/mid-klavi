@@ -41,17 +41,19 @@ class MidKlavi(Handler):
 
         return excel_file_buffer
 
-    def upload_excel_stream_to_s3(self, excel_stream, report_id):
-        name = "{report_id}.xlsx".format(report_id=report_id)
-        s3client.put_object(Body=excel_stream.getvalue(), ContentType='application/excel', Bucket="silvio-dev",
+    def upload_excel_stream_to_s3(self, excel_stream, report_id, report_type):
+        name = "{report_id}/{report_type}.xlsx".format(report_id=report_id, report_type=report_type)
+        bucket_name = "klavi-{env}".format(env=os.getenv("ENV"))
+        s3client.put_object(Body=excel_stream.getvalue(), ContentType='application/excel', Bucket=bucket_name,
                             Key=name)
 
-    def save_payload_as_json(self, report_id):
-        self.upload_json_object_to_s3(self.body, report_id)
+    def save_payload_as_json(self, report_id, report_type):
+        self.upload_json_object_to_s3(self.body, report_id, report_type)
 
-    def upload_json_object_to_s3(self, json_object, report_id):
-        name = "{report_id}_payload.json".format(report_id=report_id)
-        s3client.put_object(Body=json.dumps(json_object), ContentType='application/json', Bucket="silvio-dev",
+    def upload_json_object_to_s3(self, json_object, report_id, report_type):
+        name = "{report_id}/{report_type}.json".format(report_id=report_id, report_type=report_type)
+        bucket_name = "klavi-{env}".format(env=os.getenv("ENV"))
+        s3client.put_object(Body=json.dumps(json_object), ContentType='application/json', Bucket=bucket_name,
                             Key=name)
 
     def log_request(self):
@@ -64,16 +66,11 @@ class MidKlavi(Handler):
     def handler(self):
         self.log_request()
         report = self.save_payload_into_database()
-        self.save_payload_as_json(str(report.id))
+        self.save_payload_as_json(str(report.report_id), str(report.report_type))
         xls_stream = self.generate_xlsx_stream_from_report(report)
-        self.upload_excel_stream_to_s3(xls_stream, str(report.id))
+        self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
         xls_stream.close()
         return Result(HTTPStatus.OK, {"id": str(report.id)})
-        #enviroment = os.getenv('ENV')
-        #print("Envroment")
-        #print(enviroment)
-        #print("________________")
-        #return Result(HTTPStatus.OK, {"id": "OK"})
 
 
 def lambda_handler(event, context):

@@ -44,6 +44,12 @@ Conditions:
   Prod: !Equals [ !Ref Environment, prod ]
 
 Resources:
+  # Bucker para guardar os arquivos exportados pelo webhook
+  KlaviBucker:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "Klavi-${Environment}"
+
   # Domínio para o API Gateway
   APIDomainName:
     Type: "AWS::ApiGateway::DomainName"
