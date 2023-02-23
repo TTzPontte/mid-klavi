@@ -18,6 +18,7 @@ Parameters:
       - staging
       - prod
       - refactoring
+    Default: dev
 
 Globals:
   Function:
@@ -84,17 +85,91 @@ Resources:
       RestApiId: !Ref KlaviApi
       Stage: !Ref KlaviApi.Stage
 
-  HelloWorldFunction:
+
+  MidKlaviFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: HelloWorldFn
-      Tracing: Active
-      CodeUri: src/hello_world/
+      FunctionName: !Sub "KlaviWebhookFn-${Environment}"
+      CodeUri: src/klavi_webhook/
       Handler: app.lambda_handler
       Events:
-        api1:
+        CreateApi:
           Type: Api
           Properties:
-            RestApiId: !Ref KlaviApi
-            Path: /hello
+            Path: /create
             Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref EventLoggerTable
+          ENV: !Ref Environment
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLoggerTable
+
+
+  ActivitiesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "date"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        - AttributeName: "date"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: "KlaviApi-Activities-${Environment}"
+
+  EventLoggerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: !Sub "KlaviApi-EventLogger-${Environment}"
+
+  CategoryCheckingTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "report_id"
+          AttributeType: "S"
+      KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+          - AttributeName: "report_id"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: !Sub "KlaviApi-CategoryChecking-${Environment}"
+
+  TransactionDetailTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "category_d"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        - AttributeName: "category_d"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: !Sub "KlaviApi-TransactionDetail-${Environment}"
