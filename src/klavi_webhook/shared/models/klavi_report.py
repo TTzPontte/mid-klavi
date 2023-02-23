@@ -18,6 +18,7 @@ class KlaviReport:
     institution_id: str = ""
     report_version: str = ""
     report_time: str = ""
+    json_object: dict = field(default_factory=dict)
     category_checkings: list = field(default_factory=list)
     category_creditcards: list = field(default_factory=list)
     liabilities: list = field(default_factory=list)

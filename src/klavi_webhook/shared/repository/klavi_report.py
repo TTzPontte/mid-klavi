@@ -10,7 +10,7 @@ from shared.repository.financial_insight import FinancialInsightRepository
 
 from shared.data_access_objects.transaction_detail import TransactionDetailDAO
 from shared.models.transaction_detail import TransactionDetailSchema
-
+import os
 @dataclass
 class KlaviReportRepository:
     def save(self, klavi_report):
@@ -20,6 +20,15 @@ class KlaviReportRepository:
         klavi_report_schema = KlaviReportSchema()
         klavi_report_dao = KlaviReportDAO('dev')
         klavi_report_document = klavi_report_schema.dump(klavi_report)
+        bucket_name = "klavi-{env}".format(env=os.getenv("ENV"))
+        object_key = "{report_id}/{report_type}.xlsx".format(report_id=klavi_report_document["report_id"], report_type=klavi_report_document["report_type"])
+        object_url = "https://{bucket_name}.s3.amazonaws.com/{object_key}".format(bucket_name=bucket_name, object_key=object_key)
+
+        klavi_report_document["json_object"] = {
+            "bucket_name": bucket_name,
+            "object_key": object_key,
+            "object_url": object_url
+        }
 
         category_checkings_ids = []
         for category_checking in klavi_report.category_checkings:
@@ -40,6 +49,7 @@ class KlaviReportRepository:
         for financial_insight in klavi_report.financial_insights:
             financial_insight_ids.append(str(financial_insight.id))
         klavi_report_document['financial_insights'] = financial_insight_ids
+
 
         klavi_report_dao.put(klavi_report_document)
 
@@ -122,3 +132,6 @@ class KlaviReportRepository:
 
         return klavi_report
 
+
+
+{"object_key":{"S":"4b2c1648-231f-11eb-97c4-f45c899f4587/category_checking.xlsx"},"object_url":{"S":"https://klavi-dev.s3.amazonaws.com/4b2c1648-231f-11eb-97c4-f45c899f4587/category_checking.xlsx"},"bucket_name":{"S":"klavi-dev"}}
