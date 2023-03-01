@@ -14,7 +14,6 @@ def export_category_checkings_to_excel(report, writer):
         for transaction_detail in category_checking.transaction_details:
             transaction_details.append(transaction_detail_schema.dump(transaction_detail))
     data_frame_category_checkings = pandas.DataFrame(category_checkings)
-    print(transaction_details)
     data_frame_transaction_details = pandas.DataFrame(transaction_details)
     data_frame_category_checkings.to_excel(writer, sheet_name="Category Checking")
     data_frame_transaction_details.to_excel(writer, sheet_name="Transaction Detail")

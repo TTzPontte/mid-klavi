@@ -73,6 +73,8 @@ class MidKlavi(Handler):
         return Result(HTTPStatus.OK, {"id": str(report.id)})
 
 
+
 def lambda_handler(event, context):
     helper_fn()
+
     return MidKlavi(event, context).run()

@@ -1,16 +1,16 @@
 """Objetos base para os handlers."""
 import logging
 
-from aws_xray_sdk.core import patch_all
-from aws_xray_sdk.core import xray_recorder
+#from aws_xray_sdk.core import patch_all
+#from aws_xray_sdk.core import xray_recorder
 
 from .config import Config
 from .errors_lib.app_exception import AppException
 from .errors_lib.error import Errors
 from .result import Result
 
-xray_recorder.configure(service='Portal')
-patch_all()
+#xray_recorder.configure(service='Portal')
+#patch_all()
 
 config = Config()
 

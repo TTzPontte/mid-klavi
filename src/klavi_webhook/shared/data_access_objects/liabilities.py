@@ -4,10 +4,7 @@ import os
 
 
 class LiabilitiesDAO(DynamoDbORM):
-    def __init__(self, env: str):
-        table_name = "Klavi-Liabilities-{env}".format(env=os.getenv("ENV"))
+    def __init__(self):
+        env = os.getenv("ENV")
+        table_name = "Klavi-Liabilities-{env}".format(env=env)
         super().__init__(env, table_name)
-
-    def list(self, start_time: int, end_time: int):
-        filter_expression = Key('timestamp').between(start_time, end_time)
-        return self.scan(self.table_name, filter_expression=filter_expression)

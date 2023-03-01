@@ -1,12 +1,9 @@
+import pandas
 from shared.models.category_creditcard import CategoryCreditCardSchema, OpenStatementSchema, ClosedStatementSchema
 from shared.models.transaction_detail import TransactionDetailSchema
 
-import pandas
-
 
 def export_category_creditcard_to_excel(report, writer):
-    print("REPORT TO BE EXPORTED")
-    print(report)
     category_creditcard_schema = CategoryCreditCardSchema()
     open_statement_schema = OpenStatementSchema()
     closed_statement_schema = ClosedStatementSchema()
@@ -27,9 +24,11 @@ def export_category_creditcard_to_excel(report, writer):
             for transaction_detail in closed_statement.transaction_details:
                 closed_transaction_details.append(transaction_detail_schema.dump(transaction_detail))
 
-       # open_statements.append(open_statement_schema.dump(category_credicard.open_statement))
-       # for transaction_detail in category_credicard.open_statement["transaction_details"]:
-       #     open_transaction_details.append(transaction_detail_schema.dump(transaction_detail))
+        open_statements.append(open_statement_schema.dump(category_credicard.open_statement))
+
+        for transaction_detail in category_credicard.open_statement.transaction_details:
+            open_transaction_details.append(transaction_detail_schema.dump(transaction_detail))
+
 
     data_frame_category_creditcard = pandas.DataFrame(category_credicards)
     data_frame_open_statement = pandas.DataFrame(open_statements)

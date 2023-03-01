@@ -27,16 +27,7 @@ class CategoryChecking:
 
 
 class BaseClass(Schema):
-    #@pre_dump
-    #def extract_relation_ids(self, out_data, **kwargs):
-    #    category_ids = []
-    #    for category in out_data.transaction_details:
-    #        category_ids.append(str(category.id))
-    #    out_data.transaction_details = category_ids
-    #    print("Karalha")
-    #    print(out_data)
 
-   #     return out_data
     class Meta:
         exclude = ('transaction_details', )
 

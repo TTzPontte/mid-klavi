@@ -1,8 +1,14 @@
 def parse_financial_insight_payload_body(payload):
-    return {'bacen_id': payload.get('bacen_id'), 'bacen_name': payload.get('bacen_name'),
-        'bank_name': payload.get('bank_name'), 'agency_number': payload.get('agency_number'),
-        'account_number': payload.get('account_number'), 'cpf_verified': payload.get('cpf_verified'),
-        'account_holder': payload.get('account_holder'), 'days_covered': payload.get('days_covered'), }
+    return {
+        'bacen_id': payload.get('bacen_id'),
+        'bacen_name': payload.get('bacen_name'),
+        'bank_name': payload.get('bank_name'),
+        'agency_number': payload.get('agency_number'),
+        'account_number': payload.get('account_number'),
+        'cpf_verified': payload.get('cpf_verified'),
+        'account_holder': payload.get('account_holder'),
+        'days_covered': payload.get('days_covered')
+    }
 
 
 def parse_financial_insight_payload_cashflow_analysis(payload):

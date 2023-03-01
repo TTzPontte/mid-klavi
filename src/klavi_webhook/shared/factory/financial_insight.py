@@ -6,8 +6,6 @@ from shared.models.financial_insight import FinancialInsight, FinancialCashflowA
 
 def build_financial_insight_from_kavli_payload(payload):
     financial_insight = FinancialInsight(**parse_financial_insight_payload_body(payload))
-    print("FINANCIAL INSIGHT PAYLOAD")
-    print(payload)
 
     for cashflow_analysis_payload in payload['cashflowAnalysis']:
         cashflow_analysis = FinancialCashflowAnalysis(**parse_financial_insight_payload_cashflow_analysis(cashflow_analysis_payload))

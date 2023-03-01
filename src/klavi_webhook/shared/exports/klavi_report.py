@@ -26,7 +26,7 @@ def export_klavi_report_to_excel(report, output):
     print("GEROU")
 
 
-    pandas_excel_writter.close()
+    #pandas_excel_writter.close()
 
-    return output
+    return pandas_excel_writter
 
