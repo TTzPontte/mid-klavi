@@ -54,7 +54,7 @@ Resources:
   APIDomainName:
     Type: "AWS::ApiGateway::DomainName"
     Properties:
-      DomainName: !Sub "api-klavi${Environment}.pontte.com.br"
+      DomainName: !Sub "api-klaviwebhook${Environment}.pontte.com.br"
       CertificateArn: "arn:aws:acm:us-east-1:848638426587:certificate/639f5ab2-c77a-4f62-8250-c85716a6753f"
 
   # Acessos para log
