@@ -18,6 +18,7 @@ Parameters:
       - staging
       - prod
       - refactoring
+    Default: dev
 
 Globals:
   Function:
@@ -43,6 +44,12 @@ Conditions:
   Prod: !Equals [ !Ref Environment, prod ]
 
 Resources:
+  # Bucker para guardar os arquivos exportados pelo webhook
+  KlaviBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "klavi-${Environment}"
+
   # Domínio para o API Gateway
   APIDomainName:
     Type: "AWS::ApiGateway::DomainName"
@@ -79,22 +86,399 @@ Resources:
   KlaviApiMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: "KlaviApiMapping"
+      BasePath: "klavi-webhook"
       DomainName: !Ref APIDomainName
       RestApiId: !Ref KlaviApi
       Stage: !Ref KlaviApi.Stage
 
-  HelloWorldFunction:
+
+  MidKlaviFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: HelloWorldFn
+      FunctionName: !Sub "KlaviWebhookFn-${Environment}"
       Tracing: Active
-      CodeUri: src/hello_world/
+      CodeUri: src/klavi_webhook/
       Handler: app.lambda_handler
       Events:
         api1:
           Type: Api
           Properties:
             RestApiId: !Ref KlaviApi
-            Path: /hello
-            Method: GET
+            Path: /create
+            Method: POST
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref EventLoggerTable
+          ENV: !Ref Environment
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref KlaviBucket
+        - DynamoDBWritePolicy:
+            TableName: !Ref CategoryCreditCardTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref OpenStatementTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref ClosedStatementTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref CategoryCheckingTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref FinancialInsightTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref CashflowAnalysisTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref CreditAnalysisTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref CreditcardSpendingTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref FinancialProfileTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref LiabilitiesTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref LiabilityStreamTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref LiabilityTransactionTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref TransactionDetailTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref EventLoggerTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref KlaviReportTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref IdentityTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref ScoreK1Table
+        - DynamoDBWritePolicy:
+            TableName: !Ref RiskLabelTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref IncomeTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref IncomeStreamTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref IncomeTransactionTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref BalanceTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref LabelDetailTable
+
+  CategoryCreditCardTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-CategoryCreditCard-${Environment}"
+
+  OpenStatementTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-OpenStatement-${Environment}"
+
+  ClosedStatementTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-ClosedStatement-${Environment}"
+
+  CategoryCheckingTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-CategoryChecking-${Environment}"
+
+  FinancialInsightTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-FinancialInsight-${Environment}"
+
+  CashflowAnalysisTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-CashflowAnalysis-${Environment}"
+
+  CreditAnalysisTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-CreditAnalysis-${Environment}"
+
+  CreditcardSpendingTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-CreditcardSpending-${Environment}"
+
+  FinancialProfileTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-FinancialProfile-${Environment}"
+
+  LiabilitiesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-Liabilities-${Environment}"
+
+  LiabilityStreamTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-LiabilityStream-${Environment}"
+
+  LiabilityTransactionTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-LiabilityTransaction-${Environment}"
+
+  TransactionDetailTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-TransactionDetail-${Environment}"
+
+  EventLoggerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-EventLogger-${Environment}"
+
+  KlaviReportTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-KlaviReport-${Environment}"
+
+  IdentityTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-Identity-${Environment}"
+
+  ScoreK1Table:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-ScoreK1-${Environment}"
+
+  RiskLabelTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-RiskLabel-${Environment}"
+
+  IncomeTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-Income-${Environment}"
+
+  IncomeStreamTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-IncomeStream-${Environment}"
+
+  IncomeTransactionTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-IncomeTransaction-${Environment}"
+
+  BalanceTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-Balance-${Environment}"
+
+  LabelDetailTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-LabelDetail-${Environment}"
+

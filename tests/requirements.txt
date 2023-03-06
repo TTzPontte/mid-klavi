@@ -1,3 +1,11 @@
 pytest
+pytest-cov
 boto3
+moto
 requests
+aws_xray_sdk
+marshmallow
+marshmallow-dataclass
+wheel
+pandas
+openpyxl

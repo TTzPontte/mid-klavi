@@ -44,16 +44,16 @@ Parameters:
     Default: "us-east-1"
   TestingStackName:
     Type: String
-    Default: "mid-klavi-staging"
+    Default: "mid-klavi-dev"
   TestingPipelineExecutionRole:
     Type: String
-    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-midklavi-PipelineExecutionRole-1R7DLELZR62TS"
+    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-dev-pipe-PipelineExecutionRole-1323GQ87Z13BZ"
   TestingCloudFormationExecutionRole:
     Type: String
-    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-midkl-CloudFormationExecutionR-19THICHFSHVCA"
+    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-dev-p-CloudFormationExecutionR-5QL00UDDKJ2H"
   TestingArtifactBucket:
     Type: String
-    Default: "aws-sam-cli-managed-midklavi-stag-artifactsbucket-1xql7ps7sy3w2"
+    Default: "aws-sam-cli-managed-dev-pipeline-artifactsbucket-qajrvtfd8w23"
   TestingImageRepository:
     Type: String
     # If there are functions with "Image" PackageType in your template,
@@ -65,16 +65,16 @@ Parameters:
     Default: "us-east-1"
   ProdStackName:
     Type: String
-    Default: "mid-klavi-prod"
+    Default: "mid-klavi-staging"
   ProdPipelineExecutionRole:
     Type: String
-    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-midklavi-PipelineExecutionRole-10EU8WYN4JX67"
+    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-staging-PipelineExecutionRole-1S3X9M2C3XWY"
   ProdCloudFormationExecutionExeRole:
     Type: String
-    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-midkl-CloudFormationExecutionR-8GWNHS7IA8MV"
+    Default: "arn:aws:iam::848638426587:role/aws-sam-cli-managed-stagi-CloudFormationExecutionR-1MWG1SMULSG1C"
   ProdArtifactBucket:
     Type: String
-    Default: "aws-sam-cli-managed-midklavi-prod-artifactsbucket-kw218wq7p519"
+    Default: "aws-sam-cli-managed-staging-pipel-artifactsbucket-nxwjsyr346c7"
   ProdImageRepository:
     Type: String
     # If there are functions with "Image" PackageType in your template,
