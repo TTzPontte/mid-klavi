@@ -12,6 +12,7 @@ from shared.repository.balance import BalanceRepository
 from shared.repository.identity import IdentityRepository
 from shared.repository.score_k1 import ScoreK1Repository
 from shared.repository.risk_label import RiskLabelRepository
+#from shared.data_access_objects.category_checking import Category
 
 from shared.data_access_objects.transaction_detail import TransactionDetailDAO
 from shared.models.transaction_detail import TransactionDetailSchema
@@ -75,10 +76,10 @@ class KlaviReportRepository:
         klavi_report_dao.put(klavi_report_document)
 
         if klavi_report.report_type == "category_checking":
-            category_checking_repository = CategoryCheckingRepository()
+            category_checking_dao = CategoryCheckingDAO()
             for category_checking in klavi_report.category_checkings:
                 category_checking.report_id = klavi_report.id
-                category_checking_repository.save(category_checking)
+                category_checking_dao.save(category_checking)
 
         if klavi_report.report_type == "category_creditcard":
             category_creditcard_repository = CategoryCreditCardRepository()

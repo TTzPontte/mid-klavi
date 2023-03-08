@@ -8,23 +8,23 @@ from shared.models.transaction_detail import TransactionDetailSchema
 @dataclass
 class CategoryCheckingRepository:
     def save(self, document):
-        category_checking_schema = CategoryCheckingSchema()
-        transaction_detail_schema = TransactionDetailSchema()
-        category_document = category_checking_schema.dump(document)
+        #category_checking_schema = CategoryCheckingSchema()
+        #transaction_detail_schema = TransactionDetailSchema()
+        #category_document = category_checking_schema.dump(document)
 
-        transaction_detail_ids = []
-        for transaction_detail in document.transaction_details:
-            transaction_detail_ids.append(str(transaction_detail.id))
-        category_document['transaction_details'] = transaction_detail_ids
+        #transaction_detail_ids = []
+        #for transaction_detail in document.transaction_details:
+        #    transaction_detail_ids.append(str(transaction_detail.id))
+        #category_document['transaction_details'] = transaction_detail_ids
         category_dao = CategoryCheckingDAO()
-        transaction_detail_dao = TransactionDetailDAO()
-        category_dao.save(category_document)
-        transactions = document.transaction_details
+        #transaction_detail_dao = TransactionDetailDAO()
+        category_dao.save(document)
+        #transactions = document.transaction_details
 
-        for transaction_detail in transactions:
-            transaction_detail_data = transaction_detail_schema.dump(transaction_detail)
-            transaction_detail_data['category_id'] = str(document.id)
-            transaction_detail_dao.save(transaction_detail_data)
+        #for transaction_detail in transactions:
+        #    transaction_detail_data = transaction_detail_schema.dump(transaction_detail)
+        #    transaction_detail_data['category_id'] = str(document.id)
+        #    transaction_detail_dao.save(transaction_detail_data)
 
     def getByReportId(self, report_id):
         category_checking_dao = CategoryCheckingDAO()

@@ -48,7 +48,7 @@ class DynamoDbORM:
         return items
 
     def put(self, item):
-        self.table.put_item(Item=item)
+        return self.table.put_item(Item=item)
 
     def update(self, key, updates):
         update_expression = "set " + ", ".join(f"{k} = :{k}" for k in updates.keys())

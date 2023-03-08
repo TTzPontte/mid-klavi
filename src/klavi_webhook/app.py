@@ -1,12 +1,13 @@
 from http import HTTPStatus
 from shared.helpers.handler_base import Handler, Result
 from shared.helpers.hw_helper import helper_fn
+from src.klavi_webhook.shared.models.new_models.klavi_report import KlaviReport
+from shared.data_access_objects.klavi_report import KlaviReportDAO
 from shared.repository.klavi_report import KlaviReportRepository
 from shared.repository.event_logger import EventLoggerRepository
 from shared.factory.klavi_report import build_report_from_klavi_payload
 from shared.factory.event_logger import build_event_logger_from_klavi_payload
 from shared.exports.klavi_report import export_klavi_report_to_excel
-from shared.parsers.event_logger import parse_payload_into_logger_object
 import json
 import io
 import boto3
@@ -21,10 +22,17 @@ class MidKlavi(Handler):
         if self.event['body']:
             self.body = json.loads(self.event['body'])
 
-    def save_payload_into_database(self):
+    def save_payload_into_database_old(self):
         report = build_report_from_klavi_payload(self.body)
         report_repository = KlaviReportRepository()
         report_repository.save(report)
+
+        return report
+
+    def save_payload_into_database(self):
+        report = KlaviReport.from_payload(self.body)
+        klavi_report_dao = KlaviReportDAO()
+        klavi_report_dao.save(report)
 
         return report
 
@@ -64,12 +72,13 @@ class MidKlavi(Handler):
         return event_logger
 
     def handler(self):
-        self.log_request()
+        print("Ta atualizado")
+#        self.log_request()
         report = self.save_payload_into_database()
-        self.save_payload_as_json(str(report.report_id), str(report.report_type))
-        xls_stream = self.generate_xlsx_stream_from_report(report)
-        self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
-        xls_stream.close()
+#        self.save_payload_as_json(str(report.report_id), str(report.report_type))
+#        xls_stream = self.generate_xlsx_stream_from_report(report)
+#        self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
+#        xls_stream.close()
         return Result(HTTPStatus.OK, {"id": str(report.id)})
 
 
