@@ -22,6 +22,7 @@ class KlaviReportRepository:
         klavi_report_schema = KlaviReportSchema()
         klavi_report_dao = KlaviReportDAO()
         klavi_report_document = klavi_report_schema.dump(klavi_report)
+        # @TODO Can use "extract function" refactor here
         bucket_name = "klavi-{env}".format(env=os.getenv("ENV"))
         object_key = "{report_id}/{report_type}.xlsx".format(report_id=klavi_report_document["report_id"], report_type=klavi_report_document["report_type"])
         object_url = "https://{bucket_name}.s3.amazonaws.com/{object_key}".format(bucket_name=bucket_name, object_key=object_key)

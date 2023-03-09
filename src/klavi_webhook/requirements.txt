@@ -5,3 +5,4 @@ marshmallow-dataclass
 wheel
 pandas
 openpyxl
+requests

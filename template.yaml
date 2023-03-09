@@ -20,6 +20,11 @@ Parameters:
       - refactoring
     Default: dev
 
+  PipefyDatabaseID:
+    Description: ID of Database used to save klavi report information inside of Pipefy
+    Type: String
+    Default: "303051866"
+
 Globals:
   Function:
     Runtime: python3.8
@@ -109,6 +114,8 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: !Ref EventLoggerTable
+          KLAVI_REPORTS_BUCKET_NAME: !Sub "klavi-${Environment}"
+          PIPEFY_KLAVI_DATABASE_ID: !Ref PipefyDatabaseID
           ENV: !Ref Environment
       Policies:
         - S3CrudPolicy:

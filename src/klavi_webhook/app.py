@@ -5,8 +5,10 @@ from shared.repository.klavi_report import KlaviReportRepository
 from shared.repository.event_logger import EventLoggerRepository
 from shared.factory.klavi_report import build_report_from_klavi_payload
 from shared.factory.event_logger import build_event_logger_from_klavi_payload
-from shared.exports.klavi_report import export_klavi_report_to_excel
+from shared.exports.klavi_report import export_klavi_report_to_excel, export_klavi_report_to_pipefy_database
 from shared.parsers.event_logger import parse_payload_into_logger_object
+from shared.helpers.email import send_simple_mail
+
 import json
 import io
 import boto3
@@ -43,7 +45,8 @@ class MidKlavi(Handler):
 
     def upload_excel_stream_to_s3(self, excel_stream, report_id, report_type):
         name = "{report_id}/{report_type}.xlsx".format(report_id=report_id, report_type=report_type)
-        bucket_name = "klavi-{env}".format(env=os.getenv("ENV"))
+        bucket_name = os.getenv("KLAVI_REPORTS_BUCKET_NAME")
+
         s3client.put_object(Body=excel_stream.getvalue(), ContentType='application/excel', Bucket=bucket_name,
                             Key=name)
 
@@ -52,7 +55,7 @@ class MidKlavi(Handler):
 
     def upload_json_object_to_s3(self, json_object, report_id, report_type):
         name = "{report_id}/{report_type}.json".format(report_id=report_id, report_type=report_type)
-        bucket_name = "klavi-{env}".format(env=os.getenv("ENV"))
+        bucket_name = os.getenv("KLAVI_REPORTS_BUCKET_NAME")
         s3client.put_object(Body=json.dumps(json_object), ContentType='application/json', Bucket=bucket_name,
                             Key=name)
 
@@ -64,13 +67,18 @@ class MidKlavi(Handler):
         return event_logger
 
     def handler(self):
-        self.log_request()
-        report = self.save_payload_into_database()
-        self.save_payload_as_json(str(report.report_id), str(report.report_type))
-        xls_stream = self.generate_xlsx_stream_from_report(report)
-        self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
-        xls_stream.close()
-        return Result(HTTPStatus.OK, {"id": str(report.id)})
+        try:
+            self.log_request()
+            report = self.save_payload_into_database()
+            export_klavi_report_to_pipefy_database(report)
+            self.save_payload_as_json(str(report.report_id), str(report.report_type))
+            xls_stream = self.generate_xlsx_stream_from_report(report)
+            self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
+            xls_stream.close()
+            return Result(HTTPStatus.OK, {"id": str(report.id)})
+        except:
+            send_simple_mail("Klavi Unexpected Error", "Unexpected Error occurred", "ujinrowatany@gmail.com")
+            return Result(HTTPStatus.BAD_REQUEST, {"error": "unexpect error occurred."})
 
 
 
