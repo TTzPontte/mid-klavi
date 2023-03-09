@@ -51,7 +51,7 @@ def export_klavi_report_to_pipefy_database(report):
     if report.report_type == "category_checking":
         title = report.category_checkings[0].holder_name
     if report.report_type == "income":
-        title = report.income[0].holder_name
+        title = report.income[0].account_holder
     received_response = pipefy_client.insert_into_database(new_item, database_id, title)
     print("Response From pipefy")
     print(received_response.text)
