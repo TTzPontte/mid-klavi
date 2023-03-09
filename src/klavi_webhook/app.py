@@ -45,7 +45,8 @@ class MidKlavi(Handler):
 
     def upload_excel_stream_to_s3(self, excel_stream, report_id, report_type):
         name = "{report_id}/{report_type}.xlsx".format(report_id=report_id, report_type=report_type)
-        bucket_name = "silvio-jr-klavi-{env}".format(env=os.getenv("ENV"))
+        bucket_name = os.getenv("KLAVI_REPORTS_BUCKET_NAME")
+
         s3client.put_object(Body=excel_stream.getvalue(), ContentType='application/excel', Bucket=bucket_name,
                             Key=name)
 
@@ -54,7 +55,7 @@ class MidKlavi(Handler):
 
     def upload_json_object_to_s3(self, json_object, report_id, report_type):
         name = "{report_id}/{report_type}.json".format(report_id=report_id, report_type=report_type)
-        bucket_name = "silvio-jr-klavi-{env}".format(env=os.getenv("ENV"))
+        bucket_name = os.getenv("KLAVI_REPORTS_BUCKET_NAME")
         s3client.put_object(Body=json.dumps(json_object), ContentType='application/json', Bucket=bucket_name,
                             Key=name)
 

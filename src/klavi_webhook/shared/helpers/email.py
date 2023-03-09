@@ -3,7 +3,7 @@ import boto3
 def send_simple_mail(subject, content, destination):
     ses_client = boto3.client("ses")
     ses_client.send_email(
-        Source="ujinrowatany@gmail.com",
+        Source="silvio.junior@pontte.com.br",
         Destination={
             "ToAddresses": [destination]
         },

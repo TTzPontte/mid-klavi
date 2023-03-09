@@ -20,12 +20,7 @@ class PipefyClient:
             'content-type': "application/json"
         }
 
-        print("My Variales")
-        print(mutation_variables)
-        print("__OPA___")
-
-        response = requests.request("POST", url, json={"query": create_table_record_mutation, "variables": mutation_variables}, headers=headers)
-        print(response.text)
+        requests.request("POST", url, json={"query": create_table_record_mutation, "variables": mutation_variables}, headers=headers)
 
 
 if __name__ == "__main__":
