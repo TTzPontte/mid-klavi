@@ -22,6 +22,8 @@ class MidKlavi(Handler):
     def pre_process(self):
         if self.event['body']:
             self.body = json.loads(self.event['body'])
+        else:
+            self.body = None
 
     def save_payload_into_database(self):
         report = build_report_from_klavi_payload(self.body)
@@ -67,7 +69,7 @@ class MidKlavi(Handler):
         return event_logger
 
     def handler(self):
-        if "body" not in self:
+        if self.body is None:
             return Result(HTTPStatus.OK, {"message": "no body sent"})
         print("Received Event")
         print(self.event)
