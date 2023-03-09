@@ -1,5 +1,5 @@
 import os
-
+import json
 from shared.models.klavi_report import KlaviReportExcelSchema
 from shared.exports.category_checking import export_category_checkings_to_excel
 from shared.exports.category_creditcard import export_category_creditcard_to_excel
@@ -47,4 +47,39 @@ def export_klavi_report_to_pipefy_database(report):
         {"field_id": "cpf_cnpj", "field_value": report.enquiry_cpf}
     ]
     pipefy_client = PipefyClient()
-    pipefy_client.insert_into_database(new_item, database_id)
+    title = "unknow"
+    if report.report_type == "category_checking":
+        title = report.category_checkings[0].holder_name
+    if report.report_type == "income":
+        title = report.income[0].holder_name
+    received_response = pipefy_client.insert_into_database(new_item, database_id, title)
+    print("Response From pipefy")
+    print(received_response.text)
+    json_response = json.loads(received_response.text)
+    print("Le JSON Response")
+    print(json_response)
+    record_id = json_response.get("data").get("createTableRecord").get("table_record").get("id")
+    print("Le Record ID")
+    print(record_id)
+    pipe_id = "303051849"
+    card_data = [
+        {"field_id": 'cpf_cnpj', "field_value": report.enquiry_cpf},
+        {"field_id": "nome", "field_value": title}
+    ]
+    if report.report_type == "category_checking":
+        card_data.append(
+            {
+                "field_id": "category_checking",
+                "field_value": [record_id]
+            }
+        )
+    if report.report_type == "income":
+        card_data.append(
+            {
+                "field_id": "income",
+                "field_value": [record_id]
+            }
+        )
+    card_save_response = pipefy_client.create_card_into_pipe(card_data, pipe_id)
+    print("Card Save Response")
+    print(card_save_response.text)

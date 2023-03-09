@@ -7,3 +7,13 @@ create_table_record_mutation = """
       }
     }
 """
+
+create_card_into_pipe_mutation = """
+mutation CreateCard($pipe_id: ID!, $fields_attributes: [FieldValueInput]!) {
+      createCard(input: { pipe_id: $pipe_id, fields_attributes: $fields_attributes }) {
+        card {
+          id
+        }
+      }
+    }
+"""
