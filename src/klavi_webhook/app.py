@@ -67,18 +67,18 @@ class MidKlavi(Handler):
         return event_logger
 
     def handler(self):
-        try:
-            self.log_request()
-            report = self.save_payload_into_database()
-            export_klavi_report_to_pipefy_database(report)
-            self.save_payload_as_json(str(report.report_id), str(report.report_type))
-            xls_stream = self.generate_xlsx_stream_from_report(report)
-            self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
-            xls_stream.close()
-            return Result(HTTPStatus.OK, {"id": str(report.id)})
-        except:
-            send_simple_mail("Klavi Unexpected Error", "Unexpected Error occurred", "ujinrowatany@gmail.com")
-            return Result(HTTPStatus.BAD_REQUEST, {"error": "unexpect error occurred."})
+#        try:
+        self.log_request()
+        report = self.save_payload_into_database()
+        export_klavi_report_to_pipefy_database(report)
+        self.save_payload_as_json(str(report.report_id), str(report.report_type))
+        xls_stream = self.generate_xlsx_stream_from_report(report)
+        self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
+        xls_stream.close()
+        return Result(HTTPStatus.OK, {"id": str(report.id)})
+#        except:
+#            send_simple_mail("Klavi Unexpected Error", "Unexpected Error occurred", "ujinrowatany@gmail.com")
+#            return Result(HTTPStatus.BAD_REQUEST, {"error": "unexpect error occurred."})
 
 
 

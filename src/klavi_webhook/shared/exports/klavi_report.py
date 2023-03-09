@@ -34,7 +34,7 @@ def export_klavi_report_to_pipefy_database(report):
     bucket_name = os.getenv("KLAVI_REPORTS_BUCKET_NAME")
     excel_object_key = "{report_id}/{report_type}.xlsx".format(report_id=report.report_id,
                                                          report_type=report.report_type)
-    json_object_key = "{report_id}/{report_type}.xlsx".format(report_id=report.report_id,
+    json_object_key = "{report_id}/{report_type}.json".format(report_id=report.report_id,
                                                                report_type=report.report_type)
     excel_object_url = "https://{bucket_name}.s3.amazonaws.com/{object_key}".format(bucket_name=bucket_name,
                                                                               object_key=excel_object_key)
