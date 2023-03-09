@@ -67,6 +67,10 @@ class MidKlavi(Handler):
         return event_logger
 
     def handler(self):
+        print("Received Event")
+        print(self.event)
+        print("Received Context")
+        print(self._context)
 #        try:
         self.log_request()
         report = self.save_payload_into_database()
