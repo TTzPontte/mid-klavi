@@ -24,6 +24,10 @@ Parameters:
     Description: ID of Database used to save klavi report information inside of Pipefy
     Type: String
     Default: "303051866"
+  PipefyPipeID:
+    Description: ID of Database used to save klavi report information inside of Pipefy
+    Type: String
+    Default: "303051849"
 
 Globals:
   Function:
@@ -114,8 +118,9 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: !Ref EventLoggerTable
-          KLAVI_REPORTS_BUCKET_NAME: !Sub "klavi-${Environment}"
+          KLAVI_REPORTS_BUCKET_NAME: !Sub "silvio-jr-klavi-${Environment}"
           PIPEFY_KLAVI_DATABASE_ID: !Ref PipefyDatabaseID
+          PIPEFY_KLAVI_PIPE_ID: !Ref PipefyPipeID
           ENV: !Ref Environment
       Policies:
         - S3CrudPolicy:
