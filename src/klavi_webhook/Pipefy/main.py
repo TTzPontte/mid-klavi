@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Dict, List
 
-from src.klavi_webhook.shared.helpers.graphql.GqlClient import PipefyClient
-from src.klavi_webhook.shared.helpers.graphql.schemas.queries import get_cards_from_phase
+from shared.helpers.graphql.GqlClient import PipefyClient
+from shared.helpers.graphql.schemas.queries import get_cards_from_phase
 
 
 @dataclass
@@ -80,6 +80,7 @@ def main(input_data, enquiry_cpf):
 
     related_card = data_facade.find_related_card_by_cpf(enquiry_cpf)
     print("related_card", related_card)
+    return related_card
 
 
 if __name__ == '__main__':
