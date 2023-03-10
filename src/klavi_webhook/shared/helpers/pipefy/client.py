@@ -1,26 +1,23 @@
 import requests
 
 from dataclasses import dataclass
+
+from src.klavi_webhook.Pipefy.secrets import API_KEY
 from .mutations import create_table_record_mutation
 
-API_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDEyNjA0NzYsImVtYWlsIjoiZGV2QHBvbnR0ZS5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjEyMzk2fX0.iGh6T7W-nvhk-wA3JwH24HUAUHoGBxAVn_vfnx_nmy7XMGrK9_PZpfc9UBv4oU0B29756zGshKqyWRc921zJZg"
 
 @dataclass
 class PipefyClient:
+    API_KEY: str = API_KEY
+    def post(self, query, variables):
 
-    def insert_into_database(self, document, database_id):
-        mutation_variables = {
-            "table_id": database_id,
-            "title": "test-silvio",
-            "values": document
-        }
         url = "https://api.pipefy.com/graphql"
         headers = {
-            'authorization': f"Bearer {API_TOKEN}",
+            'authorization': f"Bearer {API_KEY}",
             'content-type': "application/json"
         }
 
-        requests.request("POST", url, json={"query": create_table_record_mutation, "variables": mutation_variables}, headers=headers)
+        return requests.request("POST", url, json={"query": query, "variables": variables}, headers=headers)
 
 
 if __name__ == "__main__":

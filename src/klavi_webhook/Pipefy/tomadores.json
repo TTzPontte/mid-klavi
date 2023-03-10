@@ -1,0 +1,31 @@
+
+{
+  "data": {
+    "pipe": {
+      "id": "301974069",
+      "name": "Esteira HE - Dev",
+      "phases": [
+        {
+          "id": "312957677",
+          "name": "Enviando Bacen",
+          "uuid": "89324692-7d69-45b5-843b-05f38516331c",
+          "sequentialId": "10",
+          "fields": [
+            {
+              "id": "todos_os_bacens_assinados",
+              "index_name": "field_17_string"
+            },
+            {
+              "id": "bacens",
+              "index_name": "field_47_string"
+            },
+            {
+              "id": "tomadores_do_emprestimo",
+              "index_name": "field_5_connector"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

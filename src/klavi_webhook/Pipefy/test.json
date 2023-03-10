@@ -1,0 +1,235 @@
+{
+  "data": {
+    "phase": {
+      "id": "312957677",
+      "name": "Enviando Bacen",
+      "cards_count": 1,
+      "cards": {
+        "edges": [
+          {
+            "node": {
+              "fields": [
+                {
+                  "field": {
+                    "id": "utm_parameters",
+                    "index_name": "field_3_connector"
+                  },
+                  "name": "UTM_parameters",
+                  "value": "[\"472787644\"]"
+                },
+                {
+                  "field": {
+                    "id": "documentos_im_vel",
+                    "index_name": "field_113_string"
+                  },
+                  "name": "Documentos Imóvel",
+                  "value": "[]"
+                },
+                {
+                  "field": {
+                    "id": "n_mero_de_parcelas",
+                    "index_name": "field_9_number"
+                  },
+                  "name": "Número de Parcelas",
+                  "value": "60"
+                },
+                {
+                  "field": {
+                    "id": "valor_da_opera_o",
+                    "index_name": "field_7_number"
+                  },
+                  "name": "Valor da Operação",
+                  "value": "40,000.00"
+                },
+                {
+                  "field": {
+                    "id": "o_empr_stimo_ser_em_nome_de",
+                    "index_name": "field_70_string"
+                  },
+                  "name": "O empréstimo será em nome de:",
+                  "value": "Pessoa Física"
+                },
+                {
+                  "field": {
+                    "id": "nome_do_cliente",
+                    "index_name": "field_71_string"
+                  },
+                  "name": "Nome do cliente",
+                  "value": "Leandro Teste"
+                },
+                {
+                  "field": {
+                    "id": "e_mail_do_cliente",
+                    "index_name": "field_82_string"
+                  },
+                  "name": "E-mail do cliente",
+                  "value": "leandro+testepipefy@pontte.com.br"
+                },
+                {
+                  "field": {
+                    "id": "data_de_nascimento",
+                    "index_name": "field_4_date"
+                  },
+                  "name": "Data de Nascimento ",
+                  "value": "30/11/1995"
+                },
+                {
+                  "field": {
+                    "id": "renda_cliente",
+                    "index_name": "field_20_number"
+                  },
+                  "name": "Renda Cliente",
+                  "value": "5,000.00"
+                },
+                {
+                  "field": {
+                    "id": "cpf_do_cliente",
+                    "index_name": "field_75_string"
+                  },
+                  "name": "CPF do cliente",
+                  "value": "29157066035"
+                },
+                {
+                  "field": {
+                    "id": "fonte_da_renda",
+                    "index_name": "field_83_string"
+                  },
+                  "name": "Fonte da Renda",
+                  "value": "Assalariado e Empresário"
+                },
+                {
+                  "field": {
+                    "id": "telefone_cliente",
+                    "index_name": "field_84_string"
+                  },
+                  "name": "Telefone Cliente",
+                  "value": "+5511976380163"
+                },
+                {
+                  "field": {
+                    "id": "estado_civil",
+                    "index_name": "field_85_string"
+                  },
+                  "name": "Estado Civil",
+                  "value": "Solteiro"
+                },
+                {
+                  "field": {
+                    "id": "possui_filhos",
+                    "index_name": "field_86_string"
+                  },
+                  "name": "Possui Filhos?",
+                  "value": "Não"
+                },
+                {
+                  "field": {
+                    "id": "valor_do_im_vel",
+                    "index_name": "field_25_number"
+                  },
+                  "name": "Valor do Imóvel",
+                  "value": "350,000.00"
+                },
+                {
+                  "field": {
+                    "id": "cep_do_im_vel",
+                    "index_name": "field_93_string"
+                  },
+                  "name": "CEP do Imóvel",
+                  "value": "02992180"
+                },
+                {
+                  "field": {
+                    "id": "n_mero_do_imovel",
+                    "index_name": "field_160_string"
+                  },
+                  "name": "Número do Imovel",
+                  "value": "72 fundo"
+                },
+                {
+                  "field": {
+                    "id": "endere_o_do_im_vel",
+                    "index_name": "field_96_string"
+                  },
+                  "name": "Endereço do Imóvel",
+                  "value": "Rua Pau-Brasil"
+                },
+                {
+                  "field": {
+                    "id": "cidade_do_im_vel",
+                    "index_name": "field_95_string"
+                  },
+                  "name": "Cidade do Imóvel",
+                  "value": "São Paulo"
+                },
+                {
+                  "field": {
+                    "id": "documentos_pessoais",
+                    "index_name": "field_105_string"
+                  },
+                  "name": "Documentos Pessoais",
+                  "value": "[]"
+                },
+                {
+                  "field": {
+                    "id": "tomadores_do_emprestimo",
+                    "index_name": "field_5_connector"
+                  },
+                  "name": "tomadores_do_emprestimo",
+                  "value": "[\"12345\"]"
+                },
+                {
+                  "field": {
+                    "id": "ok_para_seguir",
+                    "index_name": "field_63_string"
+                  },
+                  "name": "Ok para seguir?",
+                  "value": "Sim"
+                },
+                {
+                  "field": {
+                    "id": "tamanho_p_m_e_g",
+                    "index_name": "field_12_string"
+                  },
+                  "name": "Tamanho (P, M e G)",
+                  "value": "P até 250k"
+                },
+                {
+                  "field": {
+                    "id": "origem",
+                    "index_name": "field_11_string"
+                  },
+                  "name": "Origem",
+                  "value": "Orgânico"
+                },
+                {
+                  "field": {
+                    "id": "id_torre",
+                    "index_name": "field_14_string"
+                  },
+                  "name": "ID Torre",
+                  "value": "w2DHm6Q_QiOD7mXgrtfMuw"
+                },
+                {
+                  "field": {
+                    "id": "tabela_amortiza_o",
+                    "index_name": "field_65_string"
+                  },
+                  "name": "Tabela Amortização",
+                  "value": "SAC"
+                },
+                {
+                  "field": {
+                    "id": "car_ncia",
+                    "index_name": "field_68_string"
+                  },
+                  "name": "Carência",
+                  "value": "Nenhuma"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
