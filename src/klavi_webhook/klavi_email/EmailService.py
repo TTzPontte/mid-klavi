@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 import boto3
 from botocore.exceptions import ClientError
 
-from src.klavi_webhook.shared.helpers.config import Config
+from shared.helpers.config import Config
 
 config = Config()
 

@@ -2,7 +2,7 @@ import json
 from http import HTTPStatus
 from typing import Dict, Optional
 
-from src.klavi_webhook.email.EmailService import EmailService, EmailConfig
+from klavi_email.EmailService import EmailService, EmailConfig
 
 
 def build_html(enquiry_cpf: str, error_message: str, code: int, suggested_action: str, payload: Dict) -> str:
