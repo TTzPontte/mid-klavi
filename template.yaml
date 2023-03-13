@@ -4,6 +4,11 @@ Transform: AWS::Serverless-2016-10-31
 Description: Middleware to connect with Klavi.
 
 Parameters:
+  SESIdentityName:
+    Type: String
+    Default: "juntos@pontte.com.br"
+    Description: An email
+
   ProjectName:
     Description: Project Name
     Type: String
@@ -141,6 +146,23 @@ Resources:
           PIPEFY_KLAVI_BACEN_STAGE_FI_ID: !Ref PipefyBacenStageFIID
           ENV: !Ref Environment
       Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'ses:SendEmail'
+                - 'ses:SendRawEmail'
+              Resource: '*'
+            - Effect: Allow
+              Action:
+                - 'ses:SendRawEmail'
+              Resource:
+                - 'arn:aws:ses:us-east-1:848638426587:identity/juntos@pontte.com.br'
+                - 'arn:aws:ses:us-east-1:848638426587:configuration-set/klav'
+        - SESCrudPolicy:
+            IdentityName: arn:aws:ses:us-east-1:848638426587:configuration-set/klavi
+        - SESCrudPolicy:
+            IdentityName: !Ref SESIdentityName
         - S3CrudPolicy:
             BucketName: !Ref KlaviBucket
         - DynamoDBWritePolicy:
