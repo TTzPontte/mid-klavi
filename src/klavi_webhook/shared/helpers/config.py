@@ -11,9 +11,9 @@ load_dotenv()
 class Config():
     AWS_SAM_LOCAL = os.getenv("AWS_SAM_LOCAL") == "true"
     LOGGING_LEVEL = os.getenv("LOGGING_LEVEL") or logging.NOTSET
-    CONFIG_SET = os.getenv('CONFIG_SET')
+    CONFIG_SET = os.getenv('CONFIG_SET') or 'klavi'
     API_TOKEN = os.getenv('API_TOKEN')
-    SMTP_PORT = os.getenv('SMTP_PORT')
+    SMTP_PORT = os.getenv('SMTP_PORT') or 508
     SMTP_EMAIL = os.getenv('SMTP_EMAIL')
     SMTP_SERVER = os.getenv('SMTP_SERVER')
     SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
