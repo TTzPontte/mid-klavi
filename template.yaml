@@ -28,6 +28,14 @@ Parameters:
     Description: ID of Pipe used to save klavi card inside of Pipefy
     Type: String
     Default: "303051849"
+  PipefyBacenStageHEID:
+    Description: ID of Stage Aguardando BACEN in Esteira HE
+    Type: String
+    Default: "312957677"
+  PipefyBacenStageFIID:
+    Description: ID of Stage Aguardando BACEN in Esteira FI
+    Type: String
+    Default: "312844208"
 
 Globals:
   Function:
@@ -121,6 +129,8 @@ Resources:
           KLAVI_REPORTS_BUCKET_NAME: !Sub "klavi-${Environment}"
           PIPEFY_KLAVI_DATABASE_ID: !Ref PipefyDatabaseID
           PIPEFY_KLAVI_PIPE_ID: !Ref PipefyPipeID
+          PIPEFY_KLAVI_BACEN_STAGE_HE_ID: !Ref PipefyBacenStageHEID
+          PIPEFY_KLAVI_BACEN_STAGE_FI_ID: !Ref PipefyBacenStageFIID
           ENV: !Ref Environment
       Policies:
         - S3CrudPolicy:
