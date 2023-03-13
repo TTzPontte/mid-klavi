@@ -1,18 +1,20 @@
+import io
+import json
+import os
 from http import HTTPStatus
+
+import boto3
+
+from shared.exports.klavi_report import export_klavi_report_to_excel, export_klavi_report_to_pipefy_database
+from shared.factory.event_logger import build_event_logger_from_klavi_payload
+from shared.factory.klavi_report import build_report_from_klavi_payload
 from shared.helpers.handler_base import Handler, Result
 from shared.helpers.hw_helper import helper_fn
-from shared.repository.klavi_report import KlaviReportRepository
 from shared.repository.event_logger import EventLoggerRepository
-from shared.factory.klavi_report import build_report_from_klavi_payload
-from shared.factory.event_logger import build_event_logger_from_klavi_payload
-from shared.exports.klavi_report import export_klavi_report_to_excel, export_klavi_report_to_pipefy_database
-from shared.parsers.event_logger import parse_payload_into_logger_object
-from shared.helpers.email import send_simple_mail
+from shared.repository.klavi_report import KlaviReportRepository
+from src.klavi_webhook.email.payload_event import event
+from src.klavi_webhook.email.validate_payload import validate_payload
 
-import json
-import io
-import boto3
-import os
 s3client = boto3.client('s3')
 
 
@@ -20,10 +22,15 @@ class MidKlavi(Handler):
     body: str
 
     def pre_process(self):
-        if self.event['body']:
+        if self.event.get('body', None):
             self.body = json.loads(self.event['body'])
         else:
             self.body = None
+
+    def validate(self) -> Result:
+        error = validate_payload(self.body)
+        if error:
+            return Result(HTTPStatus.BAD_REQUEST, error)
 
     def save_payload_into_database(self):
         report = build_report_from_klavi_payload(self.body)
@@ -37,7 +44,6 @@ class MidKlavi(Handler):
         report_from_database = report_repository.getByReportId(report_id, enquiry_cpf)
 
         return report_from_database
-
 
     def generate_xlsx_stream_from_report(self, report):
         excel_file_buffer = io.BytesIO()
@@ -75,7 +81,7 @@ class MidKlavi(Handler):
         print(self.event)
         print("Received Context")
         print(self._context)
-#        try:
+        #        try:
         self.log_request()
         report = self.save_payload_into_database()
         export_klavi_report_to_pipefy_database(report)
@@ -84,13 +90,19 @@ class MidKlavi(Handler):
         self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
         xls_stream.close()
         return Result(HTTPStatus.OK, {"id": str(report.id)})
+
+
 #        except:
 #            send_simple_mail("Klavi Unexpected Error", "Unexpected Error occurred", "ujinrowatany@gmail.com")
 #            return Result(HTTPStatus.BAD_REQUEST, {"error": "unexpect error occurred."})
-
 
 
 def lambda_handler(event, context):
     helper_fn()
 
     return MidKlavi(event, context).run()
+
+
+if __name__ == '__main__':
+    result = lambda_handler(event, {})
+    print(result)
