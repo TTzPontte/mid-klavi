@@ -12,8 +12,8 @@ from shared.helpers.handler_base import Handler, Result
 from shared.helpers.hw_helper import helper_fn
 from shared.repository.event_logger import EventLoggerRepository
 from shared.repository.klavi_report import KlaviReportRepository
-from src.klavi_webhook.email.payload_event import event
-from src.klavi_webhook.email.validate_payload import validate_payload
+#from email_helper.payload_event import event
+from email_helper.validate_payload import validate_payload
 
 s3client = boto3.client('s3')
 
@@ -103,6 +103,6 @@ def lambda_handler(event, context):
     return MidKlavi(event, context).run()
 
 
-if __name__ == '__main__':
-    result = lambda_handler(event, {})
-    print(result)
+#if __name__ == '__main__':
+#    result = lambda_handler(event, {})
+#    print(result)
