@@ -72,6 +72,9 @@ def main(input_data, enquiry_cpf):
     normalized_data = data_facade.get_normalized_data()
     print("normalized_data", normalized_data)
 
+    if (len(normalized_data.cards) == 0):
+        return None
+
     fields = normalized_data.cards[0].fields
     print("fields", fields)
 

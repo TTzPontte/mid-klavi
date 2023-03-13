@@ -62,19 +62,25 @@ def export_klavi_report_to_pipefy_database(report):
 
     print("LE CPF")
     print(cpf_to_search)
-    related_cards = search_for_related_cards("312957677", "12345")
-    print("Related Cards")
-    print(related_cards)
-    print("___________")
-
-
+    bacen_stage_he_id = os.getenv("PIPEFY_KLAVI_BACEN_STAGE_HE_ID")
+    bacen_stage_fi_id = os.getenv("PIPEFY_KLAVI_BACEN_STAGE_FI_ID")
+    related_he_cards = search_for_related_cards(bacen_stage_he_id, cpf_to_search)
+    related_fi_cards = search_for_related_cards(bacen_stage_fi_id, cpf_to_search)
+    print("HE RELATED CARDS")
+    print(related_he_cards)
+    print("FI RELATED CARDS")
+    print(related_fi_cards)
 
 
 
     #he_cards = [item.get("id") for item in related_cards[cpf_to_search] if item["type"] == "HE"]
     #fi_cards = [item.get("id") for item in related_cards[cpf_to_search] if item["type"] == "FI"]
-    he_cards = [related_cards.id]
+    he_cards = []
     fi_cards = []
+    if related_he_cards is not None:
+        he_cards = [related_he_cards.id]
+    if related_fi_cards is not None:
+        fi_cards = [related_fi_cards.id]
     received_response = pipefy_client.insert_into_database(new_item, database_id, title)
 
     json_response = json.loads(received_response.text)
