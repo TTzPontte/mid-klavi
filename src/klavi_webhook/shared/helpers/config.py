@@ -2,9 +2,20 @@ import logging
 import os
 from dataclasses import dataclass
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 @dataclass
 class Config():
     AWS_SAM_LOCAL = os.getenv("AWS_SAM_LOCAL") == "true"
     LOGGING_LEVEL = os.getenv("LOGGING_LEVEL") or logging.NOTSET
-
+    CONFIG_SET = os.getenv('CONFIG_SET')
+    API_TOKEN = os.getenv('API_TOKEN')
+    SMTP_PORT = os.getenv('SMTP_PORT')
+    SMTP_EMAIL = os.getenv('SMTP_EMAIL')
+    SMTP_SERVER = os.getenv('SMTP_SERVER')
+    SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
+    SENDING_IDENTITY_ARN = os.getenv('SENDING_IDENTITY_ARN')
+    AWS_REGION = "us-east-1"

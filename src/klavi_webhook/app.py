@@ -13,6 +13,10 @@ import json
 import io
 import boto3
 import os
+
+from src.klavi_webhook.email.payload_event import event
+from src.klavi_webhook.email.validate_payload import validate_payload
+
 s3client = boto3.client('s3')
 
 
@@ -20,10 +24,14 @@ class MidKlavi(Handler):
     body: str
 
     def pre_process(self):
-        if self.event['body']:
+        if self.event.get('body', None):
             self.body = json.loads(self.event['body'])
         else:
             self.body = None
+    def validate(self) -> Result:
+        error = validate_payload(self.body)
+        if error:
+            return Result(HTTPStatus.BAD_REQUEST, error)
 
     def save_payload_into_database(self):
         report = build_report_from_klavi_payload(self.body)
@@ -94,3 +102,7 @@ def lambda_handler(event, context):
     helper_fn()
 
     return MidKlavi(event, context).run()
+
+if __name__ == '__main__':
+    result = lambda_handler(event, {})
+    print(result)
