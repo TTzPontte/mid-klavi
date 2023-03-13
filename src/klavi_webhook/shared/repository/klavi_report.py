@@ -81,53 +81,12 @@ class KlaviReportRepository:
                 category_checking.report_id = klavi_report.id
                 category_checking_repository.save(category_checking)
 
-        if klavi_report.report_type == "category_creditcard":
-            category_creditcard_repository = CategoryCreditCardRepository()
-            for category_creditcard in klavi_report.category_creditcards:
-                category_creditcard.report_id = klavi_report.id
-                category_creditcard_repository.save(category_creditcard)
-
-        if klavi_report.report_type == "liabilities":
-            liability_repository = LiabilityRepository()
-            for liability in klavi_report.liabilities:
-                liability.report_id = klavi_report.id
-                liability_repository.save(liability)
-
-        if klavi_report.report_type == "financial_insight":
-            financial_insight_repository = FinancialInsightRepository()
-            for financial_insight in klavi_report.financial_insights:
-                financial_insight.report_id = klavi_report.id
-                financial_insight_repository.save(financial_insight)
-
         if klavi_report.report_type == "income":
             income_repository = IncomeRepository()
             for income in klavi_report.income:
                 income.report_id = klavi_report.id
                 income_repository.save(income)
 
-        if klavi_report.report_type == "balance":
-            balance_repository = BalanceRepository()
-            for balance in klavi_report.balance:
-                balance.report_id = klavi_report.id
-                balance_repository.save(balance)
-
-        if klavi_report.report_type == "score_k1":
-            score_k1_repository = ScoreK1Repository()
-            score_k1 = klavi_report.score_k1
-            score_k1.report_id = klavi_report.id
-            score_k1_repository.save(score_k1)
-
-        if klavi_report.report_type == "identity":
-            identity_repository = IdentityRepository()
-            identity = klavi_report.identity
-            identity.report_id = klavi_report.id
-            identity_repository.save(identity)
-
-        if klavi_report.report_type == "k_label":
-            risk_label_repository = RiskLabelRepository()
-            risk_label = klavi_report.risk_label
-            risk_label.report_id = klavi_report.id
-            risk_label_repository.save(risk_label)
 
     def getByReportId(self, report_id, enquiry_cpf):
         report_klavi_dao = KlaviReportDAO()

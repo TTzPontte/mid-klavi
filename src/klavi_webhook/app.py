@@ -69,21 +69,24 @@ class MidKlavi(Handler):
         return event_logger
 
     def handler(self):
-        if self.body is None:
-            return Result(HTTPStatus.OK, {"message": "no body sent"})
-        print("Received Event")
-        print(self.event)
-        print("Received Context")
-        print(self._context)
-#        try:
-        self.log_request()
-        report = self.save_payload_into_database()
-        export_klavi_report_to_pipefy_database(report)
-        self.save_payload_as_json(str(report.report_id), str(report.report_type))
-        xls_stream = self.generate_xlsx_stream_from_report(report)
-        self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
-        xls_stream.close()
-        return Result(HTTPStatus.OK, {"id": str(report.id)})
+        if (self.body.get("data").get('report_type') == "income" or self.body.get("data").get('report_type') == "category_checking"):
+            if self.body is None:
+                return Result(HTTPStatus.OK, {"message": "no body sent"})
+            print("Received Event")
+            print(self.event)
+            print("Received Context")
+            print(self._context)
+    #        try:
+            self.log_request()
+            report = self.save_payload_into_database()
+            export_klavi_report_to_pipefy_database(report)
+            self.save_payload_as_json(str(report.report_id), str(report.report_type))
+            xls_stream = self.generate_xlsx_stream_from_report(report)
+            self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
+            xls_stream.close()
+            return Result(HTTPStatus.OK, {"id": str(report.id)})
+        else:
+            return Result(HTTPStatus.BAD_REQUEST, {"message": "report type not supported"})
 #        except:
 #            send_simple_mail("Klavi Unexpected Error", "Unexpected Error occurred", "ujinrowatany@gmail.com")
 #            return Result(HTTPStatus.BAD_REQUEST, {"error": "unexpect error occurred."})
