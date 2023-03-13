@@ -37,6 +37,14 @@ class PipefyClient:
                                 json={"query": create_card_into_pipe_mutation, "variables": mutation_variables},
                                 headers=headers)
 
+    def search_into_esteira_pipes(self, cpf_cnpj):
+        return {
+            "12345": [
+                {"id": "472787645", "type": "HE"},
+                {"id": "472733907", "type": "FI"}
+            ]
+        }
+
 
 
 if __name__ == "__main__":

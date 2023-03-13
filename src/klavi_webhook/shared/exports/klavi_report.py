@@ -6,6 +6,8 @@ from shared.exports.category_creditcard import export_category_creditcard_to_exc
 from shared.exports.liabilities import export_liabilities_to_excel
 from shared.exports.financial_insight import export_financial_insight_to_excel
 from shared.helpers.pipefy.client import PipefyClient
+from Pipefy.main import main as search_for_related_cards
+
 
 import pandas
 
@@ -52,19 +54,38 @@ def export_klavi_report_to_pipefy_database(report):
         title = report.category_checkings[0].holder_name
     if report.report_type == "income":
         title = report.income[0].account_holder
+    cpf_to_search = report.enquiry_cpf
+    #cpf_to_search = "1234567"
+
+
+
+
+    print("LE CPF")
+    print(cpf_to_search)
+    related_cards = search_for_related_cards("312957677", "12345")
+    print("Related Cards")
+    print(related_cards)
+    print("___________")
+
+
+
+
+
+    #he_cards = [item.get("id") for item in related_cards[cpf_to_search] if item["type"] == "HE"]
+    #fi_cards = [item.get("id") for item in related_cards[cpf_to_search] if item["type"] == "FI"]
+    he_cards = [related_cards.id]
+    fi_cards = []
     received_response = pipefy_client.insert_into_database(new_item, database_id, title)
-    print("Response From pipefy")
-    print(received_response.text)
+
     json_response = json.loads(received_response.text)
-    print("Le JSON Response")
-    print(json_response)
     record_id = json_response.get("data").get("createTableRecord").get("table_record").get("id")
-    print("Le Record ID")
-    print(record_id)
-    pipe_id = "303051849"
+    pipe_id = os.getenv("PIPEFY_KLAVI_PIPE_ID")
+
     card_data = [
         {"field_id": 'cpf_cnpj', "field_value": report.enquiry_cpf},
-        {"field_id": "nome", "field_value": title}
+        {"field_id": "nome", "field_value": title},
+        {"field_id": "esteira_he_dev", "field_value": he_cards},
+        {"field_id": "esteira_fi_dev", "field_value": fi_cards}
     ]
     if report.report_type == "category_checking":
         card_data.append(

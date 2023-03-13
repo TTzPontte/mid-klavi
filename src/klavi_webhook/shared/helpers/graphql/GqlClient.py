@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 
 import requests
 
-from src.klavi_webhook.Pipefy.secrets import API_KEY
+API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDEyNjA0NzYsImVtYWlsIjoiZGV2QHBvbnR0ZS5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjEyMzk2fX0.iGh6T7W-nvhk-wA3JwH24HUAUHoGBxAVn_vfnx_nmy7XMGrK9_PZpfc9UBv4oU0B29756zGshKqyWRc921zJZg"
 
 
 @dataclass
