@@ -66,6 +66,10 @@ def export_klavi_report_to_pipefy_database(report):
     bacen_stage_fi_id = os.getenv("PIPEFY_KLAVI_BACEN_STAGE_FI_ID")
     related_he_cards = search_for_related_cards(bacen_stage_he_id, cpf_to_search)
     related_fi_cards = search_for_related_cards(bacen_stage_fi_id, cpf_to_search)
+    print("HE RELATED CARDS")
+    print(related_he_cards)
+    print("FI RELATED CARDS")
+    print(related_fi_cards)
 
 
 
