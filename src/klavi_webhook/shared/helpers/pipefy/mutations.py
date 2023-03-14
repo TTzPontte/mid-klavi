@@ -17,3 +17,12 @@ mutation CreateCard($pipe_id: ID!, $fields_attributes: [FieldValueInput]!) {
       }
     }
 """
+
+update_card_field_mutation = """
+mutation UpdateCardField($card_id: ID!, $field_id: ID!, $value: [UndefinedInput]!) {
+      updateCardField(input: { card_id: $card_id, field_id: $field_id, new_value: $value }) {
+        success
+      }
+    }
+"""
+

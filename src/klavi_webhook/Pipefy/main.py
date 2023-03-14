@@ -51,12 +51,28 @@ class DataFacade:
             tomadores_do_emprestimo = [v for v in tomadores_do_emprestimo_field.split(",") if v.strip()]
         return tomadores_do_emprestimo
 
+
     def find_related_card_by_cpf(self, cpf: str) -> 'Card':
         phase = self.get_normalized_data()
         for card in phase.cards:
             tomadores_do_emprestimo = self.get_tomadores_do_emprestimo(card)
             tomadores_do_emprestimo = [t.strip('"') for t in tomadores_do_emprestimo]  # remove quotation marks
             if cpf in tomadores_do_emprestimo:
+                return card
+        return None
+
+    def find_related_card_by_cpf_klavi(self, cpf: str) -> 'Card':
+        phase = self.get_normalized_data()
+        print("CPF TO SEARCH")
+        print(cpf)
+        for card in phase.cards:
+            print("LE CARD")
+            print(card)
+            card_cpf = card.fields.get("CPF / CNPJ", "")
+            print("Card CPF")
+            print(card_cpf)
+
+            if cpf == card_cpf:
                 return card
         return None
 
@@ -85,6 +101,29 @@ def main(input_data, enquiry_cpf):
     print("related_card", related_card)
     return related_card
 
+def main_klavi(input_data, enquiry_cpf):
+    data_facade = DataFacade(input_data)
+
+    normalized_data = data_facade.get_normalized_data()
+    print("normalized_data", normalized_data)
+
+    if (len(normalized_data.cards) == 0):
+        return None
+
+    fields = normalized_data.cards[0].fields
+    print("fields", fields)
+
+
+    related_card = data_facade.find_related_card_by_cpf_klavi(enquiry_cpf)
+    print("related_card KLAVI", related_card)
+    return related_card
+
 
 if __name__ == '__main__':
     main("312957677", "12345")
+
+
+
+#Silvio User -> 0c25dae1-6b0d-420f-8d7c-4fc58535fc23
+#Pontte Organization -> 88e17dd1-74ab-4b87-a9ef-69402fa8dd6c
+# Organization ID ->

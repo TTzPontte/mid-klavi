@@ -74,15 +74,12 @@ class MidKlavi(Handler):
 
         return event_logger
 
+    def is_a_enabled_report(self):
+        return self.body.get("data").get("report_type") == "category_checking" or self.body.get("data").get("report_type") == "income"
     def handler(self):
-        if self.body.get("data").get("report_type") == "category_checking" or self.body.get("data").get("reporty_type") == "income":
+        if self.is_a_enabled_report():
             if self.body is None:
                 return Result(HTTPStatus.OK, {"message": "no body sent"})
-            print("Received Event")
-            print(self.event)
-            print("Received Context")
-            print(self._context)
-            #        try:
             self.log_request()
             report = self.save_payload_into_database()
             export_klavi_report_to_pipefy_database(report)
@@ -94,9 +91,6 @@ class MidKlavi(Handler):
         else:
             return Result(HTTPStatus.BAD_REQUEST, {"message": "report type not supported."})
 
-#        except:
-#            send_simple_mail("Klavi Unexpected Error", "Unexpected Error occurred", "ujinrowatany@gmail.com")
-#            return Result(HTTPStatus.BAD_REQUEST, {"error": "unexpect error occurred."})
 
 
 def lambda_handler(event, context):

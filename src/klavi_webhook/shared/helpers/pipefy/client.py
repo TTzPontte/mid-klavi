@@ -1,7 +1,7 @@
 import requests
 
 from dataclasses import dataclass
-from .mutations import create_table_record_mutation, create_card_into_pipe_mutation
+from .mutations import create_table_record_mutation, create_card_into_pipe_mutation, update_card_field_mutation
 
 API_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDEyNjA0NzYsImVtYWlsIjoiZGV2QHBvbnR0ZS5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjEyMzk2fX0.iGh6T7W-nvhk-wA3JwH24HUAUHoGBxAVn_vfnx_nmy7XMGrK9_PZpfc9UBv4oU0B29756zGshKqyWRc921zJZg"
 
@@ -35,6 +35,22 @@ class PipefyClient:
 
         return requests.request("POST", url,
                                 json={"query": create_card_into_pipe_mutation, "variables": mutation_variables},
+                                headers=headers)
+
+    def update_card_field(self, card_id, field_id, value):
+        mutation_variables = {
+            "card_id": card_id,
+            "field_id": field_id,
+            "value": value
+        }
+        url = "https://api.pipefy.com/graphql"
+        headers = {
+            'authorization': f"Bearer {API_TOKEN}",
+            'content-type': "application/json"
+        }
+
+        return requests.request("POST", url,
+                                json={"query": update_card_field_mutation, "variables": mutation_variables},
                                 headers=headers)
 
     def search_into_esteira_pipes(self, cpf_cnpj):

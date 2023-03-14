@@ -7,6 +7,7 @@ from shared.exports.liabilities import export_liabilities_to_excel
 from shared.exports.financial_insight import export_financial_insight_to_excel
 from shared.helpers.pipefy.client import PipefyClient
 from Pipefy.main import main as search_for_related_cards
+from Pipefy.main import main_klavi as search_for_related_cards_klavi
 
 
 import pandas
@@ -56,9 +57,6 @@ def export_klavi_report_to_pipefy_database(report):
     if report.report_type == "income":
         title = report.income[0].account_holder
     cpf_to_search = report.enquiry_cpf
-    #cpf_to_search = "1234567"
-
-
 
 
     print("LE CPF")
@@ -68,47 +66,57 @@ def export_klavi_report_to_pipefy_database(report):
     klavi_stage = os.getenv("PIPEFY_KLAVI_STAGE_ID")
     related_he_cards = search_for_related_cards(bacen_stage_he_id, cpf_to_search)
     related_fi_cards = search_for_related_cards(bacen_stage_fi_id, cpf_to_search)
-    print("HE RELATED CARDS")
-    print(related_he_cards)
-    print("FI RELATED CARDS")
-    print(related_fi_cards)
+    klavi_cards = search_for_related_cards_klavi(klavi_stage, cpf_to_search)
+    print("Klavi Cards !!!!")
+    print(klavi_cards)
 
-
-
-    #he_cards = [item.get("id") for item in related_cards[cpf_to_search] if item["type"] == "HE"]
-    #fi_cards = [item.get("id") for item in related_cards[cpf_to_search] if item["type"] == "FI"]
     he_cards = []
     fi_cards = []
     if related_he_cards is not None:
         he_cards = [related_he_cards.id]
     if related_fi_cards is not None:
         fi_cards = [related_fi_cards.id]
+
     received_response = pipefy_client.insert_into_database(new_item, database_id, title)
 
     json_response = json.loads(received_response.text)
     record_id = json_response.get("data").get("createTableRecord").get("table_record").get("id")
     pipe_id = os.getenv("PIPEFY_KLAVI_PIPE_ID")
 
-    card_data = [
-        {"field_id": 'cpf_cnpj', "field_value": report.enquiry_cpf},
-        {"field_id": "nome", "field_value": title},
-        {"field_id": "esteira_he_dev", "field_value": he_cards},
-        {"field_id": "esteira_fi_dev", "field_value": fi_cards}
-    ]
-    if report.report_type == "category_checking":
-        card_data.append(
-            {
-                "field_id": "category_checking",
-                "field_value": [record_id]
-            }
-        )
-    if report.report_type == "income":
-        card_data.append(
-            {
-                "field_id": "income",
-                "field_value": [record_id]
-            }
-        )
-    card_save_response = pipefy_client.create_card_into_pipe(card_data, pipe_id)
-    print("Card Save Response")
-    print(card_save_response.text)
+    if klavi_cards is not None: #Atualizar Card
+        card_id = klavi_cards.id
+        field_id = ""
+        value = record_id
+
+        if report.report_type == "category_checking":
+            field_id = "category_checking"
+        if report.report_type == "income":
+            field_id = "income"
+        card_update_response = pipefy_client.update_card_field(card_id, field_id, value)
+        print("Card UPDATE Response")
+        print(card_update_response.text)
+            
+    else: #Criar Card
+        card_data = [
+            {"field_id": 'cpf_cnpj', "field_value": report.enquiry_cpf},
+            {"field_id": "nome", "field_value": title},
+            {"field_id": "esteira_he_dev", "field_value": he_cards},
+            {"field_id": "esteira_fi_dev", "field_value": fi_cards}
+        ]
+        if report.report_type == "category_checking":
+            card_data.append(
+                {
+                    "field_id": "category_checking",
+                    "field_value": [record_id]
+                }
+            )
+        if report.report_type == "income":
+            card_data.append(
+                {
+                    "field_id": "income",
+                    "field_value": [record_id]
+                }
+            )
+        card_save_response = pipefy_client.create_card_into_pipe(card_data, pipe_id)
+        print("Card Save Response")
+        print(card_save_response.text)
