@@ -41,6 +41,11 @@ Parameters:
     Description: ID of Stage Aguardando BACEN in Esteira FI
     Type: String
     Default: "312844208"
+  PipefyKlaviStageID:
+    Description: Phase with Pipefy Cards
+    Type: String
+    Default: "318827971"
+
 
 Globals:
   Function:
@@ -144,6 +149,7 @@ Resources:
           PIPEFY_KLAVI_PIPE_ID: !Ref PipefyPipeID
           PIPEFY_KLAVI_BACEN_STAGE_HE_ID: !Ref PipefyBacenStageHEID
           PIPEFY_KLAVI_BACEN_STAGE_FI_ID: !Ref PipefyBacenStageFIID
+          PIPEFY_KLAVI_STAGE_ID: !Ref PipefyKlaviStageID
           ENV: !Ref Environment
       Policies:
         - Version: '2012-10-17'

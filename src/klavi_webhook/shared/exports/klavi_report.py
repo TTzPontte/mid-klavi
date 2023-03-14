@@ -31,6 +31,7 @@ def export_klavi_report_to_excel(report, output):
 
     return pandas_excel_writter
 
+
 def export_klavi_report_to_pipefy_database(report):
     database_id = os.getenv("PIPEFY_KLAVI_DATABASE_ID")
     bucket_name = os.getenv("KLAVI_REPORTS_BUCKET_NAME")
@@ -64,6 +65,7 @@ def export_klavi_report_to_pipefy_database(report):
     print(cpf_to_search)
     bacen_stage_he_id = os.getenv("PIPEFY_KLAVI_BACEN_STAGE_HE_ID")
     bacen_stage_fi_id = os.getenv("PIPEFY_KLAVI_BACEN_STAGE_FI_ID")
+    klavi_stage = os.getenv("PIPEFY_KLAVI_STAGE_ID")
     related_he_cards = search_for_related_cards(bacen_stage_he_id, cpf_to_search)
     related_fi_cards = search_for_related_cards(bacen_stage_fi_id, cpf_to_search)
     print("HE RELATED CARDS")
