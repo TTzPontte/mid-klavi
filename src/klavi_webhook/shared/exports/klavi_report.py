@@ -33,17 +33,17 @@ def export_klavi_report_to_excel(report, output):
     return pandas_excel_writter
 
 
-def export_klavi_report_to_pipefy_database(report):
+def _insert_into_pipefy_database(report):
     database_id = os.getenv("PIPEFY_KLAVI_DATABASE_ID")
     bucket_name = os.getenv("KLAVI_REPORTS_BUCKET_NAME")
     excel_object_key = "{report_id}/{report_type}.xlsx".format(report_id=report.report_id,
-                                                         report_type=report.report_type)
-    json_object_key = "{report_id}/{report_type}.json".format(report_id=report.report_id,
                                                                report_type=report.report_type)
+    json_object_key = "{report_id}/{report_type}.json".format(report_id=report.report_id,
+                                                              report_type=report.report_type)
     excel_object_url = "https://{bucket_name}.s3.amazonaws.com/{object_key}".format(bucket_name=bucket_name,
-                                                                              object_key=excel_object_key)
+                                                                                    object_key=excel_object_key)
     json_object_url = "https://{bucket_name}.s3.amazonaws.com/{object_key}".format(bucket_name=bucket_name,
-                                                                                    object_key=json_object_key)
+                                                                                   object_key=json_object_key)
 
     new_item = [
         {"field_id": "klavi_excel", "field_value": excel_object_url},
@@ -56,19 +56,21 @@ def export_klavi_report_to_pipefy_database(report):
         title = report.category_checkings[0].holder_name
     if report.report_type == "income":
         title = report.income[0].account_holder
+
+    received_response = pipefy_client.insert_into_database(new_item, database_id, title)
+    json_response = json.loads(received_response.text)
+    record_id = json_response.get("data").get("createTableRecord").get("table_record").get("id")
+
+    return record_id
+
+def _get_related_cards(report):
     cpf_to_search = report.enquiry_cpf
-
-
-    print("LE CPF")
-    print(cpf_to_search)
     bacen_stage_he_id = os.getenv("PIPEFY_KLAVI_BACEN_STAGE_HE_ID")
     bacen_stage_fi_id = os.getenv("PIPEFY_KLAVI_BACEN_STAGE_FI_ID")
     klavi_stage = os.getenv("PIPEFY_KLAVI_STAGE_ID")
     related_he_cards = search_for_related_cards(bacen_stage_he_id, cpf_to_search)
     related_fi_cards = search_for_related_cards(bacen_stage_fi_id, cpf_to_search)
     klavi_cards = search_for_related_cards_klavi(klavi_stage, cpf_to_search)
-    print("Klavi Cards !!!!")
-    print(klavi_cards)
 
     he_cards = []
     fi_cards = []
@@ -77,46 +79,61 @@ def export_klavi_report_to_pipefy_database(report):
     if related_fi_cards is not None:
         fi_cards = [related_fi_cards.id]
 
-    received_response = pipefy_client.insert_into_database(new_item, database_id, title)
+    return {
+        "he_cards": he_cards,
+        "fi_cards": fi_cards,
+        "klavi_cards": klavi_cards
+    }
 
-    json_response = json.loads(received_response.text)
-    record_id = json_response.get("data").get("createTableRecord").get("table_record").get("id")
+def _create_new_card_into_pipefy(report, he_cards, fi_cards, record_id):
+    pipefy_client = PipefyClient()
     pipe_id = os.getenv("PIPEFY_KLAVI_PIPE_ID")
+    title = "unknow"
+    if report.report_type == "category_checking":
+        title = report.category_checkings[0].holder_name
+    if report.report_type == "income":
+        title = report.income[0].account_holder
 
-    if klavi_cards is not None: #Atualizar Card
-        card_id = klavi_cards.id
-        field_id = ""
-        value = record_id
+    card_data = [
+        {"field_id": 'cpf_cnpj', "field_value": report.enquiry_cpf},
+        {"field_id": "nome", "field_value": title},
+        {"field_id": "esteira_he_dev", "field_value": he_cards},
+        {"field_id": "esteira_fi_dev", "field_value": fi_cards}
+    ]
+    if report.report_type == "category_checking":
+        card_data.append(
+            {
+                "field_id": "category_checking",
+                "field_value": [record_id]
+            }
+        )
+    if report.report_type == "income":
+        card_data.append(
+            {
+                "field_id": "income",
+                "field_value": [record_id]
+            }
+        )
+    pipefy_client.create_card_into_pipe(card_data, pipe_id)
 
-        if report.report_type == "category_checking":
-            field_id = "category_checking"
-        if report.report_type == "income":
-            field_id = "income"
-        card_update_response = pipefy_client.update_card_field(card_id, field_id, value)
-        print("Card UPDATE Response")
-        print(card_update_response.text)
-            
-    else: #Criar Card
-        card_data = [
-            {"field_id": 'cpf_cnpj', "field_value": report.enquiry_cpf},
-            {"field_id": "nome", "field_value": title},
-            {"field_id": "esteira_he_dev", "field_value": he_cards},
-            {"field_id": "esteira_fi_dev", "field_value": fi_cards}
-        ]
-        if report.report_type == "category_checking":
-            card_data.append(
-                {
-                    "field_id": "category_checking",
-                    "field_value": [record_id]
-                }
-            )
-        if report.report_type == "income":
-            card_data.append(
-                {
-                    "field_id": "income",
-                    "field_value": [record_id]
-                }
-            )
-        card_save_response = pipefy_client.create_card_into_pipe(card_data, pipe_id)
-        print("Card Save Response")
-        print(card_save_response.text)
+def _update_card_into_pipefy(report, klavi_card, record_id):
+    pipefy_client = PipefyClient()
+    card_id = klavi_card.id
+    field_id = ""
+    value = record_id
+
+    if report.report_type == "category_checking":
+        field_id = "category_checking"
+    if report.report_type == "income":
+        field_id = "income"
+    pipefy_client.update_card_field(card_id, field_id, value)
+
+def export_klavi_report_to_pipefy_database(report):
+    record_id = _insert_into_pipefy_database(report)
+    related_cards = _get_related_cards(report)
+
+    if related_cards.get("klavi_cards")  is not None:
+        _update_card_into_pipefy(report, related_cards.get("klavi_cards"), record_id)
+    else:
+        _create_new_card_into_pipefy(report, related_cards.get("he_cards"), related_cards.get("fi_cards"), record_id)
+

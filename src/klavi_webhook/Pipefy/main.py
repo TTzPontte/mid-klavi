@@ -63,14 +63,8 @@ class DataFacade:
 
     def find_related_card_by_cpf_klavi(self, cpf: str) -> 'Card':
         phase = self.get_normalized_data()
-        print("CPF TO SEARCH")
-        print(cpf)
         for card in phase.cards:
-            print("LE CARD")
-            print(card)
             card_cpf = card.fields.get("CPF / CNPJ", "")
-            print("Card CPF")
-            print(card_cpf)
 
             if cpf == card_cpf:
                 return card
