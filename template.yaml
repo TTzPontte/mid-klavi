@@ -134,7 +134,6 @@ Resources:
       Tracing: Active
       CodeUri: src/klavi_webhook/
       Handler: app.lambda_handler
-      ReservedConcurrentExecutions: 1
       Events:
         api1:
           Type: Api
