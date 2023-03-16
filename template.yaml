@@ -85,6 +85,7 @@ Resources:
     Properties:
       BucketName: !Sub "klavi-${Environment}"
 
+
   # Domínio para o API Gateway
   APIDomainName:
     Type: "AWS::ApiGateway::DomainName"
@@ -172,6 +173,8 @@ Resources:
         - S3CrudPolicy:
             BucketName: !Ref KlaviBucket
         - DynamoDBWritePolicy:
+            TableName: !Ref IntegrationTable
+        - DynamoDBWritePolicy:
             TableName: !Ref CategoryCreditCardTable
         - DynamoDBWritePolicy:
             TableName: !Ref OpenStatementTable
@@ -218,6 +221,19 @@ Resources:
         - DynamoDBWritePolicy:
             TableName: !Ref LabelDetailTable
 
+  IntegrationTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "enquiry_cpf"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "enquiry_cpf"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub "Klavi-IntegrationTable-${Environment}"
   CategoryCreditCardTable:
     Type: AWS::DynamoDB::Table
     Properties:

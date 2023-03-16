@@ -128,12 +128,53 @@ def _update_card_into_pipefy(report, klavi_card, record_id):
         field_id = "income"
     pipefy_client.update_card_field(card_id, field_id, value)
 
-def export_klavi_report_to_pipefy_database(report):
+def _update_card(report, related_cards, record_id, card_id):
+    pipefy_client = PipefyClient()
+    pipe_id = os.getenv("PIPEFY_KLAVI_PIPE_ID")
+    title = "unknow"
+    he_cards = related_cards.get("he_cards")
+    fi_cards = related_cards.get("fi_cards")
+
+    if report.report_type == "category_checking":
+        title = report.category_checkings[0].holder_name
+    if report.report_type == "income":
+        title = report.income[0].account_holder
+
+    card_data = [
+        {"fieldId": "nome", "value": title},
+        {"fieldId": "esteira_he_dev", "value": he_cards},
+        {"fieldId": "esteira_fi_dev", "value": fi_cards}
+    ]
+    if report.report_type == "category_checking":
+        card_data.append(
+            {
+                "fieldId": "category_checking",
+                "value": [record_id]
+            }
+        )
+    if report.report_type == "income":
+        card_data.append(
+            {
+                "fieldId": "income",
+                "value": [record_id]
+            }
+        )
+
+    print("LE CARD DATA TO BE UPDATED")
+    print(card_data)
+
+    response = pipefy_client.update_card(card_id, card_data)
+    print("Response of Update CArd")
+    print(response.text)
+
+
+def export_klavi_report_to_pipefy_database(report, card_id):
     record_id = _insert_into_pipefy_database(report)
     related_cards = _get_related_cards(report)
+    _update_card(report, related_cards, record_id, card_id)
 
-    if related_cards.get("klavi_cards")  is not None:
-        _update_card_into_pipefy(report, related_cards.get("klavi_cards"), record_id)
-    else:
-        _create_new_card_into_pipefy(report, related_cards.get("he_cards"), related_cards.get("fi_cards"), record_id)
+    #if related_cards.get("klavi_cards")  is not None:
+    #    _update_card_into_pipefy(report, related_cards.get("klavi_cards"), record_id)
+    #else:
+    #    _create_new_card_into_pipefy(report, related_cards.get("he_cards"), related_cards.get("fi_cards"), record_id)
 

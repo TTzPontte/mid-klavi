@@ -26,3 +26,11 @@ mutation UpdateCardField($card_id: ID!, $field_id: ID!, $value: [UndefinedInput]
     }
 """
 
+update_fields_values_mutation = """
+mutation updateCard($card_id: ID!, $value: [NodeFieldValueInput!]!) {
+      updateFieldsValues(input: {nodeId: $card_id, values: $value }) {
+        success
+      }
+    }
+"""
+
