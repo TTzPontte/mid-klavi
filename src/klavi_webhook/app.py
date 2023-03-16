@@ -14,9 +14,13 @@ from shared.repository.event_logger import EventLoggerRepository
 from shared.repository.klavi_report import KlaviReportRepository
 #from email_helper.payload_event import event
 from email_helper.validate_payload import validate_payload
+from shared.data_access_objects.base_dao import DynamoDbORM
+from shared.helpers.pipefy.client import PipefyClient
 
 s3client = boto3.client('s3')
 
+import time
+import random
 
 class MidKlavi(Handler):
     body: str
@@ -74,20 +78,69 @@ class MidKlavi(Handler):
 
         return event_logger
 
+    def _initialize_pipefy_card(self):
+        pipefy_client = PipefyClient()
+        env = os.getenv("ENV")
+        integration_table_dao = DynamoDbORM(env, "Klavi-IntegrationTable-{}".format(env))
+        pipe_id = os.getenv("PIPEFY_KLAVI_PIPE_ID")
+        tentativas = 5
+        enquiry_cpf = self.body.get("data").get("enquiry_cpf")
+        item = integration_table_dao.get({"enquiry_cpf": enquiry_cpf})
+        print("LE Item")
+        print(item)
+
+        if item is None:
+            integration_table_dao.put({"enquiry_cpf": enquiry_cpf, "status": "creating"})
+            response = pipefy_client.create_card_into_pipe(card_data = [
+                {"field_id": 'cpf_cnpj', "field_value": enquiry_cpf}
+            ], pipe_id=pipe_id)
+            print("response")
+            print(response)
+
+
+            print(response.text)
+
+            data = json.loads(response.text)
+            card_id = data.get("data").get("createCard").get("card").get("id")
+            print("Card ID")
+            print(card_id)
+
+            integration_table_dao.put({"enquiry_cpf": enquiry_cpf, "status": "created", "card_id": card_id})
+
+        if item is not None:
+            while item.get('status') != "created" and tentativas > 0:
+                print("tentativa {}".format(tentativas))
+                time.sleep(random.randint(300, 700) / 1000)
+                tentativas -= 1
+                item = integration_table_dao.get({"enquiry_cpf": enquiry_cpf})
+
+        if tentativas == 0:
+            print("Tentativas acabaram")
+
+        item = integration_table_dao.get({"enquiry_cpf": enquiry_cpf})
+
+        return item.get("card_id")
+
+
+
+
     def is_a_enabled_report(self):
         return self.body.get("data").get("report_type") == "category_checking" or self.body.get("data").get("report_type") == "income"
     def handler(self):
         if self.is_a_enabled_report():
+            card_id = self._initialize_pipefy_card()
+            print("LE CARD ID")
+            print(card_id)
             if self.body is None:
                 return Result(HTTPStatus.OK, {"message": "no body sent"})
             self.log_request()
             print("Processing report {} from CPF {}".format( self.body.get("data").get("report_type"), self.body.get("data").get("enquiry_cpf")) )
             report = self.save_payload_into_database()
-            export_klavi_report_to_pipefy_database(report)
             self.save_payload_as_json(str(report.report_id), str(report.report_type))
             xls_stream = self.generate_xlsx_stream_from_report(report)
             self.upload_excel_stream_to_s3(xls_stream, str(report.report_id), str(report.report_type))
             xls_stream.close()
+            export_klavi_report_to_pipefy_database(report, card_id)
             return Result(HTTPStatus.OK, {"id": str(report.id)})
         else:
             return Result(HTTPStatus.BAD_REQUEST, {"message": "report type not supported."})
