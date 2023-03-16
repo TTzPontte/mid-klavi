@@ -81,6 +81,7 @@ class MidKlavi(Handler):
             if self.body is None:
                 return Result(HTTPStatus.OK, {"message": "no body sent"})
             self.log_request()
+            print("Processing report {} from CPF {}".format( self.body.get("data").get("report_type"), self.body.get("data").get("enquiry_cpf")) )
             report = self.save_payload_into_database()
             export_klavi_report_to_pipefy_database(report)
             self.save_payload_as_json(str(report.report_id), str(report.report_type))
