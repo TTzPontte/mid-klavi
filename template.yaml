@@ -172,7 +172,7 @@ Resources:
             IdentityName: !Ref SESIdentityName
         - S3CrudPolicy:
             BucketName: !Ref KlaviBucket
-        - DynamoDBWritePolicy:
+        - DynamoDBCrudPolicy:
             TableName: !Ref IntegrationTable
         - DynamoDBWritePolicy:
             TableName: !Ref CategoryCreditCardTable
