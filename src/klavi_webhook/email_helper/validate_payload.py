@@ -36,16 +36,16 @@ def validate_payload(payload: Dict) -> Optional[Dict]:
 
     except ValueError as e:
         error_message = str(e)
-        error_dict = {
-            "code": HTTPStatus.BAD_REQUEST,
-            "message": error_message,
-            "suggested_action": "Please fix the request payload and try again."
-        }
+        message = payload.get("msg")
+
+        error_dict = {"code": HTTPStatus.BAD_REQUEST, "message": message,
+            "suggested_action": "Please fix the request payload and try again."}
 
         # Send email
         enquiry_cpf = payload.get('data', {}).get('enquiry_cpf')
         if enquiry_cpf:
-            html = build_html(enquiry_cpf, error_message, HTTPStatus.BAD_REQUEST, error_dict["suggested_action"], payload)
+            html = build_html(enquiry_cpf, error_message, HTTPStatus.BAD_REQUEST, error_dict["suggested_action"],
+                              payload)
             to = "lucas@pontte.com.br"
             email_service = EmailService(EmailConfig())
             sent_email = email_service.send_email(html, to)
@@ -55,8 +55,3 @@ def validate_payload(payload: Dict) -> Optional[Dict]:
 
     # Return None if the payload is valid
     return None
-
-
-
-
-
