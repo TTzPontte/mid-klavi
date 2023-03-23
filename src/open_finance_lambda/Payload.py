@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from io import BytesIO
 from typing import List, Optional, Dict
 
 import pandas as pd
@@ -111,12 +112,38 @@ class Parser:
                          "report_type": self.report_type, "report_id": self.report_id,
                          "report_version": self.report_version, }, "code": self.code, "msg": self.msg}
 
-    def category_checking_to_excel(self, file_name: str):
-        if not self.category_checking:
-            print("No CategoryChecking data to export.")
-            return
 
-        with pd.ExcelWriter(file_name) as writer:
+    def create_category_checking_excel(self) -> BytesIO:
+        # Create dataframe for accounts sheet
+        accounts_data = []
+        for cc in self.category_checking:
+            account_data = cc.bank_account.to_dict()
+            account_data.update({"operation_code": cc.operation_code})
+            accounts_data.append(account_data)
+        accounts_df = pd.DataFrame(accounts_data)
+
+        # Create dataframe for transactions sheet
+        transaction_data = []
+        for cc in self.category_checking:
+            for t in cc.transactions:
+                transaction_data.append({"bank_name": cc.bank_account.bank_name,
+                                         "bacen_name": cc.bank_account.bacen_name,
+                                         "bacen_id": cc.bank_account.bacen_id,
+                                         "bank_branch": cc.bank_account.bank_branch,
+                                         "account": cc.bank_account.account,
+                                         "operation_code": cc.operation_code,
+                                         "cpf_verified": cc.bank_account.cpf_verified,
+                                         "holder_name": cc.bank_account.holder_name,
+                                         "balance": t.balance,
+                                         "trans_date": t.trans_date,
+                                         "trans_amount": t.trans_amount,
+                                         "trans_description": t.trans_description,
+                                         "category": t.category})
+        transaction_df = pd.DataFrame(transaction_data)
+
+        # Create excel buffer
+        excel_buffer = BytesIO()
+        with pd.ExcelWriter(excel_buffer) as writer:
             # Write payload data to "Payload" sheet
             payload_data = {"enquiry_cpf": self.enquiry_cpf,
                             "user_consent": self.user_consent,
@@ -131,33 +158,26 @@ class Parser:
             payload_df.to_excel(writer, sheet_name="Payload", index=False)
 
             # Write account data to "Accounts" sheet
-            account_data = []
-            for cc in self.category_checking:
-                account_data.append(cc.bank_account.to_dict())
-                account_data[-1].update({"operation_code": cc.operation_code})
-
-            account_df = pd.DataFrame(account_data)
-            account_df.to_excel(writer, sheet_name="Accounts", index=False)
+            accounts_df.to_excel(writer, sheet_name="Accounts", index=False)
 
             # Write transaction data to "Transactions" sheet
-            transaction_data = []
-            for cc in self.category_checking:
-                for t in cc.transactions:
-                    transaction_data.append({"bank_name": cc.bank_account.bank_name,
-                                             "bacen_name": cc.bank_account.bacen_name,
-                                             "bacen_id": cc.bank_account.bacen_id,
-                                             "bank_branch": cc.bank_account.bank_branch,
-                                             "account": cc.bank_account.account,
-                                             "operation_code": cc.operation_code,
-                                             "cpf_verified": cc.bank_account.cpf_verified,
-                                             "holder_name": cc.bank_account.holder_name,
-                                             "balance": t.balance,
-                                             "trans_date": t.trans_date,
-                                             "trans_amount": t.trans_amount,
-                                             "trans_description": t.trans_description,
-                                             "category": t.category})
-            transaction_df = pd.DataFrame(transaction_data)
             transaction_df.to_excel(writer, sheet_name="Transactions", index=False)
+
+        # Reset buffer position and return it
+        excel_buffer.seek(0)
+        return excel_buffer
+
+    def category_checking_to_excel(self, file_name: str):
+        if not self.category_checking:
+            print("No CategoryChecking data to export.")
+            return
+
+        # Create excel buffer
+        excel_buffer = self.create_category_checking_excel()
+
+        # Upload to S3
+        s3_helper = S3Helper()
+        s3_helper.save_bytes_to_s3(excel_buffer.getvalue(), "klavi", file_name)
 
     def income_to_excel(self, file_name: str):
         if self.income:
