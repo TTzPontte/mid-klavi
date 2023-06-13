@@ -1,0 +1,81 @@
+{
+    "code": 200,
+    "msg": "ok",
+    "report_time": "2023-05-30 12:12:54",
+    "data": {
+        "enquiry_cpf": "11085046630",
+        "report_version": "V1.1",
+        "connection_key": "c188967f993a461f8f2198239dcae825",
+        "connection_id": "Uw5cYkeGzBhzXeOVjbXTCmVzdF4qN32e",
+        "report_id": "b57172a3-142c-44d0-a867-75107d359465",
+        "user_consent": "Yes",
+        "allow_autoupdate": "Yes",
+        "institution_id": "033",
+        "report_type": "financial_insight",
+        "financial_insight": [
+            {
+                "bacen_id": "033",
+                "bank_name": "Santander",
+                "bacen_name": "BANCO SANTANDER (BRASIL) S.A.",
+                "cpf_verified": "11085046630",
+                "days_covered": 180,
+                "agency_number": "0157",
+                "account_holder": "EVA ROSANGELA CRUZ CALDEIRA",
+                "account_number": "01.063547.9",
+                "creditAnalysis": [
+                    {
+                        "overdraft_limit": 9450,
+                        "preapproved_loan": 0
+                    }
+                ],
+                "cashflowAnalysis": [
+                    {
+                        "inflow_last_30_days": 36174.36,
+                        "inflow_last_60_days": 57062.64,
+                        "inflow_last_90_days": 92562.95,
+                        "inflow_last_180_days": 98563.01,
+                        "outflow_last_30_days": -33828.78,
+                        "outflow_last_60_days": -62332.99,
+                        "outflow_last_90_days": -90293.77,
+                        "outflow_last_180_days": -97853.8,
+                        "saving_account_balance": -1,
+                        "checking_account_balance": 4262.88,
+                        "avg_daily_balance_last_30_days": 1627.8,
+                        "avg_daily_balance_last_60_days": 4508.67,
+                        "avg_daily_balance_last_90_days": 4450.87,
+                        "avg_daily_balance_last_180_days": 3998.25
+                    }
+                ],
+                "financialProfile": [
+                    {
+                        "iof": 0,
+                        "has_inss": "No",
+                        "has_severance": "No",
+                        "atm_withdrawal": 0,
+                        "has_iptu_payment": "No",
+                        "has_ipva_payment": "No",
+                        "overdraft_interest": 0,
+                        "has_returned_cheque": "No",
+                        "additional_overdraft_interest": 0
+                    }
+                ],
+                "creditcardSpending": [
+                    {
+                        "card_type": "SANTANDER UNIQUE VISA INFINITE",
+                        "card_holder": "EVA ROSANGELA CRUZ CALDEIRA",
+                        "credit_limit": 31680,
+                        "days_covered": 180,
+                        "has_late_payment": "No",
+                        "last_closed_bill": 6233.1,
+                        "card_last_4_digit": "3927",
+                        "open_bill_balance": 10312.97,
+                        "closed_bills_covered": 6,
+                        "avg_last_3_closed_bills": 7003.96,
+                        "pay_bills_in_installment": "No"
+                    }
+                ]
+            }
+        ]
+    },
+    "query_param": {}
+}

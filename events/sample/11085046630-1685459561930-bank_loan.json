@@ -1,0 +1,27 @@
+{
+    "code": 200,
+    "msg": "ok",
+    "report_time": "2023-05-30 12:12:41",
+    "data": {
+        "enquiry_cpf": "11085046630",
+        "report_version": "V1",
+        "connection_key": "c188967f993a461f8f2198239dcae825",
+        "connection_id": "Uw5cYkeGzBhzXeOVjbXTCmVzdF4qN32e",
+        "report_id": "f0db9658-8451-4c1d-927f-d7fa46d8963c",
+        "user_consent": "Yes",
+        "allow_autoupdate": "Yes",
+        "institution_id": "033",
+        "report_type": "bank_loan",
+        "accountInfo": {
+            "bank_name": "Santander",
+            "bacen_name": "BANCO SANTANDER (BRASIL) S.A.",
+            "bacen_id": "033",
+            "agency_number": "0157",
+            "holder_name": "EVA ROSANGELA CRUZ CALDEIRA",
+            "cpf_verified": "11085046630",
+            "account_number": "01.063547.9"
+        },
+        "loanInfo": null
+    },
+    "query_param": {}
+}

@@ -1,0 +1,214 @@
+{
+    "code": 200,
+    "msg": "ok",
+    "report_time": "2023-05-30 12:12:54",
+    "data": {
+        "enquiry_cpf": "11085046630",
+        "report_version": "V1.1",
+        "connection_key": "c188967f993a461f8f2198239dcae825",
+        "connection_id": "Uw5cYkeGzBhzXeOVjbXTCmVzdF4qN32e",
+        "report_id": "7ca819f5-084c-4953-b7b1-ed9189a065b8",
+        "user_consent": "Yes",
+        "allow_autoupdate": "Yes",
+        "institution_id": "033",
+        "report_type": "income",
+        "Income": [
+            {
+                "bacen_id": "033",
+                "bank_name": "Santander",
+                "bacen_name": "BANCO SANTANDER (BRASIL) S.A.",
+                "cpf_verified": "11085046630",
+                "days_covered": 180,
+                "incomeStream": [
+                    {
+                        "incomeDay": null,
+                        "incomeTransactions": [
+                            {
+                                "trans_date": "2023-05-23",
+                                "trans_amount": 0.03,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-05-17",
+                                "trans_amount": 0.02,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-05-16",
+                                "trans_amount": 0.14,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-05-11",
+                                "trans_amount": 0.16,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-05-02",
+                                "trans_amount": 0.01,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-28",
+                                "trans_amount": 0.06,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-26",
+                                "trans_amount": 0.02,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-25",
+                                "trans_amount": 0.08,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-24",
+                                "trans_amount": 0.03,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-18",
+                                "trans_amount": 0.01,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-17",
+                                "trans_amount": 0.17,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-12",
+                                "trans_amount": 0.02,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-11",
+                                "trans_amount": 0.02,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-04-03",
+                                "trans_amount": 0.02,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-31",
+                                "trans_amount": 0.03,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-23",
+                                "trans_amount": 0.09,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-21",
+                                "trans_amount": 0.01,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-16",
+                                "trans_amount": 0.04,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-15",
+                                "trans_amount": 0.02,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-14",
+                                "trans_amount": 0.01,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-13",
+                                "trans_amount": 0.01,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-07",
+                                "trans_amount": 0.04,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-06",
+                                "trans_amount": 0.05,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-03",
+                                "trans_amount": 0.01,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            },
+                            {
+                                "trans_date": "2023-03-01",
+                                "trans_amount": 0.06,
+                                "trans_description": "REMUNERACAO APLICACAO AUTOMATICA"
+                            }
+                        ],
+                        "income_stream_type": "Investment dividend"
+                    },
+                    {
+                        "incomeDay": null,
+                        "incomeTransactions": [
+                            {
+                                "trans_date": "2023-05-29",
+                                "trans_amount": 1000,
+                                "trans_description": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA"
+                            },
+                            {
+                                "trans_date": "2023-05-29",
+                                "trans_amount": 10000,
+                                "trans_description": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA"
+                            },
+                            {
+                                "trans_date": "2023-05-10",
+                                "trans_amount": 15000,
+                                "trans_description": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA"
+                            },
+                            {
+                                "trans_date": "2023-04-10",
+                                "trans_amount": 20000,
+                                "trans_description": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA"
+                            },
+                            {
+                                "trans_date": "2023-03-30",
+                                "trans_amount": 10000,
+                                "trans_description": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA"
+                            }
+                        ],
+                        "income_stream_type": "Other recurrent income"
+                    },
+                    {
+                        "incomeDay": null,
+                        "incomeTransactions": [
+                            {
+                                "trans_date": "2023-05-08",
+                                "trans_amount": 5000,
+                                "trans_description": "RESG POUP - CENTRAL/INTERNET/APP   DE: 0157.60.046429-2"
+                            },
+                            {
+                                "trans_date": "2023-03-20",
+                                "trans_amount": 1000,
+                                "trans_description": "RESG POUP - CENTRAL/INTERNET/APP   DE: 0157.60.046010-2"
+                            }
+                        ],
+                        "income_stream_type": "Investment redemption"
+                    }
+                ],
+                "agency_number": "0157",
+                "account_holder": "EVA ROSANGELA CRUZ CALDEIRA",
+                "account_number": "01.063547.9",
+                "number_of_income_streams": 3,
+                "total_income_last_30_days": 31000.36,
+                "total_income_last_60_days": 51000.79,
+                "total_income_last_90_days": 62001.1,
+                "total_income_last_180_days": 62001.16
+            }
+        ]
+    },
+    "query_param": {}
+}

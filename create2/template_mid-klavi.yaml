@@ -1,0 +1,138 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Middleware to connect with Klavi.
+
+Parameters:
+  SESIdentityName:
+    Type: String
+    Default: "juntos@pontte.com.br"
+    Description: An email
+
+  ProjectName:
+    Description: Project Name
+    Type: String
+    Default: Klavi
+
+  Environment:
+    Description: Execution environment for the service
+    Type: String
+    AllowedValues:
+      - dev
+      - test
+      - staging
+      - prod
+      - refactoring
+    Default: dev
+
+
+
+Globals:
+  Function:
+    Runtime: python3.8
+    MemorySize: 1024
+    Timeout: 120
+    Environment:
+      Variables:
+        ENV: !Ref Environment
+        LOGGING_LEVEL: DEBUG
+        SMTP_SERVER: 'email-smtp.us-east-1.amazonaws.com'
+        SENDING_IDENTITY_ARN: "arn:aws:ses:us-east-1:848638426587:identity/juntos@pontte.com.br"
+        CONFIG_SET: "klavi"
+        SMTP_PORT: 508
+    Tags:
+      Project: !Ref ProjectName
+      Environment: !Ref Environment
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'Authorization,Content-Type,If-Match'"
+      AllowOrigin: "'*'"
+    Variables:
+      Environment: !Ref Environment
+
+Conditions:
+  Prod: !Equals [ !Ref Environment, prod ]
+
+Resources:
+  # Bucker para guardar os arquivos exportados pelo webhook
+  KlaviBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "klavi-${Environment}"
+
+
+  APIDomainName:
+    Type: "AWS::ApiGateway::DomainName"
+    Properties:
+      DomainName: !Sub "api-klaviwebhook${Environment}.pontte.com.br"
+      CertificateArn: "arn:aws:acm:us-east-1:848638426587:certificate/639f5ab2-c77a-4f62-8250-c85716a6753f"
+
+  CloudWatchRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - "apigateway.amazonaws.com"
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+
+  ApiGatewayAccount:
+    Type: AWS::ApiGateway::Account
+    Properties:
+      CloudWatchRoleArn: !GetAtt CloudWatchRole.Arn
+
+  KlaviApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub "KlaviApi-${Environment}"
+      StageName: !Ref Environment
+
+  KlaviApiMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      BasePath: "klavi-webhook"
+      DomainName: !Ref APIDomainName
+      RestApiId: !Ref KlaviApi
+      Stage: !Ref KlaviApi.Stage
+
+
+  MidKlaviFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "KlaviWebhookFn-${Environment}"
+      Tracing: Active
+      CodeUri: src/klavi_webhook/
+      Handler: app.lambda_handler
+      Events:
+        api1:
+          Type: Api
+          Properties:
+            RestApiId: !Ref KlaviApi
+            Path: /create
+            Method: POST
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'ses:SendEmail'
+                - 'ses:SendRawEmail'
+              Resource: '*'
+            - Effect: Allow
+              Action:
+                - 'ses:SendRawEmail'
+              Resource:
+                - 'arn:aws:ses:us-east-1:848638426587:identity/juntos@pontte.com.br'
+                - 'arn:aws:ses:us-east-1:848638426587:configuration-set/klav'
+        - SESCrudPolicy:
+            IdentityName: arn:aws:ses:us-east-1:848638426587:configuration-set/klavi
+        - SESCrudPolicy:
+            IdentityName: !Ref SESIdentityName
+        - S3CrudPolicy:
+            BucketName: !Ref KlaviBucket

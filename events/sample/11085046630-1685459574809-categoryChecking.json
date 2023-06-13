@@ -1,0 +1,1373 @@
+{
+    "code": 200,
+    "msg": "ok",
+    "reportTime": "2023-05-30 12:12:54",
+    "data": {
+        "enquiryCpf": "11085046630",
+        "reportVersion": "V2",
+        "connectionKey": "c188967f993a461f8f2198239dcae825",
+        "connectionId": "Uw5cYkeGzBhzXeOVjbXTCmVzdF4qN32e",
+        "reportId": "3d21852a-c8f0-4b08-b913-ccf5e6603813",
+        "userConsent": "Yes",
+        "allowAutoupdate": "Yes",
+        "institutionId": "033",
+        "reportType": "category_checking",
+        "categoryChecking": [
+            {
+                "bankName": "Santander",
+                "bacenName": "BANCO SANTANDER (BRASIL) S.A.",
+                "bacenId": "033",
+                "bankBranch": "0157",
+                "account": "01.063547.9",
+                "operationCode": "",
+                "cpfVerified": "11085046630",
+                "holderName": "EVA ROSANGELA CRUZ CALDEIRA",
+                "balance": 4262.88,
+                "transactionDetail": [
+                    {
+                        "transDate": "2023-05-29",
+                        "transAmount": -5833,
+                        "transDescription": "PIX ENVIADO                        001/0354/0000000001086944",
+                        "balance": 4262.88,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-05-29",
+                        "transAmount": 10000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA",
+                        "balance": 10095.88,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    },
+                    {
+                        "transDate": "2023-05-29",
+                        "transAmount": -2063.32,
+                        "transDescription": "PIX ENVIADO                        PORTOSEG SA CREDITO FIN E",
+                        "balance": 95.88,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Seguros",
+                        "thirdCategory": "Outros seguros"
+                    },
+                    {
+                        "transDate": "2023-05-29",
+                        "transAmount": 1074,
+                        "transDescription": "PIX RECEBIDO                       NILTON DOS SANTOS",
+                        "balance": 2159.2,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-29",
+                        "transAmount": 1000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA",
+                        "balance": 1085.2,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    },
+                    {
+                        "transDate": "2023-05-26",
+                        "transAmount": -50,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 85.2,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-24",
+                        "transAmount": -200,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 135.2,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-24",
+                        "transAmount": 300,
+                        "transDescription": "PIX RECEBIDO                       001/0354/0000000001086944",
+                        "balance": 335.2,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-05-23",
+                        "transAmount": 0.03,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 35.2,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-05-23",
+                        "transAmount": -3916.9,
+                        "transDescription": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A.",
+                        "balance": 35.17,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Empréstimo",
+                        "thirdCategory": "Pagamento de financiamento de veículo"
+                    },
+                    {
+                        "transDate": "2023-05-23",
+                        "transAmount": 3000,
+                        "transDescription": "PIX RECEBIDO                       001/0354/0000000001086944",
+                        "balance": 3952.07,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-05-23",
+                        "transAmount": 800,
+                        "transDescription": "PIX RECEBIDO                       290/0001/0000000462796095",
+                        "balance": 952.07,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-05-23",
+                        "transAmount": -281.88,
+                        "transDescription": "PGTO CONTA DE TELEFONE EM CANAIS   INTERNET VIVO FIXO NACION",
+                        "balance": 152.07,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "TV, telefone e internet"
+                    },
+                    {
+                        "transDate": "2023-05-23",
+                        "transAmount": -104.76,
+                        "transDescription": "PGTO CONTA DE TELEFONE EM CANAIS   INTERNET VIVO FIXO NACION",
+                        "balance": 433.95,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "TV, telefone e internet"
+                    },
+                    {
+                        "transDate": "2023-05-19",
+                        "transAmount": -60,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 538.71,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-17",
+                        "transAmount": 0.02,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 598.71,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-05-17",
+                        "transAmount": -200,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 598.69,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-17",
+                        "transAmount": -180,
+                        "transDescription": "PIX ENVIADO                        FRANCIELE PEDERIVA SILVER",
+                        "balance": 798.69,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-17",
+                        "transAmount": -380,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 978.69,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-17",
+                        "transAmount": -64.95,
+                        "transDescription": "PIX ENVIADO                        PIX Marketplace",
+                        "balance": 1358.69,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras em e-commerce"
+                    },
+                    {
+                        "transDate": "2023-05-17",
+                        "transAmount": -110,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 1423.64,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-16",
+                        "transAmount": 0.14,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 1533.64,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-05-16",
+                        "transAmount": -872.76,
+                        "transDescription": "PAGAMENTO DARF EM CANAIS           INTERNET TRIBUTOS FEDERAI",
+                        "balance": 1533.5,
+                        "category": "Estilo de vida",
+                        "subcategory": "Impostos",
+                        "thirdCategory": "Impostos empresariais"
+                    },
+                    {
+                        "transDate": "2023-05-11",
+                        "transAmount": 0.16,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 2406.26,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-05-11",
+                        "transAmount": -1000,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 2406.1,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-10",
+                        "transAmount": -672.5,
+                        "transDescription": "PIX ENVIADO                        Cassia Costa Sena",
+                        "balance": 3406.1,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-10",
+                        "transAmount": -2200,
+                        "transDescription": "PIX ENVIADO                        ADAIR JOSE MENDES BARBOSA",
+                        "balance": 4078.6,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-05-10",
+                        "transAmount": -5833,
+                        "transDescription": "PIX ENVIADO                        001/0354/0000000001086944",
+                        "balance": 6278.6,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-05-10",
+                        "transAmount": -6233.1,
+                        "transDescription": "PAGAMENTO CARTAO CREDITO BCE       10/05 12:41 CARTAO VISA",
+                        "balance": 12111.6,
+                        "category": "Outros",
+                        "subcategory": "Pagamento de cartão",
+                        "thirdCategory": "Pagamento de cartão da mesma instituição"
+                    },
+                    {
+                        "transDate": "2023-05-10",
+                        "transAmount": 15000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA",
+                        "balance": 18344.7,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    },
+                    {
+                        "transDate": "2023-05-10",
+                        "transAmount": -79.6,
+                        "transDescription": "TARIFA MENSALIDADE PACOTE SERVICOS  ABRIL / 2023",
+                        "balance": 3344.7,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Taxas bancárias",
+                        "thirdCategory": "Taxa de gerenciamento de contas"
+                    },
+                    {
+                        "transDate": "2023-05-08",
+                        "transAmount": -159.9,
+                        "transDescription": "PAGAMENTO CONTA CELULAR EM CANAIS  INTERNET CLARO SA",
+                        "balance": 3424.3,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "TV, telefone e internet"
+                    },
+                    {
+                        "transDate": "2023-05-08",
+                        "transAmount": -558.69,
+                        "transDescription": "PAGAMENTO DE BOLETO OUTROS BANCOS  UNIMED CAMPINAS COOP TRAB",
+                        "balance": 3584.2,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Seguros",
+                        "thirdCategory": "Plano de saúde"
+                    },
+                    {
+                        "transDate": "2023-05-08",
+                        "transAmount": -2000,
+                        "transDescription": "PIX ENVIADO                        001/0354/0000000001086944",
+                        "balance": 4142.89,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-05-08",
+                        "transAmount": 5000,
+                        "transDescription": "RESG POUP - CENTRAL/INTERNET/APP   DE: 0157.60.046429-2",
+                        "balance": 6142.89,
+                        "category": "Renda",
+                        "subcategory": "Resgate",
+                        "thirdCategory": "Resgate da conta poupança"
+                    },
+                    {
+                        "transDate": "2023-05-08",
+                        "transAmount": -363,
+                        "transDescription": "DEBITO VISA ELECTRON BRASIL        06/05 PHONE EXPRESS",
+                        "balance": 1142.89,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Cartão de débito",
+                        "thirdCategory": "Pagamento com cartão de débito"
+                    },
+                    {
+                        "transDate": "2023-05-08",
+                        "transAmount": -44.92,
+                        "transDescription": "DEBITO VISA ELECTRON BRASIL        06/05 FABRICA DI CHOCOLAT",
+                        "balance": 1505.89,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Cartão de débito",
+                        "thirdCategory": "Pagamento com cartão de débito"
+                    },
+                    {
+                        "transDate": "2023-05-08",
+                        "transAmount": -225.5,
+                        "transDescription": "DEBITO VISA ELECTRON BRASIL        06/05 ELAINE CRISTINA D",
+                        "balance": 1550.81,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Cartão de débito",
+                        "thirdCategory": "Pagamento com cartão de débito"
+                    },
+                    {
+                        "transDate": "2023-05-02",
+                        "transAmount": 0.01,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 1776.31,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-05-02",
+                        "transAmount": -141,
+                        "transDescription": "PIX ENVIADO                        IFOOD COM AGENCIA DE REST",
+                        "balance": 1776.3,
+                        "category": "Estilo de vida",
+                        "subcategory": "Bares / Restaurantes",
+                        "thirdCategory": "Delivery de comida"
+                    },
+                    {
+                        "transDate": "2023-04-28",
+                        "transAmount": 0.06,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 1917.3,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-28",
+                        "transAmount": -739.99,
+                        "transDescription": "PIX ENVIADO                        PORTOSEG SA CREDITO FIN E",
+                        "balance": 1917.24,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Seguros",
+                        "thirdCategory": "Outros seguros"
+                    },
+                    {
+                        "transDate": "2023-04-28",
+                        "transAmount": -140,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 2657.23,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-26",
+                        "transAmount": 0.02,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 2797.23,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-26",
+                        "transAmount": -258.92,
+                        "transDescription": "PIX ENVIADO                        COMPANHIA PIRATININGA DE",
+                        "balance": 2797.21,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras gerais"
+                    },
+                    {
+                        "transDate": "2023-04-26",
+                        "transAmount": -237.44,
+                        "transDescription": "PIX ENVIADO                        BRUNA HASSMANN KELLER 318",
+                        "balance": 3056.13,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-25",
+                        "transAmount": 0.08,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 3293.57,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-25",
+                        "transAmount": -89.99,
+                        "transDescription": "PIX ENVIADO                        PIX Marketplace",
+                        "balance": 3293.49,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras em e-commerce"
+                    },
+                    {
+                        "transDate": "2023-04-25",
+                        "transAmount": -186.36,
+                        "transDescription": "PIX ENVIADO                        PIX Marketplace",
+                        "balance": 3383.48,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras em e-commerce"
+                    },
+                    {
+                        "transDate": "2023-04-25",
+                        "transAmount": -1700,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 3569.84,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-24",
+                        "transAmount": 0.03,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 5269.84,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-24",
+                        "transAmount": -800,
+                        "transDescription": "PIX ENVIADO                        AUTHENTIC WEAR ARTIGOS DO",
+                        "balance": 5269.81,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras gerais"
+                    },
+                    {
+                        "transDate": "2023-04-24",
+                        "transAmount": -148.63,
+                        "transDescription": "PIX ENVIADO                        ELAINE CRISTINA LEOPOLDIN",
+                        "balance": 6069.81,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-20",
+                        "transAmount": -160,
+                        "transDescription": "PIX ENVIADO                        SAMARA SANTANA DOS SANTOS",
+                        "balance": 6218.44,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-20",
+                        "transAmount": -30,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 6378.44,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-19",
+                        "transAmount": 248.08,
+                        "transDescription": "PIX DEVOLVIDO                      SHPP B I P PAG LTDA",
+                        "balance": 6408.44,
+                        "category": "Transferência",
+                        "subcategory": "Estorno transferência",
+                        "thirdCategory": "Estorno de PIX"
+                    },
+                    {
+                        "transDate": "2023-04-18",
+                        "transAmount": 0.01,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 6160.36,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-18",
+                        "transAmount": -253.73,
+                        "transDescription": "PIX ENVIADO                        PIX Marketplace",
+                        "balance": 6160.35,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras em e-commerce"
+                    },
+                    {
+                        "transDate": "2023-04-18",
+                        "transAmount": -180,
+                        "transDescription": "PIX ENVIADO                        FRANCIELE PEDERIVA SILVER",
+                        "balance": 6414.08,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-18",
+                        "transAmount": -583.83,
+                        "transDescription": "PIX ENVIADO                        PIX Marketplace",
+                        "balance": 6594.08,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras em e-commerce"
+                    },
+                    {
+                        "transDate": "2023-04-17",
+                        "transAmount": 0.17,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 7177.91,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-17",
+                        "transAmount": -5000,
+                        "transDescription": "TRANSFERENCIA PARA CONTA POUPANCA  PARA: 0157.60.046429-2",
+                        "balance": 7177.74,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Investimento",
+                        "thirdCategory": "Investimento em conta poupança"
+                    },
+                    {
+                        "transDate": "2023-04-17",
+                        "transAmount": -3916.9,
+                        "transDescription": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A.",
+                        "balance": 12177.74,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Empréstimo",
+                        "thirdCategory": "Pagamento de financiamento de veículo"
+                    },
+                    {
+                        "transDate": "2023-04-17",
+                        "transAmount": 300,
+                        "transDescription": "PIX RECEBIDO                       OMEGA SECURITY MONITORAME",
+                        "balance": 16094.64,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-04-14",
+                        "transAmount": -113.02,
+                        "transDescription": "PIX ENVIADO                        SHPP B I P PAG LTDA",
+                        "balance": 15794.64,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Outros serviços financeiros",
+                        "thirdCategory": "Outros serviços financeiros"
+                    },
+                    {
+                        "transDate": "2023-04-13",
+                        "transAmount": 339.77,
+                        "transDescription": "PIX DEVOLVIDO                      SHPP B I P PAG LTDA",
+                        "balance": 15907.66,
+                        "category": "Transferência",
+                        "subcategory": "Estorno transferência",
+                        "thirdCategory": "Estorno de PIX"
+                    },
+                    {
+                        "transDate": "2023-04-12",
+                        "transAmount": 0.02,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 15567.89,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-12",
+                        "transAmount": -33.49,
+                        "transDescription": "PIX ENVIADO                        IFOOD COM AGENCIA DE REST",
+                        "balance": 15567.87,
+                        "category": "Estilo de vida",
+                        "subcategory": "Bares / Restaurantes",
+                        "thirdCategory": "Delivery de comida"
+                    },
+                    {
+                        "transDate": "2023-04-12",
+                        "transAmount": -628.93,
+                        "transDescription": "PIX ENVIADO                        COMPANHIA PIRATININGA DE",
+                        "balance": 15601.36,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras gerais"
+                    },
+                    {
+                        "transDate": "2023-04-11",
+                        "transAmount": 0.02,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 16230.29,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-11",
+                        "transAmount": -150,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 16230.27,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-11",
+                        "transAmount": -105,
+                        "transDescription": "PIX ENVIADO                        NEILA MARIA BONFIM",
+                        "balance": 16380.27,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-11",
+                        "transAmount": -191.23,
+                        "transDescription": "PIX ENVIADO                        SHPP B I P PAG LTDA",
+                        "balance": 16485.27,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Outros serviços financeiros",
+                        "thirdCategory": "Outros serviços financeiros"
+                    },
+                    {
+                        "transDate": "2023-04-11",
+                        "transAmount": -339.77,
+                        "transDescription": "PIX ENVIADO                        SHPP B I P PAG LTDA",
+                        "balance": 16676.5,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Outros serviços financeiros",
+                        "thirdCategory": "Outros serviços financeiros"
+                    },
+                    {
+                        "transDate": "2023-04-11",
+                        "transAmount": -248.08,
+                        "transDescription": "PIX ENVIADO                        SHPP B I P PAG LTDA",
+                        "balance": 17016.27,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Outros serviços financeiros",
+                        "thirdCategory": "Outros serviços financeiros"
+                    },
+                    {
+                        "transDate": "2023-04-11",
+                        "transAmount": -85.15,
+                        "transDescription": "PIX ENVIADO                        PIX Marketplace",
+                        "balance": 17264.35,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras em e-commerce"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": -22.68,
+                        "transDescription": "PIX ENVIADO                        SALVADOR CANDIANI JUNIOR",
+                        "balance": 17349.5,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": -790.02,
+                        "transDescription": "PIX ENVIADO                        SHPP B I P PAG LTDA",
+                        "balance": 17372.18,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Outros serviços financeiros",
+                        "thirdCategory": "Outros serviços financeiros"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": -200,
+                        "transDescription": "PIX ENVIADO                        MARCELO GUILHEN MOREIRA",
+                        "balance": 18162.2,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": -558.69,
+                        "transDescription": "PAGAMENTO DE BOLETO OUTROS BANCOS  UNIMED CAMPINAS COOP TRAB",
+                        "balance": 18362.2,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Seguros",
+                        "thirdCategory": "Plano de saúde"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": -79.6,
+                        "transDescription": "TARIFA MENSALIDADE PACOTE SERVICOS  MARCO / 2023",
+                        "balance": 18920.89,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Taxas bancárias",
+                        "thirdCategory": "Taxa de gerenciamento de contas"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": -4563.49,
+                        "transDescription": "PAGAMENTO CARTAO CREDITO BCE       09/04 13:05 CARTAO VISA",
+                        "balance": 19000.49,
+                        "category": "Outros",
+                        "subcategory": "Pagamento de cartão",
+                        "thirdCategory": "Pagamento de cartão da mesma instituição"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": -86,
+                        "transDescription": "PIX ENVIADO                        E R PEREIRA INDAIATUBA ME",
+                        "balance": 23563.98,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-04-10",
+                        "transAmount": 20000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA",
+                        "balance": 23649.98,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    },
+                    {
+                        "transDate": "2023-04-05",
+                        "transAmount": -50.27,
+                        "transDescription": "PIX ENVIADO                        P A PANIFICADORA E CONFEI",
+                        "balance": 3649.98,
+                        "category": "Estilo de vida",
+                        "subcategory": "Bares / Restaurantes",
+                        "thirdCategory": "Bar e Restaurante"
+                    },
+                    {
+                        "transDate": "2023-04-03",
+                        "transAmount": 0.02,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 3700.25,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-04-03",
+                        "transAmount": -5833,
+                        "transDescription": "PIX ENVIADO                        001/0354/0000000001086944",
+                        "balance": 3700.23,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-03-31",
+                        "transAmount": 0.03,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 9533.23,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-31",
+                        "transAmount": -1317,
+                        "transDescription": "PIX ENVIADO                        Joao Antonio Linder Pecas",
+                        "balance": 9533.2,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-30",
+                        "transAmount": 10000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             CALDEIRA IMOVEIS LTDA",
+                        "balance": 10850.2,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    },
+                    {
+                        "transDate": "2023-03-29",
+                        "transAmount": -30.99,
+                        "transDescription": "PIX ENVIADO                        IFOOD COM AGENCIA DE REST",
+                        "balance": 850.2,
+                        "category": "Estilo de vida",
+                        "subcategory": "Bares / Restaurantes",
+                        "thirdCategory": "Delivery de comida"
+                    },
+                    {
+                        "transDate": "2023-03-23",
+                        "transAmount": 0.09,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 881.19,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-23",
+                        "transAmount": -3916.9,
+                        "transDescription": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A.",
+                        "balance": 881.1,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Empréstimo",
+                        "thirdCategory": "Pagamento de financiamento de veículo"
+                    },
+                    {
+                        "transDate": "2023-03-22",
+                        "transAmount": -235.99,
+                        "transDescription": "DEBITO VISA ELECTRON BRASIL        22/03 MERCADO EURO",
+                        "balance": 4798,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Mercado",
+                        "thirdCategory": "Mercado"
+                    },
+                    {
+                        "transDate": "2023-03-22",
+                        "transAmount": -739.99,
+                        "transDescription": "PIX ENVIADO                        PORTOSEG SA CREDITO FIN E",
+                        "balance": 5033.99,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Seguros",
+                        "thirdCategory": "Outros seguros"
+                    },
+                    {
+                        "transDate": "2023-03-22",
+                        "transAmount": 1500,
+                        "transDescription": "PIX RECEBIDO                       001/0354/0000000001086944",
+                        "balance": 5773.98,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-03-22",
+                        "transAmount": -100,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 4273.98,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-21",
+                        "transAmount": 0.01,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 4373.98,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-21",
+                        "transAmount": -125.8,
+                        "transDescription": "PIX ENVIADO                        ANDRADAS COMERCIO DE PROD",
+                        "balance": 4373.97,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras gerais"
+                    },
+                    {
+                        "transDate": "2023-03-20",
+                        "transAmount": 1000,
+                        "transDescription": "RESG POUP - CENTRAL/INTERNET/APP   DE: 0157.60.046010-2",
+                        "balance": 4499.77,
+                        "category": "Renda",
+                        "subcategory": "Resgate",
+                        "thirdCategory": "Resgate da conta poupança"
+                    },
+                    {
+                        "transDate": "2023-03-20",
+                        "transAmount": 1500,
+                        "transDescription": "PIX RECEBIDO                       001/0354/0000000001086944",
+                        "balance": 3499.77,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-03-20",
+                        "transAmount": 1000,
+                        "transDescription": "PIX RECEBIDO                       001/0354/0000000001086944",
+                        "balance": 1999.77,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "Transferência PIX"
+                    },
+                    {
+                        "transDate": "2023-03-16",
+                        "transAmount": 0.04,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 999.77,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-16",
+                        "transAmount": -1000,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 999.73,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-16",
+                        "transAmount": -83,
+                        "transDescription": "CONTA DE AGUA E ESGOTO EM CANAIS   INTERNET SAAE INDAIATUBA",
+                        "balance": 1999.73,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "Água"
+                    },
+                    {
+                        "transDate": "2023-03-15",
+                        "transAmount": 0.02,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 2082.73,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-15",
+                        "transAmount": -180,
+                        "transDescription": "PIX ENVIADO                        FRANCIELE PEDERIVA SILVER",
+                        "balance": 2082.71,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-15",
+                        "transAmount": -201.02,
+                        "transDescription": "PIX ENVIADO                        BRUNO EDUARDO PINHATELLI",
+                        "balance": 2262.71,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-15",
+                        "transAmount": -100,
+                        "transDescription": "PIX ENVIADO                        Mauro Soares Cassiano Jun",
+                        "balance": 2463.73,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-15",
+                        "transAmount": 500,
+                        "transDescription": "PIX RECEBIDO                       PATRICIA A C CALDEIRA",
+                        "balance": 2563.73,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-15",
+                        "transAmount": -615.53,
+                        "transDescription": "PIX ENVIADO                        COMPANHIA PIRATININGA DE",
+                        "balance": 2063.73,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras gerais"
+                    },
+                    {
+                        "transDate": "2023-03-15",
+                        "transAmount": -117.5,
+                        "transDescription": "PIX ENVIADO                        SERVICO AUTONOMO DE AGUA",
+                        "balance": 2679.26,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "Água"
+                    },
+                    {
+                        "transDate": "2023-03-14",
+                        "transAmount": 0.01,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 2796.76,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-14",
+                        "transAmount": -300,
+                        "transDescription": "PIX ENVIADO                        PARA: 47.063.457/0001-09",
+                        "balance": 2796.75,
+                        "category": "Estilo de vida",
+                        "subcategory": "Serviços",
+                        "thirdCategory": "Imobiliária"
+                    },
+                    {
+                        "transDate": "2023-03-13",
+                        "transAmount": 0.01,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 3096.75,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-13",
+                        "transAmount": -231.98,
+                        "transDescription": "PIX ENVIADO                        TELEFONICA BRASIL S A",
+                        "balance": 3096.74,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "TV, telefone e internet"
+                    },
+                    {
+                        "transDate": "2023-03-13",
+                        "transAmount": -159.9,
+                        "transDescription": "PAGAMENTO CONTA CELULAR EM CANAIS  INTERNET CLARO SA",
+                        "balance": 3328.72,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "TV, telefone e internet"
+                    },
+                    {
+                        "transDate": "2023-03-10",
+                        "transAmount": -40,
+                        "transDescription": "PIX ENVIADO                        MICHELI CHERACOMO G MOREI",
+                        "balance": 3488.62,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-10",
+                        "transAmount": -60,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 3528.62,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-10",
+                        "transAmount": -79.6,
+                        "transDescription": "TARIFA MENSALIDADE PACOTE SERVICOS FEVEREIRO / 2023",
+                        "balance": 3588.62,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Taxas bancárias",
+                        "thirdCategory": "Taxa de gerenciamento de contas"
+                    },
+                    {
+                        "transDate": "2023-03-09",
+                        "transAmount": -15,
+                        "transDescription": "PIX ENVIADO                        MARCELO GUILHEN MOREIRA",
+                        "balance": 3668.22,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-08",
+                        "transAmount": -345,
+                        "transDescription": "PIX ENVIADO                        NEILA MARIA BONFIM",
+                        "balance": 3683.22,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-07",
+                        "transAmount": 0.04,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 4028.22,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-07",
+                        "transAmount": -3000,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 4028.18,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-07",
+                        "transAmount": -87.74,
+                        "transDescription": "PIX ENVIADO                        PIX Marketplace",
+                        "balance": 7028.18,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras em e-commerce"
+                    },
+                    {
+                        "transDate": "2023-03-07",
+                        "transAmount": -70,
+                        "transDescription": "PIX ENVIADO                        LUCIANA CATAROCHI",
+                        "balance": 7115.92,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-07",
+                        "transAmount": -3184.07,
+                        "transDescription": "PIX ENVIADO                        ADRIANO MASCHIETTO PUCINE",
+                        "balance": 7185.92,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-06",
+                        "transAmount": 0.05,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 10369.99,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-06",
+                        "transAmount": -89.9,
+                        "transDescription": "CONTA DE AGUA E ESGOTO EM CANAIS   INTERNET SAAE INDAIATUBA",
+                        "balance": 10369.94,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "Água"
+                    },
+                    {
+                        "transDate": "2023-03-06",
+                        "transAmount": -558.69,
+                        "transDescription": "PAGAMENTO DE BOLETO OUTROS BANCOS  UNIMED CAMPINAS COOP TRAB",
+                        "balance": 10459.84,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Seguros",
+                        "thirdCategory": "Plano de saúde"
+                    },
+                    {
+                        "transDate": "2023-03-06",
+                        "transAmount": -159.9,
+                        "transDescription": "PAGAMENTO CONTA CELULAR EM CANAIS  INTERNET CLARO SA",
+                        "balance": 11018.53,
+                        "category": "Gastos essenciais",
+                        "subcategory": "Contas residenciais",
+                        "thirdCategory": "TV, telefone e internet"
+                    },
+                    {
+                        "transDate": "2023-03-06",
+                        "transAmount": -10215.28,
+                        "transDescription": "PAGAMENTO CARTAO CREDITO BCE       06/03 17:34 CARTAO VISA",
+                        "balance": 11178.43,
+                        "category": "Outros",
+                        "subcategory": "Pagamento de cartão",
+                        "thirdCategory": "Pagamento de cartão da mesma instituição"
+                    },
+                    {
+                        "transDate": "2023-03-06",
+                        "transAmount": 10000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             DE: 47.063.457/0001-09",
+                        "balance": 21393.71,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    },
+                    {
+                        "transDate": "2023-03-03",
+                        "transAmount": 0.01,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 11393.71,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-03",
+                        "transAmount": -100,
+                        "transDescription": "PIX ENVIADO                        ERIKA APARECIDA PAIVA",
+                        "balance": 11393.7,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-03-02",
+                        "transAmount": -500,
+                        "transDescription": "PIX ENVIADO                        LOCALPAY DO BRASIL",
+                        "balance": 11493.7,
+                        "category": "Estilo de vida",
+                        "subcategory": "Serviços",
+                        "thirdCategory": "Serviços digitais"
+                    },
+                    {
+                        "transDate": "2023-03-02",
+                        "transAmount": 10000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             DE: 47.063.457/0001-09",
+                        "balance": 11993.7,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    },
+                    {
+                        "transDate": "2023-03-01",
+                        "transAmount": 0.06,
+                        "transDescription": "REMUNERACAO APLICACAO AUTOMATICA",
+                        "balance": 1993.7,
+                        "category": "Renda",
+                        "subcategory": "Dividendo",
+                        "thirdCategory": "Dividendos"
+                    },
+                    {
+                        "transDate": "2023-03-01",
+                        "transAmount": -4.99,
+                        "transDescription": "DEBITO VISA ELECTRON BRASIL        01/03 SELECT RECREIO OURO",
+                        "balance": 1993.64,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Cartão de débito",
+                        "thirdCategory": "Pagamento com cartão de débito"
+                    },
+                    {
+                        "transDate": "2023-03-01",
+                        "transAmount": -32.48,
+                        "transDescription": "DEBITO VISA ELECTRON BRASIL        01/03 SELECT RECREIO OURO",
+                        "balance": 1998.63,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Cartão de débito",
+                        "thirdCategory": "Pagamento com cartão de débito"
+                    },
+                    {
+                        "transDate": "2023-03-01",
+                        "transAmount": -410.61,
+                        "transDescription": "DEBITO VISA ELECTRON BRASIL        01/03 AUTO POSTO SANTOS",
+                        "balance": 2031.11,
+                        "category": "Estilo de vida",
+                        "subcategory": "Veículo",
+                        "thirdCategory": "Gasolina"
+                    },
+                    {
+                        "transDate": "2023-03-01",
+                        "transAmount": -300,
+                        "transDescription": "PIX ENVIADO                        PARA: 47.063.457/0001-09",
+                        "balance": 2441.72,
+                        "category": "Estilo de vida",
+                        "subcategory": "Serviços",
+                        "thirdCategory": "Imobiliária"
+                    },
+                    {
+                        "transDate": "2023-03-01",
+                        "transAmount": -1000,
+                        "transDescription": "TRANSFERENCIA PARA CONTA POUPANCA  PARA: 0157.60.046010-2",
+                        "balance": 2741.72,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Investimento",
+                        "thirdCategory": "Investimento em conta poupança"
+                    },
+                    {
+                        "transDate": "2023-03-01",
+                        "transAmount": -648,
+                        "transDescription": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS",
+                        "balance": 3741.72,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-02-28",
+                        "transAmount": -31.87,
+                        "transDescription": "PIX ENVIADO                        BRUNO EDUARDO PINHATELLI",
+                        "balance": 4389.72,
+                        "category": "Transferência",
+                        "subcategory": "Transferência PIX",
+                        "thirdCategory": "PIX Pessoa Física"
+                    },
+                    {
+                        "transDate": "2023-02-28",
+                        "transAmount": -1141.18,
+                        "transDescription": "PIX ENVIADO                        PORTOSEG SA CREDITO FIN E",
+                        "balance": 4421.59,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Seguros",
+                        "thirdCategory": "Outros seguros"
+                    },
+                    {
+                        "transDate": "2023-02-28",
+                        "transAmount": -3916.9,
+                        "transDescription": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A.",
+                        "balance": 5562.77,
+                        "category": "Prioridade financeira",
+                        "subcategory": "Empréstimo",
+                        "thirdCategory": "Pagamento de financiamento de veículo"
+                    },
+                    {
+                        "transDate": "2023-02-28",
+                        "transAmount": -74,
+                        "transDescription": "PIX ENVIADO                        BENEDITO JOSE POSSAN",
+                        "balance": 9479.67,
+                        "category": "Estilo de vida",
+                        "subcategory": "Compras",
+                        "thirdCategory": "Compras gerais"
+                    },
+                    {
+                        "transDate": "2023-02-28",
+                        "transAmount": 6000,
+                        "transDescription": "PIX RECEBIDO - DIF TIT             DE: 47.063.457/0001-09",
+                        "balance": 9553.67,
+                        "category": "Renda",
+                        "subcategory": "Outras rendas",
+                        "thirdCategory": "Outras rendas"
+                    }
+                ]
+            }
+        ]
+    },
+    "queryParam": {}
+}

@@ -1,0 +1,236 @@
+{
+    "code": 200,
+    "msg": "ok",
+    "report_time": "2023-05-30 12:12:54",
+    "data": {
+        "enquiry_cpf": "11085046630",
+        "report_version": "V1.1",
+        "connection_key": "c188967f993a461f8f2198239dcae825",
+        "connection_id": "Uw5cYkeGzBhzXeOVjbXTCmVzdF4qN32e",
+        "report_id": "7e76d540-ffb0-46ef-9aba-3bbd5664754b",
+        "user_consent": "Yes",
+        "allow_autoupdate": "Yes",
+        "institution_id": "033",
+        "report_type": "liabilities",
+        "Liabilities": [
+            {
+                "bacen_id": "033",
+                "bank_name": "Santander",
+                "bacen_name": "BANCO SANTANDER (BRASIL) S.A.",
+                "cpf_verified": "11085046630",
+                "days_covered": 180,
+                "agency_number": "0157",
+                "account_holder": "EVA ROSANGELA CRUZ CALDEIRA",
+                "account_number": "01.063547.9",
+                "liabilityStream": [
+                    {
+                        "liabilityTransactions": [
+                            {
+                                "trans_date": "2023-05-10",
+                                "trans_amount": -6233.1,
+                                "trans_description": "PAGAMENTO CARTAO CREDITO BCE       10/05 12:41 CARTAO VISA"
+                            },
+                            {
+                                "trans_date": "2023-04-10",
+                                "trans_amount": -4563.49,
+                                "trans_description": "PAGAMENTO CARTAO CREDITO BCE       09/04 13:05 CARTAO VISA"
+                            },
+                            {
+                                "trans_date": "2023-03-06",
+                                "trans_amount": -10215.28,
+                                "trans_description": "PAGAMENTO CARTAO CREDITO BCE       06/03 17:34 CARTAO VISA"
+                            }
+                        ],
+                        "liability_stream_type": "Credit card"
+                    },
+                    {
+                        "liabilityTransactions": [
+                            {
+                                "trans_date": "2023-05-23",
+                                "trans_amount": -3916.9,
+                                "trans_description": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A."
+                            },
+                            {
+                                "trans_date": "2023-04-17",
+                                "trans_amount": -3916.9,
+                                "trans_description": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A."
+                            },
+                            {
+                                "trans_date": "2023-03-23",
+                                "trans_amount": -3916.9,
+                                "trans_description": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A."
+                            },
+                            {
+                                "trans_date": "2023-02-28",
+                                "trans_amount": -3916.9,
+                                "trans_description": "PAGAMENTO DE BOLETO OUTROS BANCOS  BANCO VOLKSWAGEN S.A."
+                            }
+                        ],
+                        "liability_stream_type": "Mortgage"
+                    },
+                    {
+                        "liabilityTransactions": [
+                            {
+                                "trans_date": "2023-05-26",
+                                "trans_amount": -50,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-05-24",
+                                "trans_amount": -200,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            },
+                            {
+                                "trans_date": "2023-05-19",
+                                "trans_amount": -60,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-05-17",
+                                "trans_amount": -180,
+                                "trans_description": "PIX ENVIADO                        FRANCIELE PEDERIVA SILVER"
+                            },
+                            {
+                                "trans_date": "2023-05-17",
+                                "trans_amount": -200,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            },
+                            {
+                                "trans_date": "2023-05-17",
+                                "trans_amount": -380,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            },
+                            {
+                                "trans_date": "2023-05-17",
+                                "trans_amount": -110,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-05-11",
+                                "trans_amount": -1000,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            },
+                            {
+                                "trans_date": "2023-04-28",
+                                "trans_amount": -140,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-04-25",
+                                "trans_amount": -1700,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            },
+                            {
+                                "trans_date": "2023-04-20",
+                                "trans_amount": -30,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-04-18",
+                                "trans_amount": -180,
+                                "trans_description": "PIX ENVIADO                        FRANCIELE PEDERIVA SILVER"
+                            },
+                            {
+                                "trans_date": "2023-04-11",
+                                "trans_amount": -150,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-03-22",
+                                "trans_amount": -100,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-03-16",
+                                "trans_amount": -1000,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            },
+                            {
+                                "trans_date": "2023-03-15",
+                                "trans_amount": -180,
+                                "trans_description": "PIX ENVIADO                        FRANCIELE PEDERIVA SILVER"
+                            },
+                            {
+                                "trans_date": "2023-03-10",
+                                "trans_amount": -60,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-03-07",
+                                "trans_amount": -3000,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            },
+                            {
+                                "trans_date": "2023-03-03",
+                                "trans_amount": -100,
+                                "trans_description": "PIX ENVIADO                        ERIKA APARECIDA PAIVA"
+                            },
+                            {
+                                "trans_date": "2023-03-01",
+                                "trans_amount": -648,
+                                "trans_description": "PIX ENVIADO                        BRUNO HENRIQUE DOS SANTOS"
+                            }
+                        ],
+                        "liability_stream_type": "Other recurrent transfer"
+                    },
+                    {
+                        "liabilityTransactions": [
+                            {
+                                "trans_date": "2023-05-23",
+                                "trans_amount": -281.88,
+                                "trans_description": "PGTO CONTA DE TELEFONE EM CANAIS   INTERNET VIVO FIXO NACION"
+                            },
+                            {
+                                "trans_date": "2023-05-23",
+                                "trans_amount": -104.76,
+                                "trans_description": "PGTO CONTA DE TELEFONE EM CANAIS   INTERNET VIVO FIXO NACION"
+                            },
+                            {
+                                "trans_date": "2023-05-08",
+                                "trans_amount": -159.9,
+                                "trans_description": "PAGAMENTO CONTA CELULAR EM CANAIS  INTERNET CLARO SA"
+                            },
+                            {
+                                "trans_date": "2023-03-16",
+                                "trans_amount": -83,
+                                "trans_description": "CONTA DE AGUA E ESGOTO EM CANAIS   INTERNET SAAE INDAIATUBA"
+                            },
+                            {
+                                "trans_date": "2023-03-15",
+                                "trans_amount": -117.5,
+                                "trans_description": "PIX ENVIADO                        SERVICO AUTONOMO DE AGUA"
+                            },
+                            {
+                                "trans_date": "2023-03-13",
+                                "trans_amount": -231.98,
+                                "trans_description": "PIX ENVIADO                        TELEFONICA BRASIL S A"
+                            },
+                            {
+                                "trans_date": "2023-03-13",
+                                "trans_amount": -159.9,
+                                "trans_description": "PAGAMENTO CONTA CELULAR EM CANAIS  INTERNET CLARO SA"
+                            },
+                            {
+                                "trans_date": "2023-03-06",
+                                "trans_amount": -159.9,
+                                "trans_description": "PAGAMENTO CONTA CELULAR EM CANAIS  INTERNET CLARO SA"
+                            },
+                            {
+                                "trans_date": "2023-03-06",
+                                "trans_amount": -89.9,
+                                "trans_description": "CONTA DE AGUA E ESGOTO EM CANAIS   INTERNET SAAE INDAIATUBA"
+                            }
+                        ],
+                        "liability_stream_type": "Utilities rental"
+                    }
+                ],
+                "number_of_liability_streams": 4,
+                "total_liabilities_last_30_days": 12876.54,
+                "total_liabilities_last_60_days": 23556.93,
+                "total_liabilities_last_90_days": 42971.29,
+                "total_liabilities_last_180_days": 47536.19
+            }
+        ]
+    },
+    "query_param": {}
+}

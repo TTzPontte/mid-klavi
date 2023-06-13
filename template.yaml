@@ -1,0 +1,120 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Middleware to connect with Klavi.
+
+Parameters:
+  SESIdentityName:
+    Type: String
+    Default: "juntos@pontte.com.br"
+    Description: An email
+
+  Project:
+    Description: nome do projeto
+    Type: String
+    Default: Klavi
+
+  Environment:
+    Description: Environment de execucao do servico
+    Type: String
+    AllowedValues:
+      - dev
+      - test
+      - staging
+      - prod
+      - refactoring
+    Default: dev
+
+  APIDomainName:
+    Description: Nome do dominio
+    Type: String
+
+  CognitoUserPoolArn:
+    Description: ARN do User Pool do Cognito
+    Type: String
+
+  StageName:
+    Description: nome do estagio na URL quando em producao
+    Type: String
+
+Globals:
+  Function:
+    Runtime: python3.8
+    MemorySize: 1024
+    Timeout: 120
+    Layers:
+      - arn:aws:lambda:us-east-1:848638426587:layer:LibrariesLayer:2621
+      - arn:aws:lambda:us-east-1:848638426587:layer:CommonLayer:2023
+    Environment:
+      Variables:
+        ENV: !Ref Environment
+        LOGGING_LEVEL: DEBUG
+        SMTP_SERVER: 'email-smtp.us-east-1.amazonaws.com'
+        SENDING_IDENTITY_ARN: "arn:aws:ses:us-east-1:848638426587:identity/juntos@pontte.com.br"
+        CONFIG_SET: "klavi"
+        SMTP_PORT: 508
+    Tags:
+      Project: !Ref Project
+      Environment: !Ref Environment
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'Authorization,Content-Type,If-Match'"
+      AllowOrigin: "'*'"
+
+Conditions:
+  Prod: !Equals [ !Ref Environment, prod ]
+
+Resources:
+  KlaviBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "klavi-${Environment}"
+
+  APIDomainName:
+    Type: "AWS::ApiGateway::DomainName"
+    Properties:
+      DomainName: !Sub "api-klaviwebhook${Environment}.pontte.com.br"
+      CertificateArn: "arn:aws:acm:us-east-1:848638426587:certificate/639f5ab2-c77a-4f62-8250-c85716a6753f"
+
+  KlaviApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub "KlaviApi-${Environment}"
+      StageName: !If [ Prod, !Ref StageName, !Ref Environment ]
+      Auth:
+        DefaultAuthorizer: CognitoAuthorizer
+        Authorizers:
+          CognitoAuthorizer:
+            UserPoolArn: !Ref CognitoUserPoolArn
+
+  KlaviApiMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      BasePath: "klavi-webhook"
+      DomainName: !Ref APIDomainName
+      RestApiId: !Ref KlaviApi
+      Stage: !Ref KlaviApi.Stage
+
+  MidKlaviFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "KlaviWebhookFn-${Environment}"
+      Description: Middleware to connect with Klavi
+      CodeUri: src/create/
+      Handler: app.handler
+      Tracing: Active
+      Events:
+        api1:
+          Type: Api
+          Properties:
+            RestApiId: !Ref KlaviApi
+            Path: /create
+            Method: POST
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Sub "ReportURLs.${Environment}"
+        - S3CrudPolicy:
+            BucketName: !Ref KlaviBucket
+        - SESCrudPolicy:
+            IdentityName: !Ref SESIdentityName

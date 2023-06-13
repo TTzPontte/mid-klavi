@@ -1,0 +1,9 @@
+dataclasses
+typing
+requests
+pandas
+logging
+uuid
+email
+boto3
+botocore

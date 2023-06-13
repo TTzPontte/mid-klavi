@@ -1,0 +1,4 @@
+- search for record in table
+- retrun records with parent relation
+- get related_cards_ids form parent relation
+- 

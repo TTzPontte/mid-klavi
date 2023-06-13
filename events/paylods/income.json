@@ -1,0 +1,152 @@
+{
+  "code": 200,
+  "msg": "ok",
+  "report_time": "2023-03-13 16:58:34",
+  "data": {
+    "enquiry_cpf": "03273275375",
+    "report_version": "V1.1",
+    "connection_key": "63449e7b941f4429adfc7c77ebc0fb69",
+    "connection_id": "4GAJN3Cc4DiNDeXpWVjZlMxnPxeu6SUL",
+    "report_id": "5cd2749a-6ef2-4c6d-bedd-b13516b4782d",
+    "user_consent": "Yes",
+    "allow_autoupdate": "Yes",
+    "institution_id": "341",
+    "report_type": "income",
+    "Income": [
+      {
+        "bacen_id": "341",
+        "bank_name": "Itaú",
+        "bacen_name": "ITAÚ UNIBANCO S.A.",
+        "cpf_verified": "03273275375",
+        "days_covered": 180,
+        "incomeStream": [
+          {
+            "incomeDay": null,
+            "incomeTransactions": [
+              {
+                "trans_date": "2023-03-07",
+                "trans_amount": 0.05,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2023-03-06",
+                "trans_amount": 0.01,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2023-01-30",
+                "trans_amount": 0.01,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2023-01-06",
+                "trans_amount": 0.02,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2022-12-05",
+                "trans_amount": 0.01,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2022-12-02",
+                "trans_amount": 0.01,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2022-11-29",
+                "trans_amount": 0.02,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2022-11-01",
+                "trans_amount": 0.01,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              },
+              {
+                "trans_date": "2022-10-31",
+                "trans_amount": 0.01,
+                "trans_description": "REND PAGO APLIC AUT MAIS"
+              }
+            ],
+            "income_stream_type": "Investment dividend"
+          },
+          {
+            "incomeDay": {
+              "1st_income_day": "27",
+              "2nd_income_day": ""
+            },
+            "incomeTransactions": [
+              {
+                "trans_date": "2023-01-27",
+                "trans_amount": 5654.5,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              },
+              {
+                "trans_date": "2023-01-27",
+                "trans_amount": 6977.76,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              },
+              {
+                "trans_date": "2022-12-27",
+                "trans_amount": 5686.35,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              },
+              {
+                "trans_date": "2022-12-20",
+                "trans_amount": 1950.1,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              },
+              {
+                "trans_date": "2022-11-25",
+                "trans_amount": 3736.25,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              },
+              {
+                "trans_date": "2022-11-25",
+                "trans_amount": 5686.35,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              },
+              {
+                "trans_date": "2022-10-27",
+                "trans_amount": 5686.35,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              },
+              {
+                "trans_date": "2022-09-30",
+                "trans_amount": 667.42,
+                "trans_description": "PAGTO SALARIO           "
+              },
+              {
+                "trans_date": "2022-09-23",
+                "trans_amount": 5352.64,
+                "trans_description": "REMUNERACAO/SALARIO     "
+              }
+            ],
+            "income_stream_type": "Regular salary"
+          },
+          {
+            "incomeDay": null,
+            "incomeTransactions": [
+              {
+                "trans_date": "2022-10-28",
+                "trans_amount": 944.12,
+                "trans_description": "DOC 001.REST. IR        "
+              }
+            ],
+            "income_stream_type": "Bonus"
+          }
+        ],
+        "agency_number": "6540",
+        "account_holder": "SILVIO LUCENA JUNIOR",
+        "account_number": "10984-7",
+        "number_of_income_streams": 3,
+        "total_income_last_30_days": 0.06,
+        "total_income_last_60_days": 12632.33,
+        "total_income_last_90_days": 20268.8,
+        "total_income_last_180_days": 42341.99
+      }
+    ]
+  },
+  "query_param": {}
+}
