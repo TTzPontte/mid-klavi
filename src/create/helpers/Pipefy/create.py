@@ -1,4 +1,5 @@
 from gql_client import PipefyClient
+
 from query import createCard
 from search import PipefyDataFacade
 
@@ -38,20 +39,21 @@ def make_report_urls(enquiry_cpf, report_type):
 
 
 def main():
+    json_report_url, xlsx_report_url = make_report_urls(enquiry_cpf, report_type)
+    other_json_report_url, other_xlsx_report_url = make_report_urls(enquiry_cpf, other_report)
+
+    facade = find_relation(enquiry_cpf)
+    variables = make_variables(facade, title, report_type, other_report, other_json_report_url,
+                               json_report_url, enquiry_cpf, xlsx_report_url, other_xlsx_report_url)
+
+    card = send_to_pipefy(variables)
+    return card
+
+
+if __name__ == "__main__":
     enquiry_cpf = "..."
     title = "..."
     report_type = "..."
     other_report = "..."
 
-    facade = find_relation(enquiry_cpf)
-    json_report_url, xlsx_report_url = make_report_urls(enquiry_cpf, report_type)
-    other_json_report_url, other_xlsx_report_url = make_report_urls(enquiry_cpf, other_report)
-
-    variables = make_variables(facade, title, report_type, other_report, other_json_report_url,
-                               json_report_url, enquiry_cpf, xlsx_report_url, other_xlsx_report_url)
-
-    card = send_to_pipefy(variables)
-
-
-if __name__ == "__main__":
     main()

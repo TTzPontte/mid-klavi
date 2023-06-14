@@ -90,6 +90,39 @@ class ReportManager:
             parser.category_checking_to_excel(xlsx_report_url)
 
 
+class PipefyCardCreator:
+    def __init__(self, enquiry_cpf, report_type, other_report, title,
+                 json_report_url, xlsx_report_url, other_json_report_url, other_xlsx_report_url):
+        self.enquiry_cpf = enquiry_cpf
+        self.report_type = report_type
+        self.other_report = other_report
+        self.title = title
+        self.json_report_url = json_report_url
+        self.xlsx_report_url = xlsx_report_url
+        self.other_json_report_url = other_json_report_url
+        self.other_xlsx_report_url = other_xlsx_report_url
+
+    def generate_variables(self, facade):
+        fields = [
+            {"field_id": "nome", "field_value": self.title},
+            {"field_id": "cpf_cnpj", "field_value": self.enquiry_cpf},
+            {"field_id": f'{self.report_type}_xlsx', "field_value": self.xlsx_report_url},
+            {"field_id": f'{self.other_report}_xlsx', "field_value": self.other_xlsx_report_url},
+            {"field_id": f'{self.report_type}_json', "field_value": self.json_report_url},
+            {"field_id": f'{self.other_report}_json', "field_value": self.other_json_report_url}
+        ]
+        return {"input": {"pipe_id": "303111869", "parent_ids": facade.related_cards, "fields_attributes": fields}}
+
+    def create_card(self):
+        facade = PipefyDataFacade(he_phase_id=HE_BACEM_PHASE_ID, fi_phase_id=FI_BACEM_PHASE_ID,
+                                  document_number=self.enquiry_cpf)
+        facade.run()
+
+        variables = self.generate_variables(facade)
+        client = PipefyClient()
+        card = client.post(createCard, variables)
+        return card
+
 
 class OpenFinanceCreate(Handler):
     def pre_process(self):
