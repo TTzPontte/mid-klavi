@@ -1,94 +1,59 @@
 import json
-import logging
-import os
-from dataclasses import dataclass
 from http import HTTPStatus
 
-import boto3
-from botocore.exceptions import ClientError
-
 from common.handlerbase import Handler, Result
+
 from helpers.Models.Payload import Parser
-from helpers.Pipefy.GqlClient import PipefyClient
-from helpers.Pipefy.query import createCard
+from helpers.Models.s3_helper import S3Helper
+from helpers.Pipefy.create import create_pipefy_card
 from helpers.Pipefy.search import PipefyDataFacade
-from helpers.ReportURLsDAO import ReportURLsDAO
 from helpers.email_helper.validate_payload import validate_payload
+from helpers.DAO.KlaviOpenStatementDAO import KlaviOpenStatementDAO
+from helpers.DAO.ReportURLsDAO import ReportURLsDAO
 
-ENV = os.getenv('ENV')
-BUCKET_NAME = "openfinance-dev"
-REPORT_TYPES = ["category_checking", "income"]
-HE_BACEM_PHASE_ID = "319165329"
-FI_BACEM_PHASE_ID = "319165324"
-
-@dataclass
-class S3Helper:
-    enquiry_cpf: str
-    BUCKET_NAME: str = BUCKET_NAME
-    s3_client = boto3.client("s3")
-
-    def generate_report_urls(self, enquiry_cpf, report_type):
-        json_key = f"{enquiry_cpf}/{report_type}.json"
-        xlsx_key = f"{enquiry_cpf}/{report_type}.xlsx"
-        json_report_url = f"https://s3.amazonaws.com/{BUCKET_NAME}/{json_key}"
-        xlsx_report_url = f"https://s3.amazonaws.com/{BUCKET_NAME}/{xlsx_key}"
-        return json_report_url, xlsx_report_url
-
-    def save_to_s3(self, body, bucket_name, key):
-        """Save data to S3."""
-        try:
-            self.s3_client.put_object(Body=body, Bucket=bucket_name, Key=key)
-        except ClientError as e:
-            logging.error(e)
-            raise RuntimeError(f"Failed to save data to S3. Bucket: {bucket_name}, Key: {key}")
-
-    def list_files_in_s3_bucket(self, enquiry_cpf, report_types):
-        files = []
-        for report_type in report_types:
-            prefix = f"{enquiry_cpf}/{report_type}"
-            response = self.s3_client.list_objects_v2(Bucket=BUCKET_NAME, Prefix=prefix)
-
-            if 'Contents' in response:
-                files.append(response['Contents'])
-        return files
-
-    def count_files_in_s3_bucket(self, enquiry_cpf, report_types):
-        file_counts = {report_type: 0 for report_type in report_types}
-
-        for report_type in report_types:
-            prefix = f"{enquiry_cpf}/{report_type}"
-            response = self.s3_client.list_objects_v2(Bucket=BUCKET_NAME, Prefix=prefix)
-
-            if 'Contents' in response:
-                file_counts[report_type] = len(response['Contents'])
-            else:
-                file_counts[report_type] = 0
-
-        return file_counts
+# ENV = os.getenv('ENV')
+ENV = 'staging'
 
 
-class ReportManager:
-    def __init__(self, body):
-        self.body = body
-        self.s3_helper = S3Helper()
+def find_relation(enquiry_cpf):
+    he_bacem_phase_id = "319165329"
+    fi_bacem_phase_id = "319165324"
+    facade = PipefyDataFacade(he_phase_id=he_bacem_phase_id, fi_phase_id=fi_bacem_phase_id, document_number=enquiry_cpf)
+    facade.run()
+    return facade
 
-    def generate_report_urls(self, enquiry_cpf, report_type):
-        json_key = f"{enquiry_cpf}/{report_type}.json"
-        xlsx_key = f"{enquiry_cpf}/{report_type}.xlsx"
-        json_report_url = f"https://s3.amazonaws.com/{BUCKET_NAME}/{json_key}"
-        xlsx_report_url = f"https://s3.amazonaws.com/{BUCKET_NAME}/{xlsx_key}"
-        return json_report_url, xlsx_report_url
 
-    def save_report_to_s3(self, json_report_url):
-        self.s3_helper.save_to_s3(json.dumps(self.body), BUCKET_NAME, json_report_url)
+def make_report_urls(enquiry_cpf, report_type):
+    json_key = f"{enquiry_cpf}/{report_type}.json"
+    xlsx_key = f"{enquiry_cpf}/{report_type}.xlsx"
+    json_report_url = f"https://s3.amazonaws.com/openfinance-dev/{json_key}"
+    xlsx_report_url = f"https://s3.amazonaws.com/openfinance-dev/{xlsx_key}"
+    return json_report_url, xlsx_report_url
 
-    def generate_excel(self, xlsx_report_url, report_type):
-        parser = Parser(**self.body)
-        if report_type == "income":
-            parser.income_to_excel(xlsx_report_url)
-        else:
-            parser.category_checking_to_excel(xlsx_report_url)
 
+def make_files(xlsx_report_url, json_report_url):
+    obj = {"xlsx_report_url": xlsx_report_url, "json_report_url": json_report_url}
+    print("obj: %s" % obj)
+    return obj
+
+
+def create_goal(response):
+    if not response:
+        return []
+
+    common_keys = ['enquiry_cpf', 'title']
+    report_keys = ['json_report_url', 'xlsx_report_url']
+
+    common_attrs = {key: response[0].get(key) for key in common_keys}
+
+    report_attrs = {
+        report['report_type']: {key: report[key] for key in report_keys}
+        for report in response
+    }
+
+    goal = {**common_attrs, **report_attrs}
+
+    return [goal]
 
 
 class OpenFinanceCreate(Handler):
@@ -105,47 +70,62 @@ class OpenFinanceCreate(Handler):
 
     def handler(self):
         body = self.event["body"]
+        if "query_param" in body:
+            del body["query_param"]
+
         data = body.get("data")
         enquiry_cpf = data.get("enquiry_cpf")
         report_type = data.get("report_type").lower()
+        report_types = ["category_checking", "income"]
+        if report_type in report_types:
+            bucket_name = "openfinance-dev"
+            json_report_url, xlsx_report_url = make_report_urls(enquiry_cpf, report_type)
+            print("json_report_url, xlsx_report_url", json_report_url, xlsx_report_url)
+            s3_helper = S3Helper()
+            s3_helper.save_to_s3(json.dumps(body), bucket_name, json_report_url)
 
-        if report_type in REPORT_TYPES:
-            report_manager = ReportManager(body)
-            json_report_url, xlsx_report_url = report_manager.generate_report_urls(enquiry_cpf, report_type)
-            report_manager.save_report_to_s3(json_report_url)
-            report_manager.generate_excel(xlsx_report_url, report_type)
+            parser = Parser(**body)
+            other_report = None
+            title = None
 
-            title = data.get('Income')[0].get("account_holder") if report_type == "income" \
-                else data.get("Category_checking")[0].get("holder_name")
+            if report_type == "income":
+                other_report = "category_checking"
+                parser.income_to_excel(xlsx_report_url)
+                title = data.get('Income')[0].get("account_holder")
+            elif report_type == "category_checking":
+                other_report = "income"
+                parser.category_checking_to_excel(xlsx_report_url)
+                title = data.get("Category_checking")[0].get("holder_name")
 
             dao = ReportURLsDAO(ENV)
             base_obj = {"enquiry_cpf": enquiry_cpf, "title": title, "report_type": report_type}
-            current_report = {"xlsx_report_url": xlsx_report_url, "json_report_url": json_report_url}
+            current_report = make_files(xlsx_report_url, json_report_url)
             dao.put_item({**base_obj, **current_report})
 
-            file_counts = S3Helper().count_files_in_s3_bucket(enquiry_cpf, REPORT_TYPES)
+            file_counts = s3_helper.count_files_in_s3_bucket(enquiry_cpf, report_types)
+            existing_items = dao.get_items(enquiry_cpf)
+            print("existing items: ", existing_items)
+
             has_both_reports = all(value == 2 for value in file_counts.values())
             new_dict = {**base_obj, f'{report_type}': current_report}
-
             if has_both_reports:
-                other_report = "income" if report_type == "category_checking" else "category_checking"
-                other_json_report_url, other_xlsx_report_url = report_manager.generate_report_urls(
-                    enquiry_cpf, other_report
-                )
-                report_manager.save_report_to_s3(other_json_report_url)
-                report_manager.generate_excel(other_xlsx_report_url, other_report)
+                statement = create_goal(existing_items)
 
-                card_creator = PipefyCardCreator(
-                    enquiry_cpf, report_type, other_report, title,
-                    json_report_url, xlsx_report_url, other_json_report_url, other_xlsx_report_url
-                )
-                card = card_creator.create_card()
+                # Example usage
+                dao2 = KlaviOpenStatementDAO()
+
+                # Get statement by ID
+                response = dao2.create_statement(statement[0])
+
+                card_id = create_pipefy_card(response)
+                card = dao2.update_statement(response, card_id)
+
                 return Result(HTTPStatus.OK, card)
 
             return Result(HTTPStatus.OK, new_dict)
-
         return Result(HTTPStatus.OK, {"report_type": report_type})
 
 
 def handler(event, context):
+    print("Event: %s", event)
     return OpenFinanceCreate(event, context).run()

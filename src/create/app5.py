@@ -2,24 +2,16 @@ import json
 import os
 from http import HTTPStatus
 
-import requests
 from common.handlerbase import Handler, Result
 
 from helpers.Models.Payload import Parser
 from helpers.Models.s3_helper import S3Helper
-from helpers.Pipefy.search.main import PipefyDataFacade
-from helpers.ReportURLsDAO import ReportURLsDAO
-from helpers.email_helper.validate_payload import validate_payload
+from src.create.helpers.DAO.ReportURLsDAO import ReportURLsDAO
+from helpers.Pipefy.search import PipefyDataFacade
 from helpers.Pipefy.create import make_variables, send_to_pipefy
+from helpers.email_helper.validate_payload import validate_payload
 
 ENV = os.getenv('ENV')
-
-
-def send_to_pipedream(new_dict):
-    url = "https://eonzjtv05gp53jt.m.pipedream.net"
-    resp = requests.post(url, data=json.dumps(new_dict))
-    print(resp)
-    return resp
 
 
 def find_relation(enquiry_cpf):
@@ -30,7 +22,7 @@ def find_relation(enquiry_cpf):
     return facade
 
 
-def make_report_urls( enquiry_cpf, report_type):
+def make_report_urls(enquiry_cpf, report_type):
     json_key = f"{enquiry_cpf}/{report_type}.json"
     xlsx_key = f"{enquiry_cpf}/{report_type}.xlsx"
     json_report_url = f"https://s3.amazonaws.com/openfinance-dev/{json_key}"
@@ -67,7 +59,7 @@ class OpenFinanceCreate(Handler):
         report_types = ["category_checking", "income"]
         if report_type in "category_checking":
             bucket_name = "openfinance-dev"
-            json_report_url, xlsx_report_url = make_report_urls( enquiry_cpf, report_type)
+            json_report_url, xlsx_report_url = make_report_urls(enquiry_cpf, report_type)
             print("-----")
             print("-----")
             print("json_report_url, xlsx_report_url", json_report_url, xlsx_report_url)
@@ -92,18 +84,17 @@ class OpenFinanceCreate(Handler):
             current_report = make_files(xlsx_report_url, json_report_url)
             dao.put_item({**base_obj, **current_report})
 
-            file_counts = s3_helper.count_files_in_s3_bucket( enquiry_cpf, report_types)
+            file_counts = s3_helper.count_files_in_s3_bucket(enquiry_cpf, report_types)
 
             has_both_reports = all(value == 2 for value in file_counts.values())
             new_dict = {**base_obj, f'{report_type}': current_report}
             if has_both_reports:
-                other_json_report_url, other_xlsx_report_url = make_report_urls( enquiry_cpf, other_report)
+                other_json_report_url, other_xlsx_report_url = make_report_urls(enquiry_cpf, other_report)
                 print("other_json_report_url, other_xlsx_report_url", other_json_report_url, other_xlsx_report_url)
                 facade = find_relation(enquiry_cpf)
 
                 variables = make_variables(facade, title, report_type, other_report, other_json_report_url,
-                                           json_report_url,
-                                           enquiry_cpf, xlsx_report_url, other_xlsx_report_url)
+                                           json_report_url, enquiry_cpf, xlsx_report_url, other_xlsx_report_url)
                 card = send_to_pipefy(variables)
                 return Result(HTTPStatus.OK, card)
 

@@ -25,6 +25,17 @@ Parameters:
       - refactoring
     Default: dev
 
+  APIDomainName:
+    Description: Nome do dominio
+    Type: String
+
+  CognitoUserPoolArn:
+    Description: ARN do User Pool do Cognito
+    Type: String
+
+  StageName:
+    Description: nome do estagio na URL quando em producao
+    Type: String
 
 Globals:
   Function:
@@ -48,21 +59,25 @@ Globals:
     Tags:
       Project: !Ref Project
       Environment: !Ref Environment
-#  Api:
-#    Cors:
-#      AllowMethods: "'*'"
-#      AllowHeaders: "'Authorization,Content-Type,If-Match'"
-#      AllowOrigin: "'*'"
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'Authorization,Content-Type,If-Match'"
+      AllowOrigin: "'*'"
 
 Conditions:
   Prod: !Equals [ !Ref Environment, prod ]
 
 Resources:
+  KlaviBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "klavi-${Environment}"
 
   APIDomainName:
     Type: "AWS::ApiGateway::DomainName"
     Properties:
-      DomainName: !If [ Prod, "api-klaviwebhook.pontte.com.br", !Sub "api-klaviwebhook${Environment}.pontte.com.br" ]
+      DomainName: !Sub "OpenFinanceApi{Environment}.pontte.com.br"
       CertificateArn: "arn:aws:acm:us-east-1:848638426587:certificate/639f5ab2-c77a-4f62-8250-c85716a6753f"
 
   # Acessos para log
@@ -85,19 +100,19 @@ Resources:
     Properties:
       CloudWatchRoleArn: !GetAtt CloudWatchRole.Arn
 
-  OpenFinanceApi:
+  KlaviApi:
     Type: AWS::Serverless::Api
     Properties:
-      Name: !Sub "OpenFinanceApi-${Environment}"
+      Name: !Sub "OpenFinance-${Environment}"
       StageName: !Ref Environment
 
-  OpenFinanceApiMapping:
+  KlaviApiMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: "v1"
+      BasePath: "open-finance"
       DomainName: !Ref APIDomainName
-      RestApiId: !Ref OpenFinanceApi
-      Stage: !Ref OpenFinanceApi.Stage
+      RestApiId: !Ref KlaviApi
+      Stage: !Ref KlaviApi.Stage
 
   MidKlaviFunction:
     Type: AWS::Serverless::Function
@@ -111,7 +126,7 @@ Resources:
         api1:
           Type: Api
           Properties:
-            RestApiId: !Ref OpenFinanceApi
+            RestApiId: !Ref KlaviApi
             Path: /create
             Method: POST
       Policies:
@@ -120,14 +135,14 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref ReportTable
         - S3CrudPolicy:
-            BucketName: !Sub "klavi-${Environment}"
+            BucketName: !Ref KlaviBucket
         - SESCrudPolicy:
             IdentityName: !Ref SESIdentityName
 
   EventReportTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub "Klavi-EventsTable.${Environment}"
+      TableName: !Sub "ReportURLs.${Environment}"
       BillingMode: PAY_PER_REQUEST
       PointInTimeRecoverySpecification:
         PointInTimeRecoveryEnabled: !If [ Prod, true, false ]
@@ -154,7 +169,7 @@ Resources:
   ReportTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub "klavi-ReportTable.${Environment}"
+      TableName: !Sub "UserInformation"
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
         - AttributeName: id

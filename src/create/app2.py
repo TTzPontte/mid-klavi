@@ -6,7 +6,7 @@ from common.handlerbase import Handler, Result
 
 from helpers.Models.Payload import Parser
 from helpers.Models.s3_helper import S3Helper
-from helpers.ReportURLsDAO import ReportURLsDAO
+from src.create.helpers.DAO.ReportURLsDAO import ReportURLsDAO
 from helpers.Pipefy.search import PipefyDataFacade
 from helpers.Pipefy.create import make_variables, send_to_pipefy
 from helpers.email_helper.validate_payload import validate_payload

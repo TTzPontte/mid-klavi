@@ -12,7 +12,7 @@ from helpers.Models.Payload import Parser
 from helpers.Pipefy.GqlClient import PipefyClient
 from helpers.Pipefy.query import createCard
 from helpers.Pipefy.search import PipefyDataFacade
-from helpers.ReportURLsDAO import ReportURLsDAO
+from src.create.helpers.DAO.ReportURLsDAO import ReportURLsDAO
 from helpers.email_helper.validate_payload import validate_payload
 
 ENV = os.getenv('ENV')

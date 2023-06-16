@@ -2,8 +2,8 @@ import os
 import json
 import threading
 import requests
-
-
+from pprint import PrettyPrinter
+pp = PrettyPrinter(indent=4).pprint
 def read_json_file(file_path):
     encodings = ['utf-8', 'utf-16', 'latin-1']  # Add more encodings as needed
 
@@ -20,11 +20,11 @@ def read_json_file(file_path):
 
 
 def send_request(url, payload):
-    print(f"Payload: {payload}")
+    # print(f"Payload: {payload}")
     response = requests.post(url, json=payload)
     print("---------------------")
-    print(f"Response for payload {payload['data']['report_type']}: {response.status_code}, {response.text}")
-
+    # pp(f"Response for payload {payload['data']['report_type']}: {response.status_code}, {response.text}")
+    pp(response.json())
 
 def main():
     url = "http://127.0.0.1:3000/create"  # Replace with your desired URL
@@ -34,11 +34,13 @@ def main():
 
     threads = []
     for file_name in payload_files:
-        file_path = os.path.join(payload_directory, file_name)
-        payload = read_json_file(file_path)
-        thread = threading.Thread(target=send_request, args=(url, payload))
-        threads.append(thread)
-        thread.start()
+        for name in ['income']:
+            if name in file_name:
+                file_path = os.path.join(payload_directory, file_name)
+                payload = read_json_file(file_path)
+                thread = threading.Thread(target=send_request, args=(url, payload))
+                threads.append(thread)
+                thread.start()
 
     for thread in threads:
         thread.join()
